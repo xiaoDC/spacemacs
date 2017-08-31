@@ -33,14 +33,14 @@ values."
    '(
      ivy
      better-defaults
-     ranger
+     ;; ranger
      colors
-     prodigy
+     ;; prodigy
      search-engine
-     graphviz
-     (syntax-checking :variables syntax-checking-enable-by-default nil
-                      syntax-checking-enable-tooltips nil)
-     (spell-checking :variables spell-checking-enable-by-default nil)
+     ;; graphviz
+     ;; (syntax-checking :variables syntax-checking-enable-by-default nil
+     ;;                  syntax-checking-enable-tooltips nil)
+     ;; (spell-checking :variables spell-checking-enable-by-default nil)
      (vinegar :variables vinegar-reuse-dired-buffer t)
      (spacemacs-layouts :variables layouts-enable-autosave nil
                         layouts-autosave-delay 300)
@@ -57,32 +57,32 @@ values."
                       :disabled-for org markdown)
      (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
           osx-command-as 'super)
-     restclient
-     (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
+     ;; restclient
+     ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
      (shell :variables shell-default-shell 'eshell)
      ;; docker
      latex
-     deft
+     ;; deft
      markdown
      (org :variables org-want-todo-bindings t)
      gpu
      yaml
-     react
-     (python :variables
-             python-test-runner '(nose pytest))
+     ;; react
+     ;; (python :variables
+     ;;         python-test-runner '(nose pytest))
      ;; (ruby :variables ruby-version-manager 'chruby)
      ;; ruby-on-rails
-     lua
+     ;; lua
      html
-     javascript
+     ;; javascript
      (typescript :variables
                 typescript-fmt-on-save nil
                 typescript-fmt-tool 'typescript-formatter)
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
-     racket
-     (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode)
+     ;; racket
+     ;; (c-c++ :variables
+     ;;        c-c++-default-mode-for-headers 'c++-mode)
      zilongshanren
      (chinese :packages youdao-dictionary fcitx
               :variables chinese-enable-fcitx nil
@@ -92,7 +92,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sicp)
+    dotspacemacs-additional-packages '(
+                                        ;; sicp
+                                        youdao-dictionary
+                                        highlight-indent-guides
+                                        editorconfig
+                                        )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
@@ -165,8 +170,10 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+    dotspacemacs-startup-lists '(
+                                  (recents . 20)
+                                  ;; (projects . 20)
+                                  )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -174,17 +181,27 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light
-                         solarized-dark)
+    dotspacemacs-themes '(
+                           solarized-dark
+                           solarized-light
+                           )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
+    dotspacemacs-default-font '(
+                                 ;; "Source Code Pro"
+                                 ;; :size 14
+
+                                 ;; "Menlo"
+                                 ;; :size 16
+
+                                 "DejaVu Sans Mono"
+                                 :size 16
+
+                                 :weight normal
+                                 :width normal
+                                 :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -220,7 +237,7 @@ values."
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
    ;; Name of the default layout (default "Default")
-   dotspacemacs-default-layout-name "Default"
+   dotspacemacs-default-layout-name "fri3nds"
    ;; If non nil the default layout name is displayed in the mode-line.
    ;; (default nil)
    dotspacemacs-display-default-layout nil
@@ -370,8 +387,8 @@ values."
     (setq w32-apps-modifier 'super)
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
-                        charset
-                        (font-spec :family "Microsoft Yahei" :size 14))))
+        charset
+        (font-spec :family "Microsoft Yahei" :size 14))))
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
@@ -396,16 +413,16 @@ values."
   (evilified-state-evilify-map special-mode-map :mode special-mode)
 
   (add-to-list 'auto-mode-alist
-               '("Capstanfile\\'" . yaml-mode))
+    '("Capstanfile\\'" . yaml-mode))
 
   (defun js-indent-line ()
     "Indent the current line as JavaScript."
     (interactive)
     (let* ((parse-status
-            (save-excursion (syntax-ppss (point-at-bol))))
-           (offset (- (point) (save-excursion (back-to-indentation) (point)))))
+             (save-excursion (syntax-ppss (point-at-bol))))
+            (offset (- (point) (save-excursion (back-to-indentation) (point)))))
       (if (nth 3 parse-status)
-          'noindent
+        'noindent
         (indent-line-to (js--proper-indentation parse-status))
         (when (> offset 0) (forward-char offset)))))
 
@@ -425,11 +442,302 @@ values."
   (defun zilongshanren/toggle-major-mode ()
     (interactive)
     (if (eq major-mode 'fundamental-mode)
-        (set-auto-mode)
+      (set-auto-mode)
       (fundamental-mode)))
   (spacemacs/set-leader-keys "otm" 'zilongshanren/toggle-major-mode)
 
   ;; (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
+
+  ;; https://github.com/syl20bnr/spacemacs/issues/7749
+  (defun spacemacs/ivy-persp-switch-project (arg)
+    (interactive "P")
+    (ivy-read "Switch to Project Perspective: "
+      (if (projectile-project-p)
+        (cons (abbreviate-file-name (projectile-project-root))
+          (projectile-relevant-known-projects))
+        projectile-known-projects)
+      :action (lambda (project)
+                (let ((persp-reset-windows-on-nil-window-conf t))
+                  (persp-switch project)
+                  (let ((projectile-completion-system 'ivy)
+                         (old-default-directory default-directory))
+                    (projectile-switch-project-by-name project)
+                    (setq default-directory old-default-directory))))))
+
+
+
+  (define-fringe-bitmap 'right-curly-arrow
+    [#b00000000
+      #b00000000
+      #b00000000
+      #b00000000
+      #b01110000
+      #b00010000
+      #b00010000
+      #b00000000])
+  (define-fringe-bitmap 'left-curly-arrow
+    [#b00000000
+      #b00001000
+      #b00001000
+      #b00001110
+      #b00000000
+      #b00000000
+      #b00000000
+      #b00000000])
+
+
+  (defun kill-all-buffers ()
+    (interactive)
+    (mapc 'kill-buffer(buffer-list)))
+
+
+  (defun fri3nds-neotree-toggle ()
+    (interactive)
+    (if (neo-global--window-exists-p)
+      (neotree-hide)
+      (neotree-find-project-root)))
+
+
+
+  ;; http://wenshanren.org/?p=327
+  ;; thanks to the author
+  (defun org-insert-src-block (src-code-type)
+    "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
+    (interactive
+      (let ((src-code-types
+              '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
+                 "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
+                 "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
+                 "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
+                 "scheme" "sqlite")))
+        (list (ido-completing-read "Source code type: " src-code-types))))
+    (progn
+      (newline-and-indent)
+      (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+      (newline-and-indent)
+      (insert "#+END_SRC\n")
+      (previous-line 2)
+      (org-edit-src-code)))
+
+
+  (defun toggle-string-case (str)
+    (let ((upper-str (upcase str)))
+      (if (string= upper-str str)
+        (downcase str)
+        upper-str)))
+
+
+  (defun upper-first-char-of-word-at-point ()
+    (interactive)
+    (let ((str (thing-at-point 'word))
+           (bounds (bounds-of-thing-at-point 'word)))
+      (when (and str (> (length str) 0))
+        (let ((first-char (substring str nil 1))
+               (rest-str (substring str 1)))
+          (delete-region (car bounds) (cdr bounds))
+          (insert (concat (toggle-string-case first-char) rest-str))))))
+
+
+
+  (defun last-index-of (regex str &optional ignore-case)
+    (let ((start 0)
+           (case-fold-search ignore-case)
+           idx)
+      (while (string-match regex str start)
+        (setq idx (match-beginning 0))
+        (setq start (match-end 0)))
+      idx))
+
+  (defun copy-string-to-clipboard (str)
+    (when str
+      (progn
+        (kill-new str)
+        (message "Copied buffer file name '%s' to the clipboard." str))))
+
+  (defun just-get-buffer-file-the-name ()
+    (interactive)
+    (let ((bf (or (buffer-file-name) list-buffers-directory)))
+      (if bf
+        (copy-string-to-clipboard (file-name-sans-extension
+                                    (substring bf
+                                      (+ 1 (last-index-of "/" bf)))))
+        (message "buffer-file-name not exist"))))
+
+
+
+  (defun revert-all-buffers ()
+    "Refreshes all open buffers from their respective files."
+    (interactive)
+    (dolist (buf (buffer-list))
+      (with-current-buffer buf
+        (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
+          (revert-buffer t t) t)))
+    ;; (neo-buffer-refresh)
+    ;; (neotree-project-dir)
+    (message "Refreshed open files.") )
+
+
+
+  (defcustom use-chinese-word-segmentation nil
+    "If Non-nil, support Chinese word segmentation(中文分词).
+    See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
+    :type 'boolean)
+
+  (defun my-region-or-word ()
+    "Return word in region or word at point."
+    (if (use-region-p)
+      (buffer-substring-no-properties (region-beginning)
+        (region-end))
+      (thing-at-point (if use-chinese-word-segmentation
+                        'chinese-or-other-word
+                        'word) t)))
+
+  (defun my-prompt-input ()
+    "Prompt input object for translate."
+    (let ((current-word (my-region-or-word)))
+      (read-string (format "Word (%s): "
+                     (or current-word ""))
+        nil nil
+        current-word)))
+
+  (defun search-google-symbol ()
+    "google搜索当前选中或者停留的字符"
+    (interactive)
+    (let ((sym (my-prompt-input)))
+      (engine/search-google sym)))
+
+
+  (defun kill-other-buffers (&optional arg)
+    "Kill all other buffers.
+If the universal prefix argument is used then will the windows too."
+    (interactive "P")
+    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+    (when (equal '(4) arg) (delete-other-windows))
+    (message (format "Killing all buffers except -- \"%s\" "
+               (buffer-name))))
+
+
+
+
+
+
+  (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
+  (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
+  (spacemacs/set-leader-keys "bb" 'helm-recentf)
+  (spacemacs/set-leader-keys "bc" 'erase-buffer)
+  (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
+  (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
+  (spacemacs/set-leader-keys "br" 'revert-all-buffers)
+  (spacemacs/set-leader-keys "by" 'just-get-buffer-file-the-name)
+  (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
+  (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
+  (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
+  (spacemacs/set-leader-keys "dd" 'dired-jump)
+  (spacemacs/set-leader-keys "ff" 'helm-find-files)
+  (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
+  (spacemacs/set-leader-keys "jh" 'ibuffer)
+  (spacemacs/set-leader-keys "kk" 'projectile-find-file)
+
+
+  (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
+  (spacemacs/set-leader-keys "hh" 'previous-buffer)
+  (spacemacs/set-leader-keys "ii" 'evilnc-comment-or-uncomment-lines)
+  (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
+  (spacemacs/set-leader-keys "nn" 'next-buffer)
+  (spacemacs/set-leader-keys "ng" 'search-google-symbol)
+
+
+  (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
+  (spacemacs/set-leader-keys "si" 'org-insert-src-block)
+  (spacemacs/set-leader-keys "sl" 'helm-resume)
+  (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
+  (spacemacs/set-leader-keys "tt" 'neotree-toggle)
+
+  (spacemacs/set-leader-keys "wo" 'delete-other-windows)
+  (spacemacs/set-leader-keys "xx" 'backward-up-list)
+
+  (spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
+  (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
+
+
+
+
+  (global-set-key (kbd "s-y") 'redo)
+
+  (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
+  (define-key evil-visual-state-map (kbd "L") 'evil-end-of-line)
+
+  (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+  (define-key evil-insert-state-map (kbd "C-a") 'evil-insert-line)
+
+  (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
+  (define-key evil-visual-state-map (kbd "H") 'evil-beginning-of-line)
+
+  (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
+
+  (global-set-key (kbd "s-i") 'string-inflection-toggle)
+  (global-set-key (kbd "s-j") 'avy-goto-char)
+  (global-set-key (kbd "s-u") 'upper-first-char-of-word-at-point)
+
+  (global-set-key (kbd "<S-up>") 'shrink-window)
+  (global-set-key (kbd "<S-down>") 'enlarge-window)
+  (global-set-key (kbd "<S-left>") 'shrink-window-horizontally)
+  (global-set-key (kbd "<S-right>") 'enlarge-window-horizontally)
+
+
+
+
+
+  (setq-default header-line-format
+    '((:eval (if (buffer-file-name)
+               (abbreviate-file-name (buffer-file-name))
+               "%b"))))
+
+
+
+  (defun my-prog-mode-hook ()
+    "active after prog-mode"
+    (interactive)
+    ;; (yas-minor-mode 1)
+    ;; (auto-complete-mode 1)
+    ;; (column-enforce-mode 1)
+    ;; (parinfer-active)
+    ;; (abbrev-mode -1)
+    ;; (blank-mode t)
+    (highlight-indent-guides-mode 1)
+    ;; (fci-mode 1)
+    (editorconfig-mode 1)
+    )
+
+
+  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . typescript-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . typescript-mode))
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . typescript-mode))
+
+  (add-hook 'prog-mode-hook 'my-prog-mode-hook)
+
+
+  (setq neo-window-position 'right)
+  (with-eval-after-load 'neotree
+    (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
+    ;; (define-key neotree-mode-map (kbd "o") 'spacemacs/neotree-expand-or-open)
+    (define-key neotree-mode-map (kbd "y") 'neotree-copy-node)
+    (define-key neotree-mode-map (kbd "r") 'neotree-change-root)
+    (setq-default neo-show-updir-line t)
+    (setq neo-show-hidden-files nil)
+    (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
+    )
+
+  (setq ido-ignore-buffers '("\\` " "^\*grep*" "^\*scratch*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
+  (setq iswitchb-buffer-ignore '("\\` " "^\*grep*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
+  (setq helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*Messages" "\\*scratch"))
+
+  (setq yas-indent-line 'fixed)
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-auto-character-face-perc 3)
+
+
+
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
