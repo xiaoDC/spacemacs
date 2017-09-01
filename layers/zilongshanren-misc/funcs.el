@@ -1,6 +1,6 @@
 ;;; funcs.el --- zilongshanren Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 zilongshanren 
+;; Copyright (c) 2015-2016 zilongshanren
 ;;
 ;; Author: zilongshanren <guanghui8827@gmail.com>
 ;; URL: https://github.com/zilongshanren/spacemacs-private
@@ -49,14 +49,6 @@
           (backward-char)
           (delete-char 1)))))
 
-
-(defun zilongshanren/load-my-layout ()
-  (interactive)
-  (persp-load-state-from-file (concat persp-save-dir "zilong")))
-
-(defun zilongshanren/save-my-layout ()
-  (interactive)
-  (persp-save-state-to-file (concat persp-save-dir "zilong")))
 
 ;; http://blog.binchen.org/posts/use-ivy-mode-to-search-bash-history.html
 ;; ;FIXME: make it work with zsh
@@ -159,13 +151,6 @@
     (require 'git-timemachine))
   (git-timemachine--start #'my-git-timemachine-show-selected-revision))
 
-
-(defun zilongshanren/helm-hotspots ()
-  "helm interface to my hotspots, which includes my locations,
-org-files and bookmarks"
-  (interactive)
-  (helm :buffer "*helm: utities*"
-        :sources `(,(zilongshanren//hotspots-sources))))
 
 (defun zilongshanren//hotspots-sources ()
   "Construct the helm sources for my hotspots"
@@ -398,15 +383,15 @@ e.g. Sunday, September 17, 2000."
              chinese-char chinese-char-and-punc english-word
              (+ chinese-char english-word)))))
 
-(defun zilongshanren/evil-quick-replace (beg end )
-  (interactive "r")
-  (when (evil-visual-state-p)
-    (evil-exit-visual-state)
-    (let ((selection (regexp-quote (buffer-substring-no-properties beg end))))
-      (setq command-string (format "%%s /%s//g" selection))
-      (minibuffer-with-setup-hook
-          (lambda () (backward-char 2))
-        (evil-ex command-string)))))
+;; (defun zilongshanren/evil-quick-replace (beg end )
+;;   (interactive "r")
+;;   (when (evil-visual-state-p)
+;;     (evil-exit-visual-state)
+;;     (let ((selection (regexp-quote (buffer-substring-no-properties beg end))))
+;;       (setq command-string (format "%%s /%s//g" selection))
+;;       (minibuffer-with-setup-hook
+;;           (lambda () (backward-char 2))
+;;         (evil-ex command-string)))))
 
 (defun zilongshanren/git-project-root ()
   "Return the project root for current buffer."

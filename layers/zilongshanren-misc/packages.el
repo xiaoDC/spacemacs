@@ -680,7 +680,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (adjust-major-mode-keymap-with-evil "git-timemachine")
     (adjust-major-mode-keymap-with-evil "tabulated-list")
 
-    (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+    ;; (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
     (define-key evil-insert-state-map (kbd "C-r") 'evil-paste-from-register)
 
     ;; ;; change evil initial mode state
@@ -732,12 +733,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (define-key evil-ex-completion-map "\C-a" 'move-beginning-of-line)
     (define-key evil-ex-completion-map "\C-b" 'backward-char)
     (define-key evil-ex-completion-map "\C-k" 'kill-line)
-    (define-key minibuffer-local-map (kbd "C-w") 'evil-delete-backward-word)
+    ;; (define-key minibuffer-local-map (kbd "C-w") 'evil-delete-backward-word)
 
     (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
     ;; (define-key evil-visual-state-map (kbd "x") 'er/expand-region)
     ;; (define-key evil-visual-state-map (kbd "X") 'er/contract-region)
-    (define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
+    ;; (define-key evil-visual-state-map (kbd "C-r") 'zilongshanren/evil-quick-replace)
     (define-key evil-visual-state-map (kbd "mn") 'mc/mark-next-like-this)
     (define-key evil-visual-state-map (kbd "mp") 'mc/mark-previous-like-this)
     (define-key evil-visual-state-map (kbd "ma") 'mc/mark-all-like-this)
@@ -747,10 +748,10 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     ;; in spacemacs, we always use evilify miscro state
     (evil-add-hjkl-bindings package-menu-mode-map 'emacs)
     ;; Don't move back the cursor one position when exiting insert mode
-    (setq evil-move-cursor-back nil)
+    ;; (setq evil-move-cursor-back nil)
 
     ;; (define-key evil-emacs-state-map (kbd "C-w h") 'evil-window-left)
-    (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
+    ;; (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
     ;; (define-key evil-emacs-state-map (kbd "C-w j") 'evil-window-down)
     ;; (define-key evil-emacs-state-map (kbd "C-w k") 'evil-window-up)
     ;; (define-key evil-emacs-state-map (kbd "C-w l") 'evil-window-right)
@@ -758,8 +759,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     ;; for emacs shell mode
     ;; (define-key evil-emacs-state-map (kbd "s-b") 'ido-switch-buffer)
     ;; (define-key evil-emacs-state-map (kbd "s-f") 'ido-find-file)
-    (evil-define-key 'emacs term-raw-map (kbd "C-w")
-      'evil-delete-backward-word)
+    ;; (evil-define-key 'emacs term-raw-map (kbd "C-w")
+    ;;   'evil-delete-backward-word)
 
 
     (setq evil-normal-state-tag   (propertize "[N]" 'face '((:background "DarkGoldenrod2" :foreground "black")))
@@ -768,7 +769,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
           evil-motion-state-tag   (propertize "[M]" 'face '((:background "plum3") :foreground "white"))
           evil-visual-state-tag   (propertize "[V]" 'face '((:background "gray" :foreground "black")))
           evil-operator-state-tag (propertize "[O]" 'face '((:background "purple"))))
-    (setq evil-insert-state-cursor '("chartreuse3" box))
+    (setq evil-insert-state-cursor '("chartreuse3" bar))
     (define-key evil-insert-state-map (kbd "C-z") 'evil-emacs-state)
     ;; This will break visual column edit
     ;; enable hybrid editing style
@@ -1135,7 +1136,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     ;; prefer two way ediff
     (setq magit-ediff-dwim-show-on-hunks t)
 
-    (setq magit-repository-directories '("~/cocos2d-x/"))
+    ;; (setq magit-repository-directories '("~/cocos2d-x/"))
     (setq magit-push-always-verify nil)
 
     (eval-after-load 'magit

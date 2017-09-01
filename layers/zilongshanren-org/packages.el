@@ -57,14 +57,13 @@
   (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-off)) 'append)
   (with-eval-after-load 'org
     (progn
-      
+
       (spacemacs|disable-company org-mode)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
         "," 'org-priority)
       (require 'org-compat)
       (require 'org)
       ;; (add-to-list 'org-modules "org-habit")
-      (add-to-list 'org-modules 'org-habit)
       (require 'org-habit)
 
       (setq org-refile-use-outline-path 'file)

@@ -1,6 +1,6 @@
 ;;; funcs.el --- zilongshanren Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 zilongshanren 
+;; Copyright (c) 2015-2016 zilongshanren
 ;;
 ;; Author: zilongshanren <guanghui8827@gmail.com>
 ;; URL: https://github.com/zilongshanren/spacemacs-private
@@ -32,19 +32,6 @@ Position the cursor at its beginning, according to the current mode."
   (move-end-of-line nil)
   (newline-and-indent))
 
-
-(defun zilongshanren/rename-file-and-buffer ()
-  "Rename the current buffer and file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (message "Buffer is not visiting a file!")
-      (let ((new-name (read-file-name "New name: " filename)))
-        (cond
-         ((vc-backend filename) (vc-rename-file filename new-name))
-         (t
-          (rename-file filename new-name t)
-          (set-visited-file-name new-name t t)))))))
 
 (defun zilongshanren/yank-to-end-of-line ()
   "Yank to end of line."

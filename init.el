@@ -20,7 +20,8 @@ values."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
-   dotspacemacs-enable-lazy-installation nil
+   ;; dotspacemacs-enable-lazy-installation nil
+   dotspacemacs-enable-lazy-installation t
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation nil
@@ -30,11 +31,17 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
-     ivy
-     better-defaults
+    '(python
+       yaml
+       nginx
+       javascript
+       sql
+       haskell
+       ivy
+     ;; haskell
+     ;; better-defaults
      ;; ranger
-     colors
+     ;; colors
      ;; prodigy
      search-engine
      ;; graphviz
@@ -46,12 +53,15 @@ values."
                         layouts-autosave-delay 300)
      (git :variables
           git-magit-status-fullscreen t
-          magit-push-always-verify nil
-          magit-save-repository-buffers 'dontask
-          magit-revert-buffers 'silent
-          magit-refs-show-commit-count 'all
-          magit-revision-show-gravatars nil)
+          ;; magit-push-always-verify nil
+          ;; magit-save-repository-buffers 'dontask
+          ;; magit-revert-buffers 'silent
+          ;; magit-refs-show-commit-count 'all
+          ;; magit-revision-show-gravatars nil
+          )
+
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
+
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       auto-completion-enable-snippets-in-popup t
                       :disabled-for org markdown)
@@ -61,12 +71,13 @@ values."
      ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
      (shell :variables shell-default-shell 'eshell)
      ;; docker
-     latex
+     ;; latex
      ;; deft
      markdown
-     (org :variables org-want-todo-bindings t)
-     gpu
-     yaml
+     org
+     ;; (org :variables org-want-todo-bindings t)
+     ;; gpu
+     ;; yaml
      ;; react
      ;; (python :variables
      ;;         python-test-runner '(nose pytest))
@@ -75,14 +86,14 @@ values."
      ;; lua
      html
      ;; javascript
-     (typescript :variables
-                typescript-fmt-on-save nil
-                typescript-fmt-tool 'typescript-formatter)
+     typescript
      emacs-lisp
-     (clojure :variables clojure-enable-fancify-symbols t)
+     ;; (clojure :variables clojure-enable-fancify-symbols t)
      ;; racket
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode)
+     ;; org
+
      zilongshanren
      (chinese :packages youdao-dictionary fcitx
               :variables chinese-enable-fcitx nil
@@ -97,6 +108,14 @@ values."
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
+                                        color-theme-sanityinc-tomorrow
+                                        all-the-icons
+                                        all-the-icons-dired
+                                        exec-path-from-shell
+                                        ;; treemacs
+                                        (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
+                                        tide
+                                        ;; git-gutter+
                                         )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -106,7 +125,15 @@ values."
                     evil-indent-plus volatile-highlights smartparens
                     spaceline holy-mode skewer-mode rainbow-delimiters
                     highlight-indentation vi-tilde-fringe eyebrowse
-                    org-bullets smooth-scrolling org-repo-todo org-download org-timer
+                    smooth-scrolling
+                    org-bullets
+                    org-repo-todo
+                    org-download
+                    org-timer
+                    org-pomodoro
+                    org-brain
+                    org-plus-contrib
+                    org-bullets
                     livid-mode git-gutter git-gutter-fringe  evil-escape
                     leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
                     ac-ispell ace-jump-mode auto-complete auto-dictionary
@@ -117,6 +144,7 @@ values."
                     helm-themes helm-swoop helm-spacemacs-help smeargle
                     ido-vertical-mode flx-ido company-quickhelp counsel-projectile
                     window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
+                    ac-ispell 2048-game tide 4clojure
                     )
    dotspacemacs-install-packages 'used-only
    dotspacemacs-delete-orphan-packages t))
@@ -163,7 +191,8 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   ;; dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 2
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -197,7 +226,10 @@ values."
                                  ;; :size 16
 
                                  "DejaVu Sans Mono"
-                                 :size 16
+                                 :size 15
+
+                                 ;; "Fira Code"
+                                 ;; :size 16
 
                                  :weight normal
                                  :width normal
@@ -273,7 +305,7 @@ values."
    dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 0.2
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -323,7 +355,8 @@ values."
    dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'origami
+   ;; dotspacemacs-folding-method 'origami
+   dotspacemacs-folding-method 'vim
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -351,7 +384,8 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'changed
+   ;; dotspacemacs-whitespace-cleanup 'changed
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -366,11 +400,12 @@ values."
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
   ;; ss proxy. But it will cause anacond-mode failed.
-  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
-  (setq evil-shift-round nil)
+  ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  ;; (setq evil-shift-round nil)
   (setq byte-compile-warnings '(not obsolete))
-  (setq warning-minimum-level :error)
+  ;; (setq warning-minimum-level :error)
   ;; hack for remove purpose mode
+  (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
   )
 
@@ -395,10 +430,13 @@ values."
   ;; force horizontal split window
   (setq split-width-threshold 120)
   (linum-relative-on)
+  (setq-default line-spacing 2)
+
 
   (spacemacs|add-company-backends :modes text-mode)
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  ;; (add-hook 'after-init-hook 'global-company-mode)
 
   ;; temp fix for ivy-switch-buffer
   ;; (spacemacs/set-leader-keys "bb" 'helm-mini)
@@ -414,37 +452,6 @@ values."
 
   (add-to-list 'auto-mode-alist
     '("Capstanfile\\'" . yaml-mode))
-
-  (defun js-indent-line ()
-    "Indent the current line as JavaScript."
-    (interactive)
-    (let* ((parse-status
-             (save-excursion (syntax-ppss (point-at-bol))))
-            (offset (- (point) (save-excursion (back-to-indentation) (point)))))
-      (if (nth 3 parse-status)
-        'noindent
-        (indent-line-to (js--proper-indentation parse-status))
-        (when (> offset 0) (forward-char offset)))))
-
-  (global-set-key (kbd "<backtab>") 'un-indent-by-removing-4-spaces)
-  (defun un-indent-by-removing-4-spaces ()
-    "remove 4 spaces from beginning of of line"
-    (interactive)
-    (save-excursion
-      (save-match-data
-        (beginning-of-line)
-        ;; get rid of tabs at beginning of line
-        (when (looking-at "^\\s-+")
-          (untabify (match-beginning 0) (match-end 0)))
-        (when (looking-at (concat "^" (make-string tab-width ?\ )))
-          (replace-match "")))))
-
-  (defun zilongshanren/toggle-major-mode ()
-    (interactive)
-    (if (eq major-mode 'fundamental-mode)
-      (set-auto-mode)
-      (fundamental-mode)))
-  (spacemacs/set-leader-keys "otm" 'zilongshanren/toggle-major-mode)
 
   ;; (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
 
@@ -466,24 +473,7 @@ values."
 
 
 
-  (define-fringe-bitmap 'right-curly-arrow
-    [#b00000000
-      #b00000000
-      #b00000000
-      #b00000000
-      #b01110000
-      #b00010000
-      #b00010000
-      #b00000000])
-  (define-fringe-bitmap 'left-curly-arrow
-    [#b00000000
-      #b00001000
-      #b00001000
-      #b00001110
-      #b00000000
-      #b00000000
-      #b00000000
-      #b00000000])
+  (load-theme 'sanityinc-tomorrow-night t)
 
 
   (defun kill-all-buffers ()
@@ -564,6 +554,15 @@ values."
         (message "buffer-file-name not exist"))))
 
 
+  ;; 已经有了 SPC b K
+  (defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (if (neo-global--window-exists-p)
+      (neotree-find (buffer-file-name))
+      (neotree-find-project-root)
+      ))
+
 
   (defun revert-all-buffers ()
     "Refreshes all open buffers from their respective files."
@@ -617,11 +616,47 @@ If the universal prefix argument is used then will the windows too."
                (buffer-name))))
 
 
+  (defcustom use-chinese-word-segmentation nil
+    "If Non-nil, support Chinese word segmentation(中文分词).
+    See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
+    :type 'boolean)
+
+  (defun my-region-or-word ()
+    "Return word in region or word at point."
+    (if (use-region-p)
+      (buffer-substring-no-properties (region-beginning)
+        (region-end))
+      (thing-at-point (if use-chinese-word-segmentation
+                        'chinese-or-other-word
+                        'word) t)))
+
+  (defun my-prompt-input ()
+    "Prompt input object for translate."
+    (let ((current-word (my-region-or-word)))
+      (read-string (format "Word (%s): "
+                     (or current-word ""))
+        nil nil
+        current-word)))
+
+  (defun search-google-symbol ()
+    "google搜索当前选中或者停留的字符"
+    (interactive)
+    (let ((sym (my-prompt-input)))
+      (engine/search-google sym)))
 
 
+  (defun kill-other-buffers (&optional arg)
+    "Kill all other buffers.
+If the universal prefix argument is used then will the windows too."
+    (interactive "P")
+    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+    (when (equal '(4) arg) (delete-other-windows))
+    (message (format "Killing all buffers except -- \"%s\" "
+               (buffer-name))))
 
 
   (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
+  (spacemacs/set-leader-keys "ag" 'helm-ag)
   (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
   (spacemacs/set-leader-keys "bb" 'helm-recentf)
   (spacemacs/set-leader-keys "bc" 'erase-buffer)
@@ -632,8 +667,17 @@ If the universal prefix argument is used then will the windows too."
   (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
   (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
   (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
+
   (spacemacs/set-leader-keys "dd" 'dired-jump)
+  (spacemacs/set-leader-keys "df" 'magit-diff-buffer-file)
+  (spacemacs/set-leader-keys "dt" 'magit-diff-working-tree)
+
+  ;; (spacemacs/set-leader-keys "ee" 'git-gutter+-next-hunk)
+
   (spacemacs/set-leader-keys "ff" 'helm-find-files)
+  (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
+  (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
+
   (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
   (spacemacs/set-leader-keys "jh" 'ibuffer)
   (spacemacs/set-leader-keys "kk" 'projectile-find-file)
@@ -664,8 +708,9 @@ If the universal prefix argument is used then will the windows too."
 
   (global-set-key (kbd "s-y") 'redo)
 
-  (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
-  (define-key evil-visual-state-map (kbd "L") 'evil-end-of-line)
+  (define-key evil-normal-state-map (kbd "L") 'evil-last-non-blank)
+  (define-key evil-visual-state-map (kbd "L") 'evil-last-non-blank)
+  ;; evil-last-non-blank
 
   (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
   (define-key evil-insert-state-map (kbd "C-a") 'evil-insert-line)
@@ -685,13 +730,6 @@ If the universal prefix argument is used then will the windows too."
   (global-set-key (kbd "<S-right>") 'enlarge-window-horizontally)
 
 
-
-
-
-  (setq-default header-line-format
-    '((:eval (if (buffer-file-name)
-               (abbreviate-file-name (buffer-file-name))
-               "%b"))))
 
 
 
@@ -716,11 +754,13 @@ If the universal prefix argument is used then will the windows too."
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
 
-
+  (setq neo-theme 'icons)
+  (setq neo-vc-integration (quote (char)))
   (setq neo-window-position 'right)
+
   (with-eval-after-load 'neotree
     (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
-    ;; (define-key neotree-mode-map (kbd "o") 'spacemacs/neotree-expand-or-open)
+    (define-key neotree-mode-map (kbd "o") 'spacemacs/neotree-expand-or-open)
     (define-key neotree-mode-map (kbd "y") 'neotree-copy-node)
     (define-key neotree-mode-map (kbd "r") 'neotree-change-root)
     (setq-default neo-show-updir-line t)
@@ -728,13 +768,118 @@ If the universal prefix argument is used then will the windows too."
     (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
     )
 
+
+
   (setq ido-ignore-buffers '("\\` " "^\*grep*" "^\*scratch*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
   (setq iswitchb-buffer-ignore '("\\` " "^\*grep*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
   (setq helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*Messages" "\\*scratch"))
 
+
+
   (setq yas-indent-line 'fixed)
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-auto-character-face-perc 3)
+
+
+  ;; 设置 git-gutter
+  ;; (global-git-gutter+-mode)
+  ;; (custom-set-variables
+  ;;   '(git-gutter:visual-line t))
+
+
+
+  (setq-default mode-line-format
+    (list
+      " %1"
+      '(:eval (propertize
+                (window-number-mode-line)
+                'face
+                'font-lock-keyword-face))
+
+      ;; '(:eval (custom-update-persp-name))
+
+      "%1 "
+      ;; the buffer name; the file name as a tool tip
+      '(:eval (propertize "%b " 'face 'font-lock-keyword-face
+                'help-echo (buffer-file-name)))
+
+      (propertize "%I" 'face 'font-lock-constant-face) ;; size
+      " "
+
+      " " ;; insert vs overwrite mode, input-method in a tooltip
+      '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
+                'face 'font-lock-preprocessor-face
+                'help-echo (concat "Buffer is in "
+                             (if overwrite-mode
+                               "overwrite"
+                               "insert") " mode")))
+
+      ;; was this buffer modified since the last save?
+      '(:eval (when (buffer-modified-p)
+                (concat ","  (propertize "Mod"
+                               'face 'font-lock-warning-face
+                               'help-echo "Buffer has been modified"))))
+
+      ;; is this buffer read-only?
+      '(:eval (when buffer-read-only
+                (concat ","  (propertize "RO"
+                               'face 'font-lock-warning-face
+                               'help-echo "Buffer is read-only"))))
+      " "
+
+      ;; anzu
+      anzu--mode-line-format
+
+      ;; the current major mode for the buffer.
+      " "
+      '(:eval (propertize "%m" 'face 'font-lock-string-face
+                'help-echo buffer-file-coding-system))
+
+      ;; my-flycheck-mode-line
+      ;; evil state
+      '(:eval evil-mode-line-tag)
+
+      ;; minor modes
+      ;; minor-mode-alist
+      ;; git info
+      " "
+      `(vc-mode vc-mode)
+      " "
+
+      ;; global-mode-string goes in mode-line-misc-info
+      ;; mode-line-misc-info
+
+      ;; (mode-line-fill 'mode-line 30)
+
+      ;; (propertize "%z" 'face 'font-lock-type-face)
+
+      ;; mode-line-end-spaces
+      ;; add the time, with the date and the emacs uptime in the tooltip
+      ;; '(:eval (propertize (format-time-string "%a, %Y %m %d, %H:%M") 'face 'font-lock-constant-face))
+      ;; '(:eval (list (nyan-create)))
+
+      ;; relative position, size of file
+
+      ;; line and column
+      "("
+      (propertize "%4l" 'face 'font-lock-type-face)
+      ","
+      (propertize "%3c" 'face 'font-lock-type-face)
+      ")"
+
+      " "
+      '(:eval (buffer-encoding-abbrev))
+
+      " "
+      (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
+      ))
+
+
+
+  (setq-default header-line-format
+    '((:eval (if (buffer-file-name)
+               (abbreviate-file-name (buffer-file-name))
+               "%b"))))
 
 
 

@@ -99,21 +99,14 @@
 
 (with-eval-after-load 'company
   (progn
-    (bb/define-key company-active-map
-      (kbd "C-w") 'evil-delete-backward-word)
+    ;; (bb/define-key company-active-map
+    ;;   (kbd "C-w") 'evil-delete-backward-word)
 
     (bb/define-key company-active-map
       (kbd "s-w") 'company-show-location)))
 
-(spacemacs/declare-prefix "ot" "Toggle")
-
-
-(global-set-key (kbd "<f1>") 'zilongshanren/helm-hotspots)
-(spacemacs/set-leader-keys "oo" 'zilongshanren/helm-hotspots)
 
 (spacemacs/set-leader-keys "oc" 'my-auto-update-tags-when-save)
-;; (spacemacs/set-leader-keys "op" 'zilongshanren/org-save-and-export)
-(spacemacs/set-leader-keys "fR" 'zilongshanren/rename-file-and-buffer)
 
 ;;Must set key to nil to prevent error: Key sequence b m s starts with non-prefix key b m
 (spacemacs/set-leader-keys "bm" nil)
@@ -129,54 +122,13 @@
 (spacemacs/set-leader-keys "or" 'zilongshanren/browser-refresh--chrome-applescript)
 
 (spacemacs/set-leader-keys "rh" 'helm-resume)
-(spacemacs/set-leader-keys "sj" 'counsel-imenu)
 
-;; ivy specific keybindings
-(if (configuration-layer/layer-usedp 'ivy)
-    (progn
-      (spacemacs/set-leader-keys "ff" 'counsel-find-file)
-      (spacemacs/set-leader-keys "fL" 'counsel-locate)
-      (spacemacs/set-leader-keys "hi" 'counsel-info-lookup-symbol)
-      (spacemacs/set-leader-keys "pb" 'projectile-switch-to-buffer)))
-
-(spacemacs/set-leader-keys "en" 'flycheck-next-error)
-(spacemacs/set-leader-keys "ep" 'flycheck-previous-error)
-(spacemacs/set-leader-keys "o(" 'ielm)
-
-(spacemacs/set-leader-keys "gL" 'magit-log-buffer-file)
-(spacemacs/set-leader-keys "og" 'my-git-timemachine)
-
-(spacemacs/set-leader-keys "sj" 'zilongshanren/counsel-imenu)
 ;; deal with BOM
 (spacemacs/set-leader-keys "fl" 'find-file-literally-at-point)
 (spacemacs/set-leader-keys "ri" 'ivy-resume)
 (spacemacs/set-leader-keys "fh" 'ffap-hexl-mode)
 (spacemacs/set-leader-keys "fd" 'projectile-find-file-dwim-other-window)
 (spacemacs/set-leader-keys "nl" 'spacemacs/evil-search-clear-highlight)
-(spacemacs/set-leader-keys "oll" 'zilongshanren/load-my-layout)
-(spacemacs/set-leader-keys "ols" 'zilongshanren/save-my-layout)
 (spacemacs/set-leader-keys "ob" 'popwin:display-last-buffer)
 (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
 (spacemacs/set-leader-keys "bM" 'spacemacs/switch-to-messages-buffer)
-
-(bind-key* "s-p" 'find-file-in-project)
-(spacemacs/set-leader-keys "os" 'zilongshanren/search-in-fireball)
-
-(spacemacs/set-leader-keys "pa" 'projectile-find-other-file)
-(spacemacs/set-leader-keys "pA" 'projectile-find-other-file-other-window)
-(spacemacs/set-leader-keys ":" 'counsel-M-x)
-
-(when (spacemacs/system-is-mswindows)
-  (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
-  (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
-  (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
-  (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
-  (global-set-key (kbd "s-v") 'yank)
-  (global-set-key (kbd "s-c") 'evil-yank)
-  (global-set-key (kbd "s-a") 'mark-whole-buffer)
-  (global-set-key (kbd "s-x") 'kill-region)
-  (global-set-key (kbd "s-w") 'delete-window)
-  (global-set-key (kbd "s-W") 'delete-frame)
-  (global-set-key (kbd "s-n") 'make-frame)
-  (global-set-key (kbd "s-z") 'undo-tree-undo)
-  (global-set-key (kbd "s-Z") 'undo-tree-redo))
