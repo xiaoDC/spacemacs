@@ -34,7 +34,7 @@ values."
     '(python
        yaml
        nginx
-       javascript
+       ;; javascript
        sql
        haskell
        ivy
@@ -85,14 +85,12 @@ values."
      ;; ruby-on-rails
      ;; lua
      html
-     ;; javascript
      typescript
      emacs-lisp
      ;; (clojure :variables clojure-enable-fancify-symbols t)
      ;; racket
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode)
-     ;; org
 
      zilongshanren
      (chinese :packages youdao-dictionary fcitx
@@ -114,8 +112,8 @@ values."
                                         exec-path-from-shell
                                         ;; treemacs
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
-                                        tide
-                                        ;; git-gutter+
+                                        ;; tide
+                                        git-gutter+
                                         )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -125,7 +123,7 @@ values."
                     evil-indent-plus volatile-highlights smartparens
                     spaceline holy-mode skewer-mode rainbow-delimiters
                     highlight-indentation vi-tilde-fringe eyebrowse
-                    smooth-scrolling
+                    anaconda
                     org-bullets
                     org-repo-todo
                     org-download
@@ -211,8 +209,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
     dotspacemacs-themes '(
-                           solarized-dark
                            solarized-light
+                           solarized-dark
                            )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -348,7 +346,8 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
+   ;; dotspacemacs-smooth-scrolling nil
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
@@ -892,4 +891,11 @@ If the universal prefix argument is used then will the windows too."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
+
+  (custom-set-faces
+    ;; custom-set-faces was added by Custom.
+    ;; If you edit it by hand, you could mess it up, so be careful.
+    ;; Your init file should contain only one such instance.
+    ;; If there is more than one, they won't work right.
+    '(show-paren-match ((t (:underline (:color "#CE4045"))))))
 )
