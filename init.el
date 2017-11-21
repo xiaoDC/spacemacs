@@ -20,8 +20,8 @@ values."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
-   ;; dotspacemacs-enable-lazy-installation nil
-   dotspacemacs-enable-lazy-installation t
+   dotspacemacs-enable-lazy-installation nil
+   ;; dotspacemacs-enable-lazy-installation t
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation nil
@@ -31,72 +31,73 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-    '(python
+    '(
+       ;; python
        yaml
        nginx
        ;; javascript
        sql
        haskell
        ivy
-     ;; haskell
-     ;; better-defaults
-     ;; ranger
-     ;; colors
-     ;; prodigy
-     search-engine
-     ;; graphviz
-     ;; (syntax-checking :variables syntax-checking-enable-by-default nil
-     ;;                  syntax-checking-enable-tooltips nil)
-     ;; (spell-checking :variables spell-checking-enable-by-default nil)
-     (vinegar :variables vinegar-reuse-dired-buffer t)
-     (spacemacs-layouts :variables layouts-enable-autosave nil
-                        layouts-autosave-delay 300)
-     (git :variables
-          git-magit-status-fullscreen t
-          ;; magit-push-always-verify nil
-          ;; magit-save-repository-buffers 'dontask
-          ;; magit-revert-buffers 'silent
-          ;; magit-refs-show-commit-count 'all
-          ;; magit-revision-show-gravatars nil
-          )
+       ;; haskell
+       ;; better-defaults
+       ;; ranger
+       ;; colors
+       ;; prodigy
+       search-engine
+       ;; graphviz
+       ;; (syntax-checking :variables syntax-checking-enable-by-default nil
+       ;;                  syntax-checking-enable-tooltips nil)
+       ;; (spell-checking :variables spell-checking-enable-by-default nil)
+       (vinegar :variables vinegar-reuse-dired-buffer t)
+       (spacemacs-layouts :variables layouts-enable-autosave nil
+         layouts-autosave-delay 300)
+       (git :variables
+         git-magit-status-fullscreen t
+         ;; magit-push-always-verify nil
+         ;; magit-save-repository-buffers 'dontask
+         ;; magit-revert-buffers 'silent
+         ;; magit-refs-show-commit-count 'all
+         ;; magit-revision-show-gravatars nil
+         )
 
-     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+       (ibuffer :variables ibuffer-group-buffers-by 'projects)
 
-     (auto-completion :variables auto-completion-enable-sort-by-usage t
-                      auto-completion-enable-snippets-in-popup t
-                      :disabled-for org markdown)
-     (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
-          osx-command-as 'super)
-     ;; restclient
-     ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
-     (shell :variables shell-default-shell 'eshell)
-     ;; docker
-     ;; latex
-     ;; deft
-     markdown
-     org
-     ;; (org :variables org-want-todo-bindings t)
-     ;; gpu
-     ;; yaml
-     ;; react
-     ;; (python :variables
-     ;;         python-test-runner '(nose pytest))
-     ;; (ruby :variables ruby-version-manager 'chruby)
-     ;; ruby-on-rails
-     ;; lua
-     html
-     typescript
-     emacs-lisp
-     ;; (clojure :variables clojure-enable-fancify-symbols t)
-     ;; racket
-     ;; (c-c++ :variables
-     ;;        c-c++-default-mode-for-headers 'c++-mode)
+       (auto-completion :variables auto-completion-enable-sort-by-usage t
+         auto-completion-enable-snippets-in-popup t
+         :disabled-for org markdown)
+       (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
+         osx-command-as 'super)
+       ;; restclient
+       ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
+       ;; (shell :variables shell-default-shell 'eshell)
+       ;; docker
+       ;; latex
+       ;; deft
+       markdown
+       org
+       ;; (org :variables org-want-todo-bindings t)
+       ;; gpu
+       ;; yaml
+       ;; react
+       ;; (python :variables
+       ;;         python-test-runner '(nose pytest))
+       ;; (ruby :variables ruby-version-manager 'chruby)
+       ;; ruby-on-rails
+       ;; lua
+       html
+       typescript
+       emacs-lisp
+       ;; (clojure :variables clojure-enable-fancify-symbols t)
+       ;; racket
+       ;; (c-c++ :variables
+       ;;        c-c++-default-mode-for-headers 'c++-mode)
 
-     zilongshanren
-     (chinese :packages youdao-dictionary fcitx
-              :variables chinese-enable-fcitx nil
-              chinese-enable-youdao-dict t)
-     )
+       zilongshanren
+       (chinese :packages youdao-dictionary fcitx
+         :variables chinese-enable-fcitx nil
+         chinese-enable-youdao-dict t)
+       )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -106,6 +107,7 @@ values."
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
+                                        js2-mode
                                         color-theme-sanityinc-tomorrow
                                         all-the-icons
                                         all-the-icons-dired
@@ -113,6 +115,7 @@ values."
                                         ;; treemacs
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
                                         ;; tide
+                                        string-inflection
                                         git-gutter+
                                         )
    ;; A list of packages that cannot be updated.
@@ -209,8 +212,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
     dotspacemacs-themes '(
-                           solarized-light
                            solarized-dark
+                           solarized-light
                            )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -220,11 +223,13 @@ values."
                                  ;; "Source Code Pro"
                                  ;; :size 14
 
+                                 "Anonymous Pro"
+                                 :size 16
                                  ;; "Menlo"
                                  ;; :size 16
 
-                                 "DejaVu Sans Mono"
-                                 :size 15
+                                 ;; "DejaVu Sans Mono"
+                                 ;; :size 15
 
                                  ;; "Fira Code"
                                  ;; :size 16
@@ -427,12 +432,14 @@ values."
   (fset 'evil-visual-update-x-selection 'ignore)
 
   ;; force horizontal split window
-  (setq split-width-threshold 120)
-  (linum-relative-on)
+  (setq split-width-threshold 180)
+
+  ;; (global-linum-mode 1)
+  ;; (linum-relative-on)
   (setq-default line-spacing 2)
 
 
-  (spacemacs|add-company-backends :modes text-mode)
+  ;; (spacemacs|add-company-backends :modes text-mode)
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   ;; (add-hook 'after-init-hook 'global-company-mode)
@@ -447,7 +454,7 @@ values."
   (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
   (spacemacs|diminish counsel-mode)
 
-  (evilified-state-evilify-map special-mode-map :mode special-mode)
+  ;; (evilified-state-evilify-map special-mode-map :mode special-mode)
 
   (add-to-list 'auto-mode-alist
     '("Capstanfile\\'" . yaml-mode))
@@ -684,6 +691,7 @@ If the universal prefix argument is used then will the windows too."
 
   (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
   (spacemacs/set-leader-keys "hh" 'previous-buffer)
+  (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
   (spacemacs/set-leader-keys "ii" 'evilnc-comment-or-uncomment-lines)
   (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
   (spacemacs/set-leader-keys "nn" 'next-buffer)
@@ -711,8 +719,8 @@ If the universal prefix argument is used then will the windows too."
   (define-key evil-visual-state-map (kbd "L") 'evil-last-non-blank)
   ;; evil-last-non-blank
 
-  (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
-  (define-key evil-insert-state-map (kbd "C-a") 'evil-insert-line)
+  ;; (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+  ;; (define-key evil-insert-state-map (kbd "C-a") 'evil-insert-line)
 
   (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
   (define-key evil-visual-state-map (kbd "H") 'evil-beginning-of-line)
@@ -741,10 +749,13 @@ If the universal prefix argument is used then will the windows too."
     ;; (parinfer-active)
     ;; (abbrev-mode -1)
     ;; (blank-mode t)
-    (highlight-indent-guides-mode 1)
+    ;; (highlight-indent-guides-mode 1)
     ;; (fci-mode 1)
     (editorconfig-mode 1)
     )
+
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-auto-character-face-perc 3)
 
 
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . typescript-mode))
@@ -776,8 +787,6 @@ If the universal prefix argument is used then will the windows too."
 
 
   (setq yas-indent-line 'fixed)
-  (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-auto-character-face-perc 3)
 
 
   ;; 设置 git-gutter
