@@ -34,7 +34,7 @@ values."
     '(
        ;; python
        yaml
-       nginx
+       ;; nginx
        ;; javascript
        sql
        haskell
@@ -88,6 +88,7 @@ values."
        html
        typescript
        emacs-lisp
+       clojure
        ;; (clojure :variables clojure-enable-fancify-symbols t)
        ;; racket
        ;; (c-c++ :variables
@@ -165,7 +166,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -192,8 +193,8 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   ;; dotspacemacs-startup-banner 'official
-   dotspacemacs-startup-banner 2
+   dotspacemacs-startup-banner 'official
+   ;; dotspacemacs-startup-banner 2
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -223,10 +224,11 @@ values."
                                  ;; "Source Code Pro"
                                  ;; :size 14
 
-                                 "Anonymous Pro"
-                                 :size 16
-                                 ;; "Menlo"
+                                 ;; "Anonymous Pro"
                                  ;; :size 16
+
+                                 "Menlo"
+                                 :size 14
 
                                  ;; "DejaVu Sans Mono"
                                  ;; :size 15
@@ -434,7 +436,7 @@ values."
   ;; force horizontal split window
   (setq split-width-threshold 180)
 
-  ;; (global-linum-mode 1)
+  (global-linum-mode 1)
   ;; (linum-relative-on)
   (setq-default line-spacing 2)
 
@@ -479,7 +481,7 @@ values."
 
 
 
-  (load-theme 'sanityinc-tomorrow-night t)
+  ;; (load-theme 'sanityinc-tomorrow-night t)
 
 
   (defun kill-all-buffers ()
@@ -749,7 +751,7 @@ If the universal prefix argument is used then will the windows too."
     ;; (parinfer-active)
     ;; (abbrev-mode -1)
     ;; (blank-mode t)
-    ;; (highlight-indent-guides-mode 1)
+    (highlight-indent-guides-mode 1)
     ;; (fci-mode 1)
     (editorconfig-mode 1)
     )
@@ -763,10 +765,11 @@ If the universal prefix argument is used then will the windows too."
   (add-to-list 'auto-mode-alist '("\\.json\\'" . typescript-mode))
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
+  (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-on)) 'append)
 
   (setq neo-theme 'icons)
   (setq neo-vc-integration (quote (char)))
-  (setq neo-window-position 'right)
+  (setq neo-window-position 'left)
 
   (with-eval-after-load 'neotree
     (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
