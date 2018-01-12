@@ -566,27 +566,14 @@ Error out if this isn't a GitHub repo."
     (when (and url (string-match "github.com:?/?\\(.*\\)" url))
       (replace-regexp-in-string "\\.git$" "" (match-string 1 url)))))
 
+
 (defun zilong/github-browse-commit ()
   "Show the GitHub page for the current commit."
   (interactive)
   (let* ((commit git-messenger:last-commit-id)
-         (url (concat "https://github.com/"
-                      (github-browse-file--relative-url)
-                      "/commit/"
-                      commit)))
+          (url (concat "https://github.com/"
+                 (github-browse-file--relative-url)
+                 "/commit/"
+                 commit)))
     (browse-url url)
     (git-messenger:popup-close)))
-
-(defun zilongshanren/search-in-fireball ()
-  (interactive)
-  (helm-do-ag (expand-file-name "~/Github/fireball/")))
-
-
-(defun zilongshanren/show-current-buffer-major-mode ()
-  (interactive)
-  (describe-variable 'major-mode))
-
-(defun zilongshanren/counsel-imenu ()
-  (interactive)
-  (counsel-imenu)
-  (evil-set-jump))
