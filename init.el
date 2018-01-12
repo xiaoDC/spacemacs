@@ -38,8 +38,8 @@ values."
        ;; javascript
        sql
        haskell
+       elm
        ivy
-       ;; haskell
        ;; better-defaults
        ;; ranger
        ;; colors
@@ -95,9 +95,9 @@ values."
        ;;        c-c++-default-mode-for-headers 'c++-mode)
 
        zilongshanren
-       (chinese :packages youdao-dictionary fcitx
-         :variables chinese-enable-fcitx nil
-         chinese-enable-youdao-dict t)
+       ;; (chinese :packages youdao-dictionary fcitx
+       ;;   :variables chinese-enable-fcitx nil
+       ;;   chinese-enable-youdao-dict t)
        )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -115,6 +115,7 @@ values."
                                         exec-path-from-shell
                                         ;; treemacs
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
+                                        (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
                                         ;; tide
                                         string-inflection
                                         git-gutter+
@@ -227,8 +228,11 @@ values."
                                  ;; "Anonymous Pro"
                                  ;; :size 16
 
-                                 "Menlo"
-                                 :size 14
+                                 ;; "Menlo"
+                                 ;; :size 14
+
+                                 "Operator Mono"
+                                 :size 15
 
                                  ;; "DejaVu Sans Mono"
                                  ;; :size 15
@@ -897,17 +901,22 @@ If the universal prefix argument is used then will the windows too."
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
+
 (load custom-file 'no-error 'no-message)
+
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
 
+
+  ;; (set-face-attribute 'region nil :background "#f00")
   (custom-set-faces
     ;; custom-set-faces was added by Custom.
     ;; If you edit it by hand, you could mess it up, so be careful.
     ;; Your init file should contain only one such instance.
     ;; If there is more than one, they won't work right.
-    '(show-paren-match ((t (:underline (:color "#CE4045"))))))
+    '(show-paren-match ((t (:underline (:color "#CE4045")))))
+    )
 )
