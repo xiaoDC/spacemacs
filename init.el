@@ -54,11 +54,11 @@ values."
          layouts-autosave-delay 300)
        (git :variables
          git-magit-status-fullscreen t
-         ;; magit-push-always-verify nil
-         ;; magit-save-repository-buffers 'dontask
-         ;; magit-revert-buffers 'silent
-         ;; magit-refs-show-commit-count 'all
-         ;; magit-revision-show-gravatars nil
+         magit-push-always-verify nil
+         magit-save-repository-buffers 'dontask
+         magit-revert-buffers 'silent
+         magit-refs-show-commit-count 'all
+         magit-revision-show-gravatars nil
          )
 
        (ibuffer :variables ibuffer-group-buffers-by 'projects)
@@ -132,6 +132,8 @@ values."
                     org-bullets
                     org-repo-todo
                     org-download
+                    flycheck
+                    ;; company
                     org-timer
                     org-pomodoro
                     org-brain
@@ -147,7 +149,7 @@ values."
                     helm-themes helm-swoop helm-spacemacs-help smeargle
                     ido-vertical-mode flx-ido company-quickhelp counsel-projectile
                     window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
-                    ac-ispell 2048-game tide 4clojure
+                    ac-ispell 2048-game 4clojure tide
                     )
    dotspacemacs-install-packages 'used-only
    dotspacemacs-delete-orphan-packages t))
@@ -223,7 +225,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
     dotspacemacs-default-font '(
                                  ;; "Source Code Pro"
-                                 ;; :size 14
+                                 ;; :size 15
 
                                  ;; "Anonymous Pro"
                                  ;; :size 16
@@ -231,14 +233,14 @@ values."
                                  ;; "Menlo"
                                  ;; :size 14
 
-                                 "Operator Mono"
-                                 :size 15
+                                 ;; "Operator Mono"
+                                 ;; :size 16
 
                                  ;; "DejaVu Sans Mono"
                                  ;; :size 15
 
-                                 ;; "Fira Code"
-                                 ;; :size 16
+                                 "Fira Code"
+                                 :size 15
 
                                  :weight normal
                                  :width normal
@@ -438,7 +440,7 @@ values."
   (fset 'evil-visual-update-x-selection 'ignore)
 
   ;; force horizontal split window
-  (setq split-width-threshold 180)
+  (setq split-width-threshold 200)
 
   (global-linum-mode 1)
   ;; (linum-relative-on)
@@ -708,10 +710,12 @@ If the universal prefix argument is used then will the windows too."
   (spacemacs/set-leader-keys "si" 'org-insert-src-block)
   (spacemacs/set-leader-keys "sl" 'helm-resume)
   (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
-  (spacemacs/set-leader-keys "tt" 'neotree-toggle)
+  ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
+  (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
 
   (spacemacs/set-leader-keys "wo" 'delete-other-windows)
   (spacemacs/set-leader-keys "xx" 'backward-up-list)
+  (spacemacs/set-leader-keys "xz" 'up-list)
 
   (spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
   (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
@@ -774,6 +778,7 @@ If the universal prefix argument is used then will the windows too."
   (setq neo-theme 'icons)
   (setq neo-vc-integration (quote (char)))
   (setq neo-window-position 'left)
+  (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
   (with-eval-after-load 'neotree
     (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)

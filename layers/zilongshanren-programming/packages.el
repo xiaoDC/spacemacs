@@ -289,7 +289,7 @@
     (setq company-backends-js2-mode '((company-dabbrev-code :with company-keywords company-etags)
                                       company-files company-dabbrev))
 
-    (zilongshanren|toggle-company-backends company-tern)
+    ;; (zilongshanren|toggle-company-backends company-tern)
 
     (spacemacs/set-leader-keys-for-major-mode 'js2-mode
       "tb" 'zilong/company-toggle-company-tern)
@@ -468,7 +468,7 @@
                                             company-gtags :with company-yasnippet)
                                            company-files company-dabbrev ))
 
-    (zilongshanren|toggle-company-backends company-ycmd)
+    ;; (zilongshanren|toggle-company-backends company-ycmd)
     (eval-after-load 'ycmd
       '(spacemacs|hide-lighter ycmd-mode))
 
