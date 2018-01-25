@@ -108,7 +108,6 @@ values."
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
-                                        js2-mode
                                         color-theme-sanityinc-tomorrow
                                         all-the-icons
                                         all-the-icons-dired
@@ -117,6 +116,7 @@ values."
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
                                         (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
                                         ;; tide
+                                        hierarchy
                                         string-inflection
                                         git-gutter+
                                         )
@@ -129,16 +129,17 @@ values."
                     spaceline holy-mode skewer-mode rainbow-delimiters
                     highlight-indentation vi-tilde-fringe eyebrowse
                     anaconda
-                    org-bullets
+                    ;; org-bullets
                     org-repo-todo
                     org-download
                     flycheck
+                    js-mode
+                    js2-mode
                     ;; company
                     org-timer
                     org-pomodoro
                     org-brain
                     org-plus-contrib
-                    org-bullets
                     livid-mode git-gutter git-gutter-fringe  evil-escape
                     leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
                     ac-ispell ace-jump-mode auto-complete auto-dictionary
@@ -169,7 +170,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -408,8 +409,8 @@ values."
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
-  (setq tramp-ssh-controlmaster-options
-        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+  ;; (setq tramp-ssh-controlmaster-options
+  ;;       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
   ;; ss proxy. But it will cause anacond-mode failed.
   ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
@@ -445,7 +446,7 @@ values."
   (global-linum-mode 1)
   ;; (linum-relative-on)
   (setq-default line-spacing 2)
-
+  (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
   ;; (spacemacs|add-company-backends :modes text-mode)
 
@@ -669,6 +670,43 @@ If the universal prefix argument is used then will the windows too."
                (buffer-name))))
 
 
+  ;; https://emacs-china.org/t/topic/4627
+  (defun fri3nds-git-tree ()
+    (interactive)
+    (require 'hierarchy)
+    (let ((files (split-string
+                  (shell-command-to-string "git ls-files -z")
+                  (string 0) t))
+          (hierarchy (hierarchy-new)))
+      ;; Fill the hierarchy
+      (hierarchy-add-trees
+      hierarchy
+      ;; Set . as the root since tree-widget.el requires only one root
+      (mapcar (lambda (f) (concat "./" f)) files)
+      (lambda (f)
+        "Return parent directory of F."
+        (if (directory-name-p f)
+            (file-name-directory (directory-file-name f))
+          (file-name-directory f))))
+      ;; Draw the hierarchy
+      (switch-to-buffer
+      (hierarchy-tree-display
+        hierarchy
+        (lambda (f _)
+          "Insert basename of F."
+          (insert
+          (if (directory-name-p f)
+              (file-name-nondirectory (directory-file-name f))
+            (file-name-nondirectory f))))))
+      ;; Unfold
+      (goto-char (point-min))
+      (while (progn (widget-button-press (point))
+                    (widget-forward 1)
+                    (/= (point) (point-min))))))
+
+
+
+
   (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
   (spacemacs/set-leader-keys "ag" 'helm-ag)
   (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
@@ -774,6 +812,7 @@ If the universal prefix argument is used then will the windows too."
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
   (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-on)) 'append)
+  (global-set-key (kbd "<escape>")      'keyboard-quit)
 
   (setq neo-theme 'icons)
   (setq neo-vc-integration (quote (char)))
@@ -914,14 +953,16 @@ If the universal prefix argument is used then will the windows too."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-
-
-  ;; (set-face-attribute 'region nil :background "#f00")
-  (custom-set-faces
-    ;; custom-set-faces was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-    ;; Your init file should contain only one such instance.
-    ;; If there is more than one, they won't work right.
-    '(show-paren-match ((t (:underline (:color "#CE4045")))))
-    )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(evil-unimpaired f s dash)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 )
