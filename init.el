@@ -51,7 +51,8 @@ values."
        ;; (spell-checking :variables spell-checking-enable-by-default nil)
        (vinegar :variables vinegar-reuse-dired-buffer t)
        (spacemacs-layouts :variables layouts-enable-autosave nil
-         layouts-autosave-delay 300)
+         layouts-autosave-delay 3000)
+
        (git :variables
          git-magit-status-fullscreen t
          magit-push-always-verify nil
@@ -63,9 +64,12 @@ values."
 
        (ibuffer :variables ibuffer-group-buffers-by 'projects)
 
-       (auto-completion :variables auto-completion-enable-sort-by-usage t
+       (auto-completion :variables
+         ;; spacemacs-default-company-backends '(company-files company-capf)
+         auto-completion-enable-sort-by-usage t
          auto-completion-enable-snippets-in-popup t
          :disabled-for org markdown)
+
        (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
          osx-command-as 'super)
        ;; restclient
@@ -105,6 +109,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
     dotspacemacs-additional-packages '(
                                         ;; sicp
+                                        ;; doom-themes
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
@@ -112,6 +117,8 @@ values."
                                         all-the-icons
                                         all-the-icons-dired
                                         exec-path-from-shell
+                                        ;; spacemacs-dark
+                                        ;; spacemacs-light
                                         ;; treemacs
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
                                         (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
@@ -119,6 +126,7 @@ values."
                                         hierarchy
                                         string-inflection
                                         git-gutter+
+                                        ;; cnfonts
                                         )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -170,9 +178,9 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 5
+   dotspacemacs-elpa-timeout 50
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -206,7 +214,7 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
     dotspacemacs-startup-lists '(
-                                  (recents . 20)
+                                  (recents . 40)
                                   ;; (projects . 20)
                                   )
    ;; True if the home buffer should respond to resize events.
@@ -217,6 +225,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
     dotspacemacs-themes '(
+                           ;; spacemacs-dark
+                           ;; spacemacs-light
                            solarized-dark
                            solarized-light
                            )
@@ -449,9 +459,9 @@ values."
   (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
   ;; (spacemacs|add-company-backends :modes text-mode)
+  ;; (add-hook 'after-init-hook 'global-company-mode)
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  ;; (add-hook 'after-init-hook 'global-company-mode)
 
   ;; temp fix for ivy-switch-buffer
   ;; (spacemacs/set-leader-keys "bb" 'helm-mini)
@@ -462,6 +472,13 @@ values."
   (spacemacs|diminish which-key-mode)
   (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
   (spacemacs|diminish counsel-mode)
+
+  ;; 让 cnfonts 随着 Emacs 自动生效。
+  ;; (cnfonts-enable)
+  ;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
+  ;; (cnfonts-set-spacemacs-fallback-fonts)
+
+
 
   ;; (evilified-state-evilify-map special-mode-map :mode special-mode)
 
@@ -631,45 +648,6 @@ If the universal prefix argument is used then will the windows too."
                (buffer-name))))
 
 
-  (defcustom use-chinese-word-segmentation nil
-    "If Non-nil, support Chinese word segmentation(中文分词).
-    See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
-    :type 'boolean)
-
-  (defun my-region-or-word ()
-    "Return word in region or word at point."
-    (if (use-region-p)
-      (buffer-substring-no-properties (region-beginning)
-        (region-end))
-      (thing-at-point (if use-chinese-word-segmentation
-                        'chinese-or-other-word
-                        'word) t)))
-
-  (defun my-prompt-input ()
-    "Prompt input object for translate."
-    (let ((current-word (my-region-or-word)))
-      (read-string (format "Word (%s): "
-                     (or current-word ""))
-        nil nil
-        current-word)))
-
-  (defun search-google-symbol ()
-    "google搜索当前选中或者停留的字符"
-    (interactive)
-    (let ((sym (my-prompt-input)))
-      (engine/search-google sym)))
-
-
-  (defun kill-other-buffers (&optional arg)
-    "Kill all other buffers.
-If the universal prefix argument is used then will the windows too."
-    (interactive "P")
-    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-    (when (equal '(4) arg) (delete-other-windows))
-    (message (format "Killing all buffers except -- \"%s\" "
-               (buffer-name))))
-
-
   ;; https://emacs-china.org/t/topic/4627
   (defun fri3nds-git-tree ()
     (interactive)
@@ -704,7 +682,10 @@ If the universal prefix argument is used then will the windows too."
                     (widget-forward 1)
                     (/= (point) (point-min))))))
 
-
+  ;; (setq yas-snippet-dirs
+  ;;   '(
+  ;;      "~/.emacssnippets/snippets/"
+  ;;      "~/.emacs.d/layers/+completion/auto-completion/local/snippets"))
 
 
   (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
@@ -750,6 +731,7 @@ If the universal prefix argument is used then will the windows too."
   (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
   ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
   (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
+  (spacemacs/set-leader-keys "tl" 'linum-mode)
 
   (spacemacs/set-leader-keys "wo" 'delete-other-windows)
   (spacemacs/set-leader-keys "xx" 'backward-up-list)
@@ -785,7 +767,7 @@ If the universal prefix argument is used then will the windows too."
   (global-set-key (kbd "<S-right>") 'enlarge-window-horizontally)
 
 
-
+  ;; (typescript-mode)
 
 
   (defun my-prog-mode-hook ()
@@ -795,8 +777,9 @@ If the universal prefix argument is used then will the windows too."
     ;; (auto-complete-mode 1)
     ;; (column-enforce-mode 1)
     ;; (parinfer-active)
-    ;; (abbrev-mode -1)
+    (abbrev-mode 1)
     ;; (blank-mode t)
+    ;; (global-company-mode)
     (highlight-indent-guides-mode 1)
     ;; (fci-mode 1)
     (editorconfig-mode 1)
@@ -812,12 +795,34 @@ If the universal prefix argument is used then will the windows too."
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
   (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-on)) 'append)
-  (global-set-key (kbd "<escape>")      'keyboard-quit)
+  ;; (global-set-key (kbd "<escape>")      'keyboard-quit)
 
   (setq neo-theme 'icons)
   (setq neo-vc-integration (quote (char)))
   (setq neo-window-position 'left)
+  ;; (setq company-backends-typescript-mode '(
+  ;;                                           company-yasnippet
+  ;;                                           company-dabbrev-code
+  ;;                                           company-gtags
+  ;;                                           company-etags
+  ;;                                           company-keywords
+  ;;                                           company-files
+  ;;                                           company-dabbrev
+  ;;                                           ))
   (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
+
+
+  (setq company-dabbrev-code-everywhere t)
+  (setq company-dabbrev-code-modes t)
+  (setq company-dabbrev-code-other-buffers 'all)
+  (setq company-dabbrev-ignore-buffers "\\`\\'")
+
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends '(
+                                      company-files
+                                      company-capf :with company-dabbrev
+                                      )))
+
 
   (with-eval-after-load 'neotree
     (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
@@ -863,27 +868,7 @@ If the universal prefix argument is used then will the windows too."
                 'help-echo (buffer-file-name)))
 
       (propertize "%I" 'face 'font-lock-constant-face) ;; size
-      " "
 
-      " " ;; insert vs overwrite mode, input-method in a tooltip
-      '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
-                'face 'font-lock-preprocessor-face
-                'help-echo (concat "Buffer is in "
-                             (if overwrite-mode
-                               "overwrite"
-                               "insert") " mode")))
-
-      ;; was this buffer modified since the last save?
-      '(:eval (when (buffer-modified-p)
-                (concat ","  (propertize "Mod"
-                               'face 'font-lock-warning-face
-                               'help-echo "Buffer has been modified"))))
-
-      ;; is this buffer read-only?
-      '(:eval (when buffer-read-only
-                (concat ","  (propertize "RO"
-                               'face 'font-lock-warning-face
-                               'help-echo "Buffer is read-only"))))
       " "
 
       ;; anzu
@@ -931,6 +916,26 @@ If the universal prefix argument is used then will the windows too."
 
       " "
       (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
+
+      " " ;; insert vs overwrite mode, input-method in a tooltip
+      '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
+                'face 'font-lock-preprocessor-face
+                'help-echo (concat "Buffer is in "
+                             (if overwrite-mode
+                               "overwrite"
+                               "insert") " mode")))
+
+      ;; was this buffer modified since the last save?
+      '(:eval (when (buffer-modified-p)
+                (concat ","  (propertize "Mod"
+                               'face 'font-lock-warning-face
+                               'help-echo "Buffer has been modified"))))
+
+      ;; is this buffer read-only?
+      '(:eval (when buffer-read-only
+                (concat ","  (propertize "RO"
+                               'face 'font-lock-warning-face
+                               'help-echo "Buffer is read-only"))))
       ))
 
 

@@ -577,3 +577,44 @@ Error out if this isn't a GitHub repo."
                  commit)))
     (browse-url url)
     (git-messenger:popup-close)))
+
+
+;; (defun sound2gd//path-at-cursor ()
+;;   "获取当前光标下的路径"
+;;   (if (use-region-p) ;; 如果有选中
+;;       (buffer-substring-no-properties (region-beginning) (region-end))
+;;     ;; 无选中
+;;     (let ($p0 $p1 $p2 ($pathStops "^  \t\n\"`'‘’“”|()[]{}「」<>〔〕〈〉《》【】〖〗«»‹›❮❯❬❭·。\\"))
+;;       (setq $p0 (point))
+;;       (skip-chars-backward $pathStops)
+;;       (setq $p1 (point))
+;;       (goto-char $p0)
+;;       (skip-chars-forward $pathStops)
+;;       (setq $p2 (point))
+;;       (goto-char $p0)
+;;       (buffer-substring-no-properties $p1 $p2)
+;;       )))
+
+
+;; (defun sound2gd/open-file-at-cursor ()
+;;   "打开光标下的文件"
+;;   (interactive)
+;;   (let* (($inputStr (sound2gd//path-at-cursor))
+;;          ($path (replace-regexp-in-string "^file:///" "/" (replace-regexp-in-string "://'" "" $inputStr))))
+;;     (message "当前获取到path: %s" $path)
+;;     (if (string-match-p "\\`https?://" $path) (browse-url $path)
+;;       (progn
+;;         (if (string-match "^\\`\\(.+?\\):\\([0-9]+\\)\\'" $path)
+;;             (let (($fpath (match-string 1 $path))
+;;                   ($line-num (string-to-number (match-string 2 $path))))
+;;               (if (file-exists-p $fpath)
+;;                   (progn
+;;                     (find-file $fpath)
+;;                     (goto-char 1)
+;;                     (forward-line (1- $line-num)))
+;;                 (when (y-or-n-p (format "文件: 「%s」不存在. 是否创建?" $fpath))
+;;                   (find-file $fpath))))
+;;           (if (file-exists-p $path)
+;;               (find-file $path)
+;;             (when (y-or-n-p (format "文件: 「%s」不存在. 是否创建?" $path))
+;;               (find-file $path))))))))

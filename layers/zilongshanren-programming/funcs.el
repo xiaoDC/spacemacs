@@ -1,13 +1,4 @@
 ;; "http://stackoverflow.com/questions/2242572/emacs-todo-indicator-at-left-side"
-(defun zilongshanren/annotate-todo ()
-  "put fringe marker on TODO: lines in the curent buffer"
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward "TODO:" nil t)
-      (let ((overlay (make-overlay (- (point) 5) (point))))
-        (overlay-put overlay 'before-string (propertize "A"
-                                                        'display '(left-fringe right-triangle)))))))
 
 
 (defun my-web-mode-indent-setup ()
@@ -40,7 +31,7 @@
   (unless yas-global-mode
     (progn
       (yas-global-mode 1)
-      (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+      (setq my-snippet-dir (expand-file-name "~/.emacssnippets/snippets/"))
       (setq yas-snippet-dirs  my-snippet-dir)
       (yas-load-directory my-snippet-dir)
       (setq yas-wrap-around-region t)))
@@ -50,71 +41,6 @@
   (when (eq this-command 'eval-expression)
     (lispy-mode 1)))
 
-(defun cmake-rename-buffer ()
-  "Renames a CMakeLists.txt buffer to cmake-<directory name>."
-  (interactive)
-  (when (and (buffer-file-name)
-             (string-match "CMakeLists.txt" (buffer-name)))
-    (setq parent-dir (file-name-nondirectory
-                      (directory-file-name
-                       (file-name-directory (buffer-file-name)))))
-    (setq new-buffer-name (concat "cmake-" parent-dir))
-    (rename-buffer new-buffer-name t)))
-
-
-(defun my-js2-mode-hook ()
-  (progn
-    (define-key js2-mode-map "\C-ci" 'js-doc-insert-function-doc-snippet)
-    (define-key js2-mode-map "@" 'js-doc-insert-tag)
-    (modify-syntax-entry ?_ "w")
-    (which-function-mode t)
-    (setq imenu-create-index-function 'js2-imenu-make-index)
-
-    (setq mode-name "JS2")
-    (define-key js2-mode-map   (kbd "s-.") 'company-tern)
-    (spacemacs/toggle-syntax-checking-on)
-    (setq forward-sexp-function nil)
-    (set (make-local-variable 'semantic-mode) nil)))
-
-(defun my-which-function ()
-  ;; clean the imenu cache
-  ;; @see http://stackoverflow.com/questions/13426564/how-to-force-a-rescan-in-imenu-by-a-function
-  (setq imenu--index-alist nil)
-  (which-function))
-
-(defun js2-imenu-make-index ()
-  (interactive)
-  (save-excursion
-    ;; (setq imenu-generic-expression '((nil "describe\\(\"\\(.+\\)\"" 1)))
-    (imenu--generic-function '(("describe" "\\s-*describe\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                               ("it" "\\s-*it\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                               ("test" "\\s-*test\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                               ("before" "\\s-*before\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                               ("after" "\\s-*after\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
-                               ("Controller" "[. \t]controller([ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("Controller" "[. \t]controllerAs:[ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("Filter" "[. \t]filter([ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("State" "[. \t]state([ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("Factory" "[. \t]factory([ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("Service" "[. \t]service([ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("Module" "[. \t]module([ \t]*['\"]\\([a-zA-Z0-9_\.]+\\)" 1)
-                               ("ngRoute" "[. \t]when(\\(['\"][a-zA-Z0-9_\/]+['\"]\\)" 1)
-                               ("Directive" "[. \t]directive([ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("Event" "[. \t]\$on([ \t]*['\"]\\([^'\"]+\\)" 1)
-                               ("Config" "[. \t]config([ \t]*function *( *\\([^\)]+\\)" 1)
-                               ("Config" "[. \t]config([ \t]*\\[ *['\"]\\([^'\"]+\\)" 1)
-                               ("OnChange" "[ \t]*\$(['\"]\\([^'\"]*\\)['\"]).*\.change *( *function" 1)
-                               ("OnClick" "[ \t]*\$([ \t]*['\"]\\([^'\"]*\\)['\"]).*\.click *( *function" 1)
-                               ("Watch" "[. \t]\$watch( *['\"]\\([^'\"]+\\)" 1)
-                               ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
-                               ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
-                               ("Function" "^var[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
-                               ("Function" "^[ \t]*\\([^while|for ][a-zA-Z0-9_$]*\\)[ \t]*([a-zA-Z0-9_$,/\\* ]*)[ \t]*" 1)
-                               ("Function" "^[ \t]*static[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*()[ \t]*{" 1)
-                               ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*:[ \t]*function[ \t]*(" 1)
-                               ("Class" "^[ \t]*var[ \t]*\\([0-9a-zA-Z]+\\)[ \t]*=[ \t]*\\([a-zA-Z]*\\).extend" 1)
-                               ("Class" "^[ \t]*cc\.\\(.+\\)[ \t]*=[ \t]*cc\.\\(.+\\)\.extend" 1)
-                               ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)))))
 
 (defun my-doxymacs-font-lock-hook ()
   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
@@ -164,16 +90,3 @@
         (setq my-tags-updated-time (current-time))
         (my-update-tags)
         (message "updated tags after %d seconds." (- (float-time (current-time)) (float-time my-tags-updated-time))))))
-
-
-(defun my-setup-develop-environment ()
-  (interactive)
-  (when (my-project-name-contains-substring "guanghui")
-    (cond
-     ((my-project-name-contains-substring "cocos2d-x")
-      ;; C++ project don't need html tags
-      (setq tags-table-list (list (my-create-tags-if-needed "~/cocos2d-x/cocos"))))
-     ((my-project-name-contains-substring "Github/fireball")
-      (message "load tags for fireball engine repo...")
-      ;; html project donot need C++ tags
-      (setq tags-table-list (list (my-create-tags-if-needed "~/Github/fireball/engine/cocos2d")))))))
