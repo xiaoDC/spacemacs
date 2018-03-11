@@ -44,7 +44,7 @@ values."
        ;; ranger
        ;; colors
        ;; prodigy
-       search-engine
+       ;; search-engine
        ;; graphviz
        ;; (syntax-checking :variables syntax-checking-enable-by-default nil
        ;;                  syntax-checking-enable-tooltips nil)
@@ -52,6 +52,9 @@ values."
        (vinegar :variables vinegar-reuse-dired-buffer t)
        (spacemacs-layouts :variables layouts-enable-autosave nil
          layouts-autosave-delay 3000)
+
+       (go :variables
+         go-tab-width 2)
 
        (git :variables
          git-magit-status-fullscreen t
@@ -109,7 +112,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
     dotspacemacs-additional-packages '(
                                         ;; sicp
-                                        ;; doom-themes
+                                        doom-themes
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
@@ -119,13 +122,21 @@ values."
                                         exec-path-from-shell
                                         ;; spacemacs-dark
                                         ;; spacemacs-light
-                                        ;; treemacs
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
                                         (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
+                                        (carbon-now-sh :location (recipe :fetcher github :repo "veelenga/carbon-now-sh.el"))
                                         ;; tide
                                         hierarchy
                                         string-inflection
                                         git-gutter+
+                                        neotree
+                                        js-doc
+                                        ;; soothe-theme
+                                        ;; material-theme
+                                        ;; ample-theme
+                                        ;; treemacs
+                                        ;; treemacs-evil
+                                        ;; treemacs-projectile
                                         ;; cnfonts
                                         )
    ;; A list of packages that cannot be updated.
@@ -142,7 +153,7 @@ values."
                     org-download
                     flycheck
                     js-mode
-                    js2-mode
+                    ;; js2-mode
                     ;; company
                     org-timer
                     org-pomodoro
@@ -225,9 +236,11 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
     dotspacemacs-themes '(
-                           ;; spacemacs-dark
                            ;; spacemacs-light
+                           ;; doom-tomorrow-night
+                           doom-peacock
                            solarized-dark
+                           spacemacs-dark
                            solarized-light
                            )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -239,10 +252,17 @@ values."
                                  ;; :size 15
 
                                  ;; "Anonymous Pro"
+                                 ;; :size 15
+
+                                 ;; "consolas"
                                  ;; :size 16
 
-                                 ;; "Menlo"
+
+                                 ;; "Monaco"
                                  ;; :size 14
+
+                                 ;; "Menlo"
+                                 ;; :size 15
 
                                  ;; "Operator Mono"
                                  ;; :size 16
@@ -250,8 +270,21 @@ values."
                                  ;; "DejaVu Sans Mono"
                                  ;; :size 15
 
-                                 "Fira Code"
+                                 ;; "Fira Code"
+                                 ;; :size 15
+
+                                 "PT Mono"
                                  :size 15
+
+                                 ;; "Hack"
+                                 ;; :size 15
+
+                                 ;; "InconsolataGo Nerd Font"
+                                 ;; "Inconsolata"
+                                 ;; :size 16
+
+                                 ;; "Inconsolata"
+                                 ;; :size 17
 
                                  :weight normal
                                  :width normal
@@ -450,12 +483,52 @@ values."
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
+
+  (when (window-system)
+    (set-default-font "Fira Code"))
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                  (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                  (36 . ".\\(?:>\\)")
+                  (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                  (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                  (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                  (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                  (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                  (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                  (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                  (48 . ".\\(?:x[a-zA-Z]\\)")
+                  (58 . ".\\(?:::\\|[:=]\\)")
+                  (59 . ".\\(?:;;\\|;\\)")
+                  (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                  (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                  (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                  (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                  (91 . ".\\(?:]\\)")
+                  (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                  (94 . ".\\(?:=\\)")
+                  (119 . ".\\(?:ww\\)")
+                  (123 . ".\\(?:-\\)")
+                  (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                  (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                  )
+          ))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+        `([,(cdr char-regexp) 0 font-shape-gstring]))))
+
+  (add-hook 'helm-major-mode-hook
+    (lambda ()
+      (setq auto-composition-mode nil)))
+
+
+
+
   ;; force horizontal split window
-  (setq split-width-threshold 200)
+  (setq split-width-threshold 300)
 
   (global-linum-mode 1)
   ;; (linum-relative-on)
-  (setq-default line-spacing 2)
+  (setq-default line-spacing 4)
   (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
   ;; (spacemacs|add-company-backends :modes text-mode)
@@ -506,6 +579,8 @@ values."
 
 
   ;; (load-theme 'sanityinc-tomorrow-night t)
+  ;; (load-theme 'soothe t)
+  ;; (load-theme 'alect-black-alt t)
 
 
   (defun kill-all-buffers ()
@@ -653,34 +728,34 @@ If the universal prefix argument is used then will the windows too."
     (interactive)
     (require 'hierarchy)
     (let ((files (split-string
-                  (shell-command-to-string "git ls-files -z")
-                  (string 0) t))
-          (hierarchy (hierarchy-new)))
+                   (shell-command-to-string "git ls-files -z")
+                   (string 0) t))
+           (hierarchy (hierarchy-new)))
       ;; Fill the hierarchy
       (hierarchy-add-trees
-      hierarchy
-      ;; Set . as the root since tree-widget.el requires only one root
-      (mapcar (lambda (f) (concat "./" f)) files)
-      (lambda (f)
-        "Return parent directory of F."
-        (if (directory-name-p f)
+        hierarchy
+        ;; Set . as the root since tree-widget.el requires only one root
+        (mapcar (lambda (f) (concat "./" f)) files)
+        (lambda (f)
+          "Return parent directory of F."
+          (if (directory-name-p f)
             (file-name-directory (directory-file-name f))
-          (file-name-directory f))))
+            (file-name-directory f))))
       ;; Draw the hierarchy
       (switch-to-buffer
-      (hierarchy-tree-display
-        hierarchy
-        (lambda (f _)
-          "Insert basename of F."
-          (insert
-          (if (directory-name-p f)
-              (file-name-nondirectory (directory-file-name f))
-            (file-name-nondirectory f))))))
+        (hierarchy-tree-display
+          hierarchy
+          (lambda (f _)
+            "Insert basename of F."
+            (insert
+              (if (directory-name-p f)
+                (file-name-nondirectory (directory-file-name f))
+                (file-name-nondirectory f))))))
       ;; Unfold
       (goto-char (point-min))
       (while (progn (widget-button-press (point))
-                    (widget-forward 1)
-                    (/= (point) (point-min))))))
+               (widget-forward 1)
+               (/= (point) (point-min))))))
 
   ;; (setq yas-snippet-dirs
   ;;   '(
@@ -836,6 +911,7 @@ If the universal prefix argument is used then will the windows too."
 
 
 
+
   (setq ido-ignore-buffers '("\\` " "^\*grep*" "^\*scratch*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
   (setq iswitchb-buffer-ignore '("\\` " "^\*grep*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
   (setq helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*Messages" "\\*scratch"))
@@ -911,13 +987,13 @@ If the universal prefix argument is used then will the windows too."
       (propertize "%3c" 'face 'font-lock-type-face)
       ")"
 
-      " "
+      "    "
       '(:eval (buffer-encoding-abbrev))
 
       " "
       (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
 
-      " " ;; insert vs overwrite mode, input-method in a tooltip
+      "   " ;; insert vs overwrite mode, input-method in a tooltip
       '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
                 'face 'font-lock-preprocessor-face
                 'help-echo (concat "Buffer is in "
