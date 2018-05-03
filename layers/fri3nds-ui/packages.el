@@ -1,15 +1,15 @@
 ;;; packages.el --- zilong-ui layer packages file for Spacemacs.
 ;;
-;; Copyright (c) 2014-2016 zilongshanren
+;; Copyright (c) 2014-2016 fri3nds
 ;;
 ;; Author: guanghui <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/spacemacs-private
+;; URL: https://github.com/fri3nds/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defconst zilongshanren-ui-packages
+(defconst fri3nds-ui-packages
   '(
     (zilong-mode-line :location built-in)
     diminish
@@ -24,8 +24,8 @@
     )
   )
 
-(defun zilongshanren-ui/init-zilong-mode-line ()
-  (defun zilongshanren/display-mode-indent-width ()
+(defun fri3nds-ui/init-zilong-mode-line ()
+  (defun fri3nds/display-mode-indent-width ()
     (let ((mode-indent-level
             (catch 'break
               (dolist (test spacemacs--indent-variable-alist)
@@ -47,7 +47,7 @@
 
   )
 
-(defun zilongshanren-ui/post-init-diminish ()
+(defun fri3nds-ui/post-init-diminish ()
   (progn
     (with-eval-after-load 'whitespace
       (diminish 'whitespace-mode))
@@ -59,7 +59,7 @@
       (diminish 'hungry-delete-mode))))
 
 
-(defun zilongshanren-ui/post-init-spaceline ()
+(defun fri3nds-ui/post-init-spaceline ()
   (use-package spaceline-config
     :config
     (progn
@@ -108,7 +108,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       (setq-default mode-line-format '("%e" (:eval (spaceline-ml-zilong))))
       )))
 
-(defun zilongshanren-ui/init-beacon ()
+(defun fri3nds-ui/init-beacon ()
   (use-package beacon
     :init
     (progn
@@ -122,7 +122,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       (spacemacs/toggle-beacon-on))
     :config (spacemacs|hide-lighter beacon-mode)))
 
-(defun zilongshanren-ui/init-evil-vimish-fold ()
+(defun fri3nds-ui/init-evil-vimish-fold ()
   (use-package evil-vimish-fold
     :init
     (vimish-fold-global-mode 1)
@@ -133,7 +133,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       (define-key evil-normal-state-map (kbd "zd") 'vimish-fold-delete)
       (define-key evil-normal-state-map (kbd "za") 'vimish-fold-toggle))))
 
-(defun zilongshanren-ui/post-init-hl-anything ()
+(defun fri3nds-ui/post-init-hl-anything ()
   (progn
     (defun my-inhibit-globalized-hl-highlight-mode ()
       "Counter-act a globalized hl-highlight-mode."
@@ -148,7 +148,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       :documentation "Toggle highlight anything mode."
       :evil-leader "ths")))
 
-(defun zilongshanren-ui/post-init-pangu-spacing ()
+(defun fri3nds-ui/post-init-pangu-spacing ()
   (progn
     ;; add toggle options
     (spacemacs|add-toggle toggle-pangu-spaceing
@@ -161,12 +161,11 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
               #'(lambda ()
                  (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))))
 
-(defun zilongshanren-ui/post-init-popwin ()
+(defun fri3nds-ui/post-init-popwin ()
   (progn
-    (push "*zilongshanren/run-current-file output*" popwin:special-display-config)
     (delete "*Async Shell Command*" popwin:special-display-config)))
 
-(defun zilongshanren-ui/post-init-whitespace ()
+(defun fri3nds-ui/post-init-whitespace ()
   (progn
     ;; ;; http://emacsredux.com/blog/2013/05/31/highlight-lines-that-exceed-a-certain-length-limit/
     (setq whitespace-line-column fill-column) ;; limit line length

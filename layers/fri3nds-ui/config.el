@@ -1,9 +1,9 @@
-;;; config.el --- zilongshanren Layer packages File for Spacemacs
+;;; config.el --- fri3nds Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 zilongshanren
+;; Copyright (c) 2015-2016 fri3nds
 ;;
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/spacemacs-private
+;; Author: fri3nds <guanghui8827@gmail.com>
+;; URL: https://github.com/fri3nds/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

@@ -1,16 +1,16 @@
 ; -*- lexical-binding: t -*-
-;;; packages.el --- zilongshanren Layer packages File for Spacemacs
+;;; packages.el --- fri3nds Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 zilongshanren
+;; Copyright (c) 2014-2016 fri3nds
 ;;
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/spacemacs-private
+;; Author: fri3nds <guanghui8827@gmail.com>
+;; URL: https://github.com/fri3nds/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defconst zilongshanren-better-defaults-packages
+(defconst fri3nds-better-defaults-packages
   '(
     (dired-mode :location built-in)
     (profiler :location built-in)
@@ -18,7 +18,7 @@
     )
 )
 
-(defun zilongshanren-better-defaults/post-init-recentf ()
+(defun fri3nds-better-defaults/post-init-recentf ()
   (progn
     (setq recentf-exclude
           '("COMMIT_MSG"
@@ -41,7 +41,7 @@
             ".*png$"))
     (setq recentf-max-saved-items 2048)))
 
-(defun zilongshanren-better-defaults/init-dired-mode ()
+(defun fri3nds-better-defaults/init-dired-mode ()
   (use-package dired-mode
     :defer t
     :init
@@ -99,7 +99,7 @@
       (evilified-state-evilify-map dired-mode-map
         :mode dired-mode
         :bindings
-        (kbd "C-k") 'zilongshanren/dired-up-directory
+        (kbd "C-k") 'fri3nds/dired-up-directory
         "<RET>" 'dired-find-alternate-file
         "E" 'dired-toggle-read-only
         "C" 'dired-do-copy
@@ -110,12 +110,11 @@
         "z" 'dired-get-size
         "c" 'dired-copy-file-here
         "J" 'counsel-find-file
-        "f" 'zilongshanren/open-file-with-projectile-or-counsel-git
         ")" 'dired-omit-mode)
       )))
 
 
-(defun zilongshanren-better-defaults/init-profiler ()
+(defun fri3nds-better-defaults/init-profiler ()
   (use-package profiler
     :init
     (evilified-state-evilify profiler-report-mode profiler-report-mode-map)))

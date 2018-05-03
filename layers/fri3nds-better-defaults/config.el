@@ -1,9 +1,9 @@
-;;; config.el --- zilongshanren Layer packages File for Spacemacs
+;;; config.el --- fri3nds Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 zilongshanren
+;; Copyright (c) 2014-2016 fri3nds
 ;;
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/spacemacs-private
+;; Author: fri3nds <guanghui8827@gmail.com>
+;; URL: https://github.com/fri3nds/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -23,7 +23,9 @@
 (when (spacemacs/window-system-is-mac)
   (setq ns-pop-up-frames nil))
 
-(global-prettify-symbols-mode 1)
+;; 进制将 clojure lisp lambda 美化成 λ
+;; (global-prettify-symbols-mode 1)
+
 (setq-default fill-column 80)
 
 (setq recenter-positions '(top middle bottom))
@@ -95,12 +97,12 @@
             kill-buffer-query-functions))
 
 ;; cleanup recent files
-(defun zilongshanren/cleanup-recentf ()
+(defun fri3nds/cleanup-recentf ()
   (progn
     (and (fboundp 'recentf-cleanup)
          (recentf-cleanup))))
 
-(add-hook 'kill-emacs-hook #'zilongshanren/cleanup-recentf)
+(add-hook 'kill-emacs-hook #'fri3nds/cleanup-recentf)
 
 ;; change evil initial mode state
 (menu-bar-mode t)
@@ -160,12 +162,12 @@ Single Capitals as you type."
               (set (make-local-variable 'electric-pair-mode) nil)))
 
 ;; http://trey-jackson.blogspot.com/2010/04/emacs-tip-36-abort-minibuffer-when.html
-(defun zilongshanren/stop-using-minibuffer ()
+(defun fri3nds/stop-using-minibuffer ()
   "kill the minibuffer"
   (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
     (abort-recursive-edit)))
 
-(add-hook 'mouse-leave-buffer-hook 'zilongshanren/stop-using-minibuffer)
+(add-hook 'mouse-leave-buffer-hook 'fri3nds/stop-using-minibuffer)
 
 (setq tags-add-tables nil)
 

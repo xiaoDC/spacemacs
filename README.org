@@ -4,8 +4,8 @@ Hacking journey begins start from 2013.
 It was written for Emacs 25.1+ on MacOS 10.11+
 
 ** How to use
-Follow the install instruction here: https://github.com/zilongshanren/spacemacs#install ,
-make sure your are using the fork repo: https://github.com/zilongshanren/spacemacs
+Follow the install instruction here: https://github.com/fri3nds/spacemacs#install ,
+make sure your are using the fork repo: https://github.com/fri3nds/spacemacs
 
 Why use the forked repo?  What's the difference between the forked repo and the original repo?
 

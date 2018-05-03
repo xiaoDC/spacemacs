@@ -31,8 +31,8 @@ brew install emacs-mac --with-spacemacs-icon --HEAD --with-gnutls
   #clone spacemacs repo and use develop branch
   git clone https://github.com/syl20bnr/spacemacs.git ~/.emacs.d -b develop
 
-  #clone zilongshanren layer and checkout develop branch
-  git clone https://github.com/zilongshanren/spacemacs-private.git ~/.spacemacs.d/
+  #clone fri3nds layer and checkout develop branch
+  git clone https://github.com/fri3nds/spacemacs-private.git ~/.spacemacs.d/
 #+END_SRC
 
 现在可以打开 Emacs 24.5+ 开始使用我的配置了。
@@ -42,13 +42,13 @@ brew install emacs-mac --with-spacemacs-icon --HEAD --with-gnutls
 
 ** 配置说明
 1. 我的配置主要分成 5 个 layer
-  - zilongshanren-ui: 定制 mode-line，font face 等配置。
-  - zilongshanren-programming：和编程相关的配置。
-  - zilongshanren-misc：一些杂项，不属于其它分类的都放在这里面。
-  - zilongshanren-org：和 org 相关的配置
-  - zilongshanren-better-defaults: 增强 Emacs 自带的 package 和功能
+  - fri3nds-ui: 定制 mode-line，font face 等配置。
+  - fri3nds-programming：和编程相关的配置。
+  - fri3nds-misc：一些杂项，不属于其它分类的都放在这里面。
+  - fri3nds-org：和 org 相关的配置
+  - fri3nds-better-defaults: 增强 Emacs 自带的 package 和功能
 
-2. Spacemacs Rocks 系统视频演示：https://github.com/zilongshanren/Spacemacs-rocks/issues/5 , 让你从此爱上 Emacs :smile:
+2. Spacemacs Rocks 系统视频演示：https://github.com/fri3nds/Spacemacs-rocks/issues/5 , 让你从此爱上 Emacs :smile:
 
 ** 为什么要使用我的配置？
 1. 使用我的配置有个好处是我每周会同步最新的 spacemacs 并且 update 所有的 package，保证配置可以用起来。

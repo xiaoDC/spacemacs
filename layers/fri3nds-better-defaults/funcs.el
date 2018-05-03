@@ -1,9 +1,9 @@
-;;; funcs.el --- zilongshanren Layer packages File for Spacemacs
+;;; funcs.el --- fri3nds Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 zilongshanren
+;; Copyright (c) 2015-2016 fri3nds
 ;;
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/spacemacs-private
+;; Author: fri3nds <guanghui8827@gmail.com>
+;; URL: https://github.com/fri3nds/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -25,7 +25,7 @@
         (message "Indent buffer.")))))
 
 ;;http://emacsredux.com/blog/2013/03/26/smarter-open-line/
-(defun zilongshanren/smart-open-line ()
+(defun fri3nds/smart-open-line ()
   "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."
   (interactive)
@@ -33,7 +33,7 @@ Position the cursor at its beginning, according to the current mode."
   (newline-and-indent))
 
 
-(defun zilongshanren/yank-to-end-of-line ()
+(defun fri3nds/yank-to-end-of-line ()
   "Yank to end of line."
   (interactive)
   (evil-yank (point) (point-at-eol)))
@@ -117,7 +117,7 @@ Position the cursor at its beginning, according to the current mode."
         (dired-find-alternate-file)
       (dired-find-file-other-window))))
 
-(defun zilongshanren/dired-do-command (command)
+(defun fri3nds/dired-do-command (command)
   "Run COMMAND on marked files. Any files not already open will be opened.
 After this command has been run, any buffers it's modified will remain
 open and unsaved."
@@ -128,7 +128,7 @@ open and unsaved."
             (call-interactively command))
           (dired-get-marked-files))))
 
-(defun zilongshanren/dired-up-directory()
+(defun fri3nds/dired-up-directory()
   "goto up directory and resue buffer"
   (interactive)
   (find-alternate-file ".."))

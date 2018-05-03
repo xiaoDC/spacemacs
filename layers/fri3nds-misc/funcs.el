@@ -1,195 +1,14 @@
-;;; funcs.el --- zilongshanren Layer packages File for Spacemacs
-;;
-;; Copyright (c) 2015-2016 zilongshanren
-;;
-;; Author: zilongshanren <guanghui8827@gmail.com>
-;; URL: https://github.com/zilongshanren/spacemacs-private
-;;
-;; This file is not part of GNU Emacs.
-;;
-;;; License: GPLv3
-
-;; @see https://bitbucket.org/lyro/evil/issue/511/let-certain-minor-modes-key-bindings
-(defmacro adjust-major-mode-keymap-with-evil (m &optional r)
-  `(eval-after-load (quote ,(if r r m))
-     '(progn
-        (evil-make-overriding-map ,(intern (concat m "-mode-map")) 'normal)
-        ;; force update evil keymaps after git-timemachine-mode loaded
-        (add-hook (quote ,(intern (concat m "-mode-hook"))) #'evil-normalize-keymaps))))
-
-
-;; insert ; at the end of current line
-(defun zilongshanren/insert-semicolon-at-the-end-of-this-line ()
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (insert ";")))
-
-(defun zilongshanren/delete-semicolon-at-the-end-of-this-line ()
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (if (looking-back ";")
-        (progn
-          (backward-char)
-          (delete-char 1)))))
-
-(defun zilongshanren/insert-comma-at-the-end-of-this-line ()
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (insert ",")))
-
-(defun zilongshanren/delete-comma-at-the-end-of-this-line ()
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (if (looking-back ",")
-        (progn
-          (backward-char)
-          (delete-char 1)))))
-
-
-;; http://blog.binchen.org/posts/use-ivy-mode-to-search-bash-history.html
-;; ;FIXME: make it work with zsh
-(defun counsel-yank-bash-history ()
-  "Yank the bash history"
-  (interactive)
-  (let (hist-cmd collection val)
-    (shell-command "history -r") ; reload history
-    (setq collection
-          (nreverse
-           (split-string (with-temp-buffer (insert-file-contents (file-truename "~/.bash_history"))
-                                           (buffer-string))
-                         "\n"
-                         t)))
-    (when (and collection (> (length collection) 0)
-               (setq val (if (= 1 (length collection)) (car collection)
-                           (ivy-read (format "Bash history:") collection))))
-      (kill-new val)
-      (message "%s => kill-ring" val))))
-
-  ;; my fix for tab indent
-(defun zilongshanren/indent-region(numSpaces)
-  (progn
-                                      ; default to start and end of current line
-    (setq regionStart (line-beginning-position))
-    (setq regionEnd (line-end-position))
-
-                                      ; if there's a selection, use that instead of the current line
-    (when (use-region-p)
-      (setq regionStart (region-beginning))
-      (setq regionEnd (region-end))
-      )
-
-    (save-excursion                          ; restore the position afterwards
-      (goto-char regionStart)                ; go to the start of region
-      (setq start (line-beginning-position)) ; save the start of the line
-      (goto-char regionEnd)                  ; go to the end of region
-      (setq end (line-end-position))         ; save the end of the line
-
-      (indent-rigidly start end numSpaces) ; indent between start and end
-      (setq deactivate-mark nil)           ; restore the selected region
-      )
-    )
-  )
-
-
-(defun zilongshanren/tab-region (N)
-  (interactive "p")
-  (if (use-region-p)
-      (zilongshanren/indent-region 4)               ; region was selected, call indent-region
-    (insert "    ")                   ; else insert four spaces as expected
-    ))
-
-(defun zilongshanren/untab-region (N)
-  (interactive "p")
-  (zilongshanren/indent-region -4))
-
-(defun zilongshanren/hack-tab-key ()
-  (interactive)
-  (local-set-key (kbd "<tab>") 'zilongshanren/tab-region)
-  (local-set-key (kbd "<S-tab>") 'zilongshanren/untab-region)
-  )
-
-;; I'm don't like this settings too much.
-;; (add-hook 'prog-mode-hook 'zilongshanren/hack-tab-key)
-(defun endless/fill-or-unfill ()
-  "Like `fill-paragraph', but unfill if used twice."
-  (interactive)
-  (let ((fill-column
-         (if (eq last-command 'endless/fill-or-unfill)
-             (progn (setq this-command nil)
-                    (point-max))
-           fill-column)))
-    (call-interactively #'fill-paragraph)))
-
-(defun my-unwind-git-timemachine ()
-  (if (not (eq last-command-event 13))
-      (git-timemachine-quit)))
-
-;; http://blog.binchen.org/posts/new-git-timemachine-ui-based-on-ivy-mode.html
-(defun my-git-timemachine-show-selected-revision ()
-  "Show last (current) revision of file."
-  (interactive)
-  (let (collection)
-    (setq collection
-          (mapcar (lambda (rev)
-                    ;; re-shape list for the ivy-read
-                    (cons (concat (substring (nth 0 rev) 0 7) "|" (nth 5 rev) "|" (nth 6 rev)) rev))
-                  (git-timemachine--revisions)))
-    (ivy-read "commits:"
-              collection
-              :unwind #'my-unwind-git-timemachine
-              :action (lambda (rev)
-                        (git-timemachine-show-revision (cdr rev))))))
-
-(defun my-git-timemachine ()
-  "Open git snapshot with the selected version.  Based on ivy-mode."
-  (interactive)
-  (unless (featurep 'git-timemachine)
-    (require 'git-timemachine))
-  (git-timemachine--start #'my-git-timemachine-show-selected-revision))
-
-
-(defun zilongshanren//hotspots-sources ()
-  "Construct the helm sources for my hotspots"
-  `((name . "Mail and News")
-    (candidates . (("Calendar" . (lambda ()  (browse-url "https://www.google.com/calendar/render")))
-                   ("RSS" . elfeed)
-                   ("Blog" . blog-admin-start)
-                   ("Github" . (lambda() (helm-github-stars)))
-                   ("Calculator" . (lambda () (helm-calcul-expression)))
-                   ("Run current flie" . (lambda () (zilongshanren/run-current-file)))
-                   ("Agenda" . (lambda () (org-agenda "" "a")))
-                   ("sicp" . (lambda() (browse-url "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")))))
-    (candidate-number-limit)
-    (action . (("Open" . (lambda (x) (funcall x)))))))
-
 ;; insert date and time
-(defun zilongshanren/now ()
+(defun fri3nds/now ()
   "Insert string for the current time formatted like '2:34 PM'."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%D %-I:%M %p")))
 
-(defun zilongshanren/today ()
+(defun fri3nds/today ()
   "Insert string for today's date nicely formatted in American style,
 e.g. Sunday, September 17, 2000."
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%A, %B %e, %Y")))
-
-;; https://github.com/syohex/emacs-browser-refresh/blob/master/browser-refresh.el
-(defun zilongshanren/browser-refresh--chrome-applescript ()
-  (interactive)
-  (do-applescript
-   (format
-    "
-  tell application \"Google Chrome\"
-    set winref to a reference to (first window whose title does not start with \"Developer Tools - \")
-    set winref's index to 1
-    reload active tab of winref
-  end tell
-" )))
 
 
 (define-minor-mode
@@ -207,9 +26,9 @@ e.g. Sunday, September 17, 2000."
   :group 'shadowsocks-proxy)
 
 
-(defun zilongshanren/open-file-with-projectile-or-counsel-git ()
+(defun fri3nds/open-file-with-projectile-or-counsel-git ()
   (interactive)
-  (if (zilongshanren/git-project-root)
+  (if (fri3nds/git-project-root)
       (counsel-git)
     (if (projectile-project-p)
         (projectile-find-file)
@@ -217,7 +36,7 @@ e.g. Sunday, September 17, 2000."
 
 
 ;; http://blog.lojic.com/2009/08/06/send-growl-notifications-from-carbon-emacs-on-osx/
-(defun zilongshanren/growl-notification (title message &optional sticky)
+(defun fri3nds/growl-notification (title message &optional sticky)
   "Send a Growl notification"
   (do-applescript
    (format "tell application \"GrowlHelperApp\" \n
@@ -228,18 +47,18 @@ e.g. Sunday, September 17, 2000."
            message
            (if sticky "yes" "no"))))
 
-(defun zilongshanren/growl-timer (minutes message)
+(defun fri3nds/growl-timer (minutes message)
   "Issue a Growl notification after specified minutes"
   (interactive (list (read-from-minibuffer "Minutes: " "10")
                      (read-from-minibuffer "Message: " "Reminder") ))
   (run-at-time (* (string-to-number minutes) 60)
                nil
                (lambda (minute message)
-                 (zilongshanren/growl-notification "Emacs Reminder" message t))
+                 (fri3nds/growl-notification "Emacs Reminder" message t))
                minutes
                message))
 
-(defun zilongshanren/goto-match-paren (arg)
+(defun fri3nds/goto-match-paren (arg)
   "Go to the matching  if on (){}[], similar to vi style of % "
   (interactive "p")
   ;; first, check for "outside of bracket" positions expected by forward-sexp, etc
@@ -250,24 +69,24 @@ e.g. Sunday, September 17, 2000."
         ((looking-back "[\[\(\{]" 1) (backward-char) (evil-jump-item))
         (t nil)))
 
-(defun zilongshanren/hidden-dos-eol ()
+(defun fri3nds/hidden-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-(defun zilongshanren/remove-dos-eol ()
+(defun fri3nds/remove-dos-eol ()
   "Replace DOS eolns CR LF with Unix eolns CR"
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
 
-(defun zilongshanren/insert-chrome-current-tab-url()
+(defun fri3nds/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
-  (insert (zilongshanren/retrieve-chrome-current-tab-url)))
+  (insert (fri3nds/retrieve-chrome-current-tab-url)))
 
-(defun zilongshanren/retrieve-chrome-current-tab-url()
+(defun fri3nds/retrieve-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
   (let ((result (do-applescript
@@ -285,7 +104,7 @@ e.g. Sunday, September 17, 2000."
 
 
 ;; remove all the duplicated emplies in current buffer
-(defun zilongshanren/single-lines-only ()
+(defun fri3nds/single-lines-only ()
   "replace multiple blank lines with a single one"
   (interactive)
   (goto-char (point-min))
@@ -294,12 +113,12 @@ e.g. Sunday, September 17, 2000."
     (forward-char 1)))
 
 ;; for running long run ansi-term
-(defun zilongshanren/named-term (name)
+(defun fri3nds/named-term (name)
   (interactive "sName: ")
   (ansi-term "/bin/zsh" name))
 
 
-(defun zilongshanren/ash-term-hooks ()
+(defun fri3nds/ash-term-hooks ()
   ;; dabbrev-expand in term
   (define-key term-raw-escape-map "/"
     (lambda ()
@@ -314,7 +133,7 @@ e.g. Sunday, September 17, 2000."
       (interactive)
       (term-send-raw-string (current-kill 0)))))
 
-(defun zilongshanren/terminal ()
+(defun fri3nds/terminal ()
   "Switch to terminal. Launch if nonexistent."
   (interactive)
   (if (get-buffer "*ansi-term*")
@@ -324,7 +143,7 @@ e.g. Sunday, September 17, 2000."
       (ansi-term "/bin/zsh")))
   (get-buffer-process "*ansi-term*"))
 
-(defalias 'tt 'zilongshanren/terminal)
+(defalias 'tt 'fri3nds/terminal)
 
 ;;add count for chinese, mainly used for writing chinese blog post
 ;; http://kuanyui.github.io/2014/01/18/count-chinese-japanese-and-english-words-in-emacs/
@@ -335,7 +154,7 @@ e.g. Sunday, September 17, 2000."
 (defvar wc-regexp-english-word
   "[a-zA-Z0-9-]+")
 
-(defun zilongshanren/word-count-for-chinese ()
+(defun fri3nds/word-count-for-chinese ()
   "「較精確地」統計中/日/英文字數。
 - 文章中的註解不算在字數內。
 - 平假名與片假名亦包含在「中日文字數」內，每個平/片假名都算單獨一個字（但片假
@@ -383,7 +202,7 @@ e.g. Sunday, September 17, 2000."
              chinese-char chinese-char-and-punc english-word
              (+ chinese-char english-word)))))
 
-;; (defun zilongshanren/evil-quick-replace (beg end )
+;; (defun fri3nds/evil-quick-replace (beg end )
 ;;   (interactive "r")
 ;;   (when (evil-visual-state-p)
 ;;     (evil-exit-visual-state)
@@ -393,41 +212,16 @@ e.g. Sunday, September 17, 2000."
 ;;           (lambda () (backward-char 2))
 ;;         (evil-ex command-string)))))
 
-(defun zilongshanren/git-project-root ()
+(defun fri3nds/git-project-root ()
   "Return the project root for current buffer."
   (let ((directory default-directory))
     (locate-dominating-file directory ".git")))
 
 
-;; "http://xuchunyang.me/Opening-iTerm-From-an-Emacs-Buffer/"
-(defun zilongshanren/iterm-shell-command (command &optional prefix)
-  "cd to `default-directory' then run COMMAND in iTerm.
-With PREFIX, cd to project root."
-  (interactive (list (read-shell-command
-                      "iTerm Shell Command: ")
-                     current-prefix-arg))
-  (let* ((dir (if prefix (zilongshanren/git-project-root)
-                default-directory))
-         ;; if COMMAND is empty, just change directory
-         (cmd (format "cd %s ;%s" dir command)))
-    (do-applescript
-     (format
-      "
-  tell application \"iTerm2\"
-       activate
-       set _session to current session of current window
-       tell _session
-            set command to get the clipboard
-            write text \"%s\"
-       end tell
-  end tell
-  " cmd))))
-
-
 (defadvice persp-switch (after my-quit-helm-perspectives activate)
   (setq hydra-deactivate t))
 
-(defun zilongshanren/my-mc-mark-next-like-this ()
+(defun fri3nds/my-mc-mark-next-like-this ()
   (interactive)
   (if (region-active-p)
       (mc/mark-next-like-this 1)
@@ -448,7 +242,7 @@ With PREFIX, cd to project root."
 (defun my-erc-hook (match-type nick message)
   "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
   (unless (posix-string-match "^\\** *Users on #" message)
-    (zilongshanren/growl-notification
+    (fri3nds/growl-notification
      (concat "ERC: : " (buffer-name (current-buffer)))
      message
      t
@@ -488,7 +282,7 @@ With PREFIX, cd to project root."
 (defun my-open-file-in-external-app (file)
   "Open file in external application."
   (interactive)
-  (let ((default-directory (zilongshanren/git-project-root))
+  (let ((default-directory (fri3nds/git-project-root))
         (file-path file))
     (if file-path
         (cond
@@ -534,7 +328,7 @@ With PREFIX, cd to project root."
               :action 'my-find-file-in-git-repo
               :caller 'counsel-find-file-recent-directory)))
 
-(defun zilongshanren/magit-visit-pull-request ()
+(defun fri3nds/magit-visit-pull-request ()
   "Visit the current branch's PR on GitHub."
   (interactive)
   (let ((remote-branch (magit-get-current-branch)))
@@ -551,7 +345,7 @@ With PREFIX, cd to project root."
                            "url"))
                remote-branch))))))
 
-(defun zilongshanren/markdown-to-html ()
+(defun fri3nds/markdown-to-html ()
   (interactive)
   (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name) "5000")
   (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))
@@ -577,44 +371,3 @@ Error out if this isn't a GitHub repo."
                  commit)))
     (browse-url url)
     (git-messenger:popup-close)))
-
-
-;; (defun sound2gd//path-at-cursor ()
-;;   "获取当前光标下的路径"
-;;   (if (use-region-p) ;; 如果有选中
-;;       (buffer-substring-no-properties (region-beginning) (region-end))
-;;     ;; 无选中
-;;     (let ($p0 $p1 $p2 ($pathStops "^  \t\n\"`'‘’“”|()[]{}「」<>〔〕〈〉《》【】〖〗«»‹›❮❯❬❭·。\\"))
-;;       (setq $p0 (point))
-;;       (skip-chars-backward $pathStops)
-;;       (setq $p1 (point))
-;;       (goto-char $p0)
-;;       (skip-chars-forward $pathStops)
-;;       (setq $p2 (point))
-;;       (goto-char $p0)
-;;       (buffer-substring-no-properties $p1 $p2)
-;;       )))
-
-
-;; (defun sound2gd/open-file-at-cursor ()
-;;   "打开光标下的文件"
-;;   (interactive)
-;;   (let* (($inputStr (sound2gd//path-at-cursor))
-;;          ($path (replace-regexp-in-string "^file:///" "/" (replace-regexp-in-string "://'" "" $inputStr))))
-;;     (message "当前获取到path: %s" $path)
-;;     (if (string-match-p "\\`https?://" $path) (browse-url $path)
-;;       (progn
-;;         (if (string-match "^\\`\\(.+?\\):\\([0-9]+\\)\\'" $path)
-;;             (let (($fpath (match-string 1 $path))
-;;                   ($line-num (string-to-number (match-string 2 $path))))
-;;               (if (file-exists-p $fpath)
-;;                   (progn
-;;                     (find-file $fpath)
-;;                     (goto-char 1)
-;;                     (forward-line (1- $line-num)))
-;;                 (when (y-or-n-p (format "文件: 「%s」不存在. 是否创建?" $fpath))
-;;                   (find-file $fpath))))
-;;           (if (file-exists-p $path)
-;;               (find-file $path)
-;;             (when (y-or-n-p (format "文件: 「%s」不存在. 是否创建?" $path))
-;;               (find-file $path))))))))

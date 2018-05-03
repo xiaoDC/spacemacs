@@ -26,7 +26,7 @@
 
   (setq indent-tabs-mode nil))
 
-(defun zilongshanren/load-yasnippet ()
+(defun fri3nds/load-yasnippet ()
   (interactive)
   (unless yas-global-mode
     (progn

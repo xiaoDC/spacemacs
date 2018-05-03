@@ -32,14 +32,33 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
     '(
-       ;; python
-       yaml
-       ;; nginx
+       ;; (c-c++ :variables
+       ;;        c-c++-default-mode-for-headers 'c++-mode)
+       ;; clojure
+       (clojure :variables clojure-enable-fancify-symbols nil)
+       ;; elm
+       emacs-lisp
        ;; javascript
+       (go :variables
+         go-tab-width 2)
+       ;; haskell
+       html
+       ;; lua
+       ;; nginx
+       ;; (python :variables
+       ;;         python-test-runner '(nose pytest))
+       ;; racket
+       ;; react
+       ;; (ruby :variables ruby-version-manager 'chruby)
+       ;; ruby-on-rails
+       ;; rust
+       ;; (shell :variables shell-default-shell 'eshell)
        sql
-       haskell
-       elm
+       typescript
+       ;; yaml
        ivy
+
+       ;; gpu
        ;; better-defaults
        ;; ranger
        ;; colors
@@ -53,9 +72,6 @@ values."
        (spacemacs-layouts :variables layouts-enable-autosave nil
          layouts-autosave-delay 3000)
 
-       (go :variables
-         go-tab-width 2)
-
        (git :variables
          git-magit-status-fullscreen t
          magit-push-always-verify nil
@@ -68,7 +84,6 @@ values."
        (ibuffer :variables ibuffer-group-buffers-by 'projects)
 
        (auto-completion :variables
-         ;; spacemacs-default-company-backends '(company-files company-capf)
          auto-completion-enable-sort-by-usage t
          auto-completion-enable-snippets-in-popup t
          :disabled-for org markdown)
@@ -77,31 +92,16 @@ values."
          osx-command-as 'super)
        ;; restclient
        ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
-       ;; (shell :variables shell-default-shell 'eshell)
        ;; docker
        ;; latex
        ;; deft
        markdown
-       org
        ;; (org :variables org-want-todo-bindings t)
-       ;; gpu
-       ;; yaml
-       ;; react
-       ;; (python :variables
-       ;;         python-test-runner '(nose pytest))
-       ;; (ruby :variables ruby-version-manager 'chruby)
-       ;; ruby-on-rails
-       ;; lua
-       html
-       typescript
-       emacs-lisp
-       clojure
-       ;; (clojure :variables clojure-enable-fancify-symbols t)
-       ;; racket
-       ;; (c-c++ :variables
-       ;;        c-c++-default-mode-for-headers 'c++-mode)
+       (org :variables
+         org-want-todo-bindings t
+         org-enable-reveal-js-support t)
 
-       zilongshanren
+       fri3nds
        ;; (chinese :packages youdao-dictionary fcitx
        ;;   :variables chinese-enable-fcitx nil
        ;;   chinese-enable-youdao-dict t)
@@ -123,14 +123,20 @@ values."
                                         ;; spacemacs-dark
                                         ;; spacemacs-light
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
+                                        ;; (reason-mode :location (recipe :fetcher github :repo "reasonml-editor/reason-mode" :stable t))
                                         (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
                                         (carbon-now-sh :location (recipe :fetcher github :repo "veelenga/carbon-now-sh.el"))
                                         ;; tide
                                         hierarchy
                                         string-inflection
-                                        git-gutter+
+                                        ;; git-gutter
+                                        ;; git-gutter+
                                         neotree
-                                        js-doc
+                                        ;; rainbow-delimiters
+                                        rainbow-mode
+                                        ;; ox-reveal
+                                        ;; org-reveal
+                                        ;; js-doc
                                         ;; soothe-theme
                                         ;; material-theme
                                         ;; ample-theme
@@ -143,34 +149,39 @@ values."
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
    '(magit-gh-pulls magit-gitflow org-projectile evil-mc realgud
-                    evil-args evil-ediff evil-exchange evil-unimpaired
-                    evil-indent-plus volatile-highlights smartparens
-                    spaceline holy-mode skewer-mode rainbow-delimiters
-                    highlight-indentation vi-tilde-fringe eyebrowse
-                    anaconda
-                    ;; org-bullets
-                    org-repo-todo
-                    org-download
-                    flycheck
-                    js-mode
-                    ;; js2-mode
-                    ;; company
-                    org-timer
-                    org-pomodoro
-                    org-brain
-                    org-plus-contrib
-                    livid-mode git-gutter git-gutter-fringe  evil-escape
-                    leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
-                    ac-ispell ace-jump-mode auto-complete auto-dictionary
-                    clang-format define-word google-translate disaster epic
-                    fancy-battery org-present orgit orglue spacemacs-theme
-                    helm-flyspell flyspell-correct-helm clean-aindent-mode
-                    helm-c-yasnippet ace-jump-helm-line helm-make magithub
-                    helm-themes helm-swoop helm-spacemacs-help smeargle
-                    ido-vertical-mode flx-ido company-quickhelp counsel-projectile
-                    window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
-                    ac-ispell 2048-game 4clojure tide
-                    )
+      evil-args evil-ediff evil-exchange evil-unimpaired
+      evil-indent-plus volatile-highlights smartparens
+      spaceline holy-mode skewer-mode
+      ;; rainbow-delimiters
+      highlight-indentation vi-tilde-fringe eyebrowse
+      anaconda
+      lispy
+      flycheck-gometalinter
+      ;; org-bullets
+      ;; org-repo-todo
+      ;; org-download
+      flycheck
+      js-mode
+      ;; js2-mode
+      ;; company
+      ;; org-timer
+      ;; org-pomodoro
+      ;; org-brain
+      ;; org-plus-contrib
+      livid-mode
+      git-gutter
+      git-gutter-fringe  evil-escape
+      leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
+      ac-ispell ace-jump-mode auto-complete auto-dictionary
+      clang-format define-word google-translate disaster epic
+      fancy-battery org-present orgit orglue spacemacs-theme
+      helm-flyspell flyspell-correct-helm clean-aindent-mode
+      helm-c-yasnippet ace-jump-helm-line helm-make magithub
+      helm-themes helm-swoop helm-spacemacs-help smeargle
+      ido-vertical-mode flx-ido company-quickhelp counsel-projectile
+      window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
+      ac-ispell 2048-game 4clojure tide
+      )
    dotspacemacs-install-packages 'used-only
    dotspacemacs-delete-orphan-packages t))
 
@@ -238,8 +249,8 @@ values."
     dotspacemacs-themes '(
                            ;; spacemacs-light
                            ;; doom-tomorrow-night
-                           doom-peacock
                            solarized-dark
+                           doom-peacock
                            spacemacs-dark
                            solarized-light
                            )
@@ -271,13 +282,13 @@ values."
                                  ;; :size 15
 
                                  ;; "Fira Code"
-                                 ;; :size 15
+                                 ;; :size 17
 
                                  "PT Mono"
-                                 :size 15
+                                 :size 16
 
                                  ;; "Hack"
-                                 ;; :size 15
+                                 ;; :size 16
 
                                  ;; "InconsolataGo Nerd Font"
                                  ;; "Inconsolata"
@@ -324,10 +335,10 @@ values."
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
    ;; Name of the default layout (default "Default")
-   dotspacemacs-default-layout-name "fri3nds"
+    dotspacemacs-default-layout-name "fri3nds"
    ;; If non nil the default layout name is displayed in the mode-line.
    ;; (default nil)
-   dotspacemacs-display-default-layout nil
+   dotspacemacs-display-default-layout t
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
    dotspacemacs-auto-resume-layouts nil
@@ -408,7 +419,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    ;; dotspacemacs-folding-method 'origami
@@ -466,6 +477,9 @@ values."
   )
 
 (defun dotspacemacs/user-config ()
+  (setq save-abbrevs nil)
+  ;; (setq racer-rust-src-path "/Users/fri3nds/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")
+
   ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
@@ -482,44 +496,46 @@ values."
         (font-spec :family "Microsoft Yahei" :size 14))))
 
   (fset 'evil-visual-update-x-selection 'ignore)
+  (setq org-default-notes-file "/Users/fri3nds/org/notes.org")
 
 
-  (when (window-system)
-    (set-default-font "Fira Code"))
-  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-                  (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-                  (36 . ".\\(?:>\\)")
-                  (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-                  (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-                  (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-                  (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-                  (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-                  (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-                  (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-                  (48 . ".\\(?:x[a-zA-Z]\\)")
-                  (58 . ".\\(?:::\\|[:=]\\)")
-                  (59 . ".\\(?:;;\\|;\\)")
-                  (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-                  (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-                  (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-                  (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-                  (91 . ".\\(?:]\\)")
-                  (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-                  (94 . ".\\(?:=\\)")
-                  (119 . ".\\(?:ww\\)")
-                  (123 . ".\\(?:-\\)")
-                  (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-                  (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-                  )
-          ))
-    (dolist (char-regexp alist)
-      (set-char-table-range composition-function-table (car char-regexp)
-        `([,(cdr char-regexp) 0 font-shape-gstring]))))
+  ;; (when (window-system)
+  ;;  (set-default-font "Fira Code"))
+
+  ;; (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+  ;;                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+  ;;                 (36 . ".\\(?:>\\)")
+  ;;                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+  ;;                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+  ;;                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+  ;;                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+  ;;                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+  ;;                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+  ;;                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+  ;;                 (48 . ".\\(?:x[a-zA-Z]\\)")
+  ;;                 (58 . ".\\(?:::\\|[:=]\\)")
+  ;;                 (59 . ".\\(?:;;\\|;\\)")
+  ;;                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+  ;;                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+  ;;                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+  ;;                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+  ;;                 (91 . ".\\(?:]\\)")
+  ;;                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+  ;;                 (94 . ".\\(?:=\\)")
+  ;;                 (119 . ".\\(?:ww\\)")
+  ;;                 (123 . ".\\(?:-\\)")
+  ;;                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+  ;;                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+  ;;                 )
+  ;;         ))
+  ;;   (dolist (char-regexp alist)
+  ;;     (set-char-table-range composition-function-table (car char-regexp)
+  ;;       `([,(cdr char-regexp) 0 font-shape-gstring]))))
+
 
   (add-hook 'helm-major-mode-hook
     (lambda ()
       (setq auto-composition-mode nil)))
-
 
 
 
@@ -529,7 +545,7 @@ values."
   (global-linum-mode 1)
   ;; (linum-relative-on)
   (setq-default line-spacing 4)
-  (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
+  ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
   ;; (spacemacs|add-company-backends :modes text-mode)
   ;; (add-hook 'after-init-hook 'global-company-mode)
@@ -560,286 +576,12 @@ values."
 
   ;; (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
 
-  ;; https://github.com/syl20bnr/spacemacs/issues/7749
-  (defun spacemacs/ivy-persp-switch-project (arg)
-    (interactive "P")
-    (ivy-read "Switch to Project Perspective: "
-      (if (projectile-project-p)
-        (cons (abbreviate-file-name (projectile-project-root))
-          (projectile-relevant-known-projects))
-        projectile-known-projects)
-      :action (lambda (project)
-                (let ((persp-reset-windows-on-nil-window-conf t))
-                  (persp-switch project)
-                  (let ((projectile-completion-system 'ivy)
-                         (old-default-directory default-directory))
-                    (projectile-switch-project-by-name project)
-                    (setq default-directory old-default-directory))))))
-
-
-
-  ;; (load-theme 'sanityinc-tomorrow-night t)
-  ;; (load-theme 'soothe t)
-  ;; (load-theme 'alect-black-alt t)
-
-
-  (defun kill-all-buffers ()
-    (interactive)
-    (mapc 'kill-buffer(buffer-list)))
-
-
-  (defun fri3nds-neotree-toggle ()
-    (interactive)
-    (if (neo-global--window-exists-p)
-      (neotree-hide)
-      (neotree-find-project-root)))
-
-
-
-  ;; http://wenshanren.org/?p=327
-  ;; thanks to the author
-  (defun org-insert-src-block (src-code-type)
-    "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
-    (interactive
-      (let ((src-code-types
-              '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
-                 "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
-                 "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
-                 "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-                 "scheme" "sqlite")))
-        (list (ido-completing-read "Source code type: " src-code-types))))
-    (progn
-      (newline-and-indent)
-      (insert (format "#+BEGIN_SRC %s\n" src-code-type))
-      (newline-and-indent)
-      (insert "#+END_SRC\n")
-      (previous-line 2)
-      (org-edit-src-code)))
-
-
-  (defun toggle-string-case (str)
-    (let ((upper-str (upcase str)))
-      (if (string= upper-str str)
-        (downcase str)
-        upper-str)))
-
-
-  (defun upper-first-char-of-word-at-point ()
-    (interactive)
-    (let ((str (thing-at-point 'word))
-           (bounds (bounds-of-thing-at-point 'word)))
-      (when (and str (> (length str) 0))
-        (let ((first-char (substring str nil 1))
-               (rest-str (substring str 1)))
-          (delete-region (car bounds) (cdr bounds))
-          (insert (concat (toggle-string-case first-char) rest-str))))))
-
-
-
-  (defun last-index-of (regex str &optional ignore-case)
-    (let ((start 0)
-           (case-fold-search ignore-case)
-           idx)
-      (while (string-match regex str start)
-        (setq idx (match-beginning 0))
-        (setq start (match-end 0)))
-      idx))
-
-  (defun copy-string-to-clipboard (str)
-    (when str
-      (progn
-        (kill-new str)
-        (message "Copied buffer file name '%s' to the clipboard." str))))
-
-  (defun just-get-buffer-file-the-name ()
-    (interactive)
-    (let ((bf (or (buffer-file-name) list-buffers-directory)))
-      (if bf
-        (copy-string-to-clipboard (file-name-sans-extension
-                                    (substring bf
-                                      (+ 1 (last-index-of "/" bf)))))
-        (message "buffer-file-name not exist"))))
-
-
-  ;; 已经有了 SPC b K
-  (defun neotree-project-dir ()
-    "Open NeoTree using the git root."
-    (interactive)
-    (if (neo-global--window-exists-p)
-      (neotree-find (buffer-file-name))
-      (neotree-find-project-root)
-      ))
-
-
-  (defun revert-all-buffers ()
-    "Refreshes all open buffers from their respective files."
-    (interactive)
-    (dolist (buf (buffer-list))
-      (with-current-buffer buf
-        (when (and (buffer-file-name) (file-exists-p (buffer-file-name)) (not (buffer-modified-p)))
-          (revert-buffer t t) t)))
-    ;; (neo-buffer-refresh)
-    ;; (neotree-project-dir)
-    (message "Refreshed open files.") )
-
-
-
-  (defcustom use-chinese-word-segmentation nil
-    "If Non-nil, support Chinese word segmentation(中文分词).
-    See URL `https://github.com/xuchunyang/chinese-word-at-point.el' for more info."
-    :type 'boolean)
-
-  (defun my-region-or-word ()
-    "Return word in region or word at point."
-    (if (use-region-p)
-      (buffer-substring-no-properties (region-beginning)
-        (region-end))
-      (thing-at-point (if use-chinese-word-segmentation
-                        'chinese-or-other-word
-                        'word) t)))
-
-  (defun my-prompt-input ()
-    "Prompt input object for translate."
-    (let ((current-word (my-region-or-word)))
-      (read-string (format "Word (%s): "
-                     (or current-word ""))
-        nil nil
-        current-word)))
-
-  (defun search-google-symbol ()
-    "google搜索当前选中或者停留的字符"
-    (interactive)
-    (let ((sym (my-prompt-input)))
-      (engine/search-google sym)))
-
-
-  (defun kill-other-buffers (&optional arg)
-    "Kill all other buffers.
-If the universal prefix argument is used then will the windows too."
-    (interactive "P")
-    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-    (when (equal '(4) arg) (delete-other-windows))
-    (message (format "Killing all buffers except -- \"%s\" "
-               (buffer-name))))
-
 
   ;; https://emacs-china.org/t/topic/4627
-  (defun fri3nds-git-tree ()
-    (interactive)
-    (require 'hierarchy)
-    (let ((files (split-string
-                   (shell-command-to-string "git ls-files -z")
-                   (string 0) t))
-           (hierarchy (hierarchy-new)))
-      ;; Fill the hierarchy
-      (hierarchy-add-trees
-        hierarchy
-        ;; Set . as the root since tree-widget.el requires only one root
-        (mapcar (lambda (f) (concat "./" f)) files)
-        (lambda (f)
-          "Return parent directory of F."
-          (if (directory-name-p f)
-            (file-name-directory (directory-file-name f))
-            (file-name-directory f))))
-      ;; Draw the hierarchy
-      (switch-to-buffer
-        (hierarchy-tree-display
-          hierarchy
-          (lambda (f _)
-            "Insert basename of F."
-            (insert
-              (if (directory-name-p f)
-                (file-name-nondirectory (directory-file-name f))
-                (file-name-nondirectory f))))))
-      ;; Unfold
-      (goto-char (point-min))
-      (while (progn (widget-button-press (point))
-               (widget-forward 1)
-               (/= (point) (point-min))))))
-
   ;; (setq yas-snippet-dirs
   ;;   '(
   ;;      "~/.emacssnippets/snippets/"
   ;;      "~/.emacs.d/layers/+completion/auto-completion/local/snippets"))
-
-
-  (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
-  (spacemacs/set-leader-keys "ag" 'helm-ag)
-  (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
-  (spacemacs/set-leader-keys "bb" 'helm-recentf)
-  (spacemacs/set-leader-keys "bc" 'erase-buffer)
-  (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
-  (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
-  (spacemacs/set-leader-keys "br" 'revert-all-buffers)
-  (spacemacs/set-leader-keys "by" 'just-get-buffer-file-the-name)
-  (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
-  (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
-  (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
-
-  (spacemacs/set-leader-keys "dd" 'dired-jump)
-  (spacemacs/set-leader-keys "df" 'magit-diff-buffer-file)
-  (spacemacs/set-leader-keys "dt" 'magit-diff-working-tree)
-
-  ;; (spacemacs/set-leader-keys "ee" 'git-gutter+-next-hunk)
-
-  (spacemacs/set-leader-keys "ff" 'helm-find-files)
-  (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
-  (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
-
-  (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
-  (spacemacs/set-leader-keys "jh" 'ibuffer)
-  (spacemacs/set-leader-keys "kk" 'projectile-find-file)
-
-
-  (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
-  (spacemacs/set-leader-keys "hh" 'previous-buffer)
-  (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
-  (spacemacs/set-leader-keys "ii" 'evilnc-comment-or-uncomment-lines)
-  (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
-  (spacemacs/set-leader-keys "nn" 'next-buffer)
-  (spacemacs/set-leader-keys "ng" 'search-google-symbol)
-
-
-  (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
-  (spacemacs/set-leader-keys "si" 'org-insert-src-block)
-  (spacemacs/set-leader-keys "sl" 'helm-resume)
-  (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
-  ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
-  (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
-  (spacemacs/set-leader-keys "tl" 'linum-mode)
-
-  (spacemacs/set-leader-keys "wo" 'delete-other-windows)
-  (spacemacs/set-leader-keys "xx" 'backward-up-list)
-  (spacemacs/set-leader-keys "xz" 'up-list)
-
-  (spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
-  (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
-
-
-
-
-  (global-set-key (kbd "s-y") 'redo)
-
-  (define-key evil-normal-state-map (kbd "L") 'evil-last-non-blank)
-  (define-key evil-visual-state-map (kbd "L") 'evil-last-non-blank)
-  ;; evil-last-non-blank
-
-  ;; (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
-  ;; (define-key evil-insert-state-map (kbd "C-a") 'evil-insert-line)
-
-  (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
-  (define-key evil-visual-state-map (kbd "H") 'evil-beginning-of-line)
-
-  (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
-
-  (global-set-key (kbd "s-i") 'string-inflection-toggle)
-  (global-set-key (kbd "s-j") 'avy-goto-char)
-  (global-set-key (kbd "s-u") 'upper-first-char-of-word-at-point)
-
-  (global-set-key (kbd "<S-up>") 'shrink-window)
-  (global-set-key (kbd "<S-down>") 'enlarge-window)
-  (global-set-key (kbd "<S-left>") 'shrink-window-horizontally)
-  (global-set-key (kbd "<S-right>") 'enlarge-window-horizontally)
 
 
   ;; (typescript-mode)
@@ -855,13 +597,15 @@ If the universal prefix argument is used then will the windows too."
     (abbrev-mode 1)
     ;; (blank-mode t)
     ;; (global-company-mode)
-    (highlight-indent-guides-mode 1)
+    ;; (highlight-indent-guides-mode 1)
+
     ;; (fci-mode 1)
     (editorconfig-mode 1)
     )
 
-  (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-auto-character-face-perc 3)
+  (setq highlight-indent-guides-method 'character)
+
 
 
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . typescript-mode))
@@ -875,6 +619,7 @@ If the universal prefix argument is used then will the windows too."
   (setq neo-theme 'icons)
   (setq neo-vc-integration (quote (char)))
   (setq neo-window-position 'left)
+
   ;; (setq company-backends-typescript-mode '(
   ;;                                           company-yasnippet
   ;;                                           company-dabbrev-code
@@ -886,18 +631,16 @@ If the universal prefix argument is used then will the windows too."
   ;;                                           ))
   (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
-
-  (setq company-dabbrev-code-everywhere t)
-  (setq company-dabbrev-code-modes t)
-  (setq company-dabbrev-code-other-buffers 'all)
-  (setq company-dabbrev-ignore-buffers "\\`\\'")
-
   (with-eval-after-load 'company
     (add-to-list 'company-backends '(
                                       company-files
                                       company-capf :with company-dabbrev
                                       )))
 
+  (setq company-dabbrev-code-everywhere t)
+  (setq company-dabbrev-code-modes t)
+  (setq company-dabbrev-code-other-buffers 'all)
+  (setq company-dabbrev-ignore-buffers "\\`\\'")
 
   (with-eval-after-load 'neotree
     (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
@@ -921,10 +664,25 @@ If the universal prefix argument is used then will the windows too."
   (setq yas-indent-line 'fixed)
 
 
-  ;; 设置 git-gutter
-  ;; (global-git-gutter+-mode)
+  ;; (custom-set-faces
+  ;;   (set-face-background 'git-gutter+-modified "yellow") ;; background color
+  ;;   (set-face-foreground 'git-gutter+-added "green")
+  ;;   (set-face-foreground 'git-gutter+-deleted "DarkRed"))
+
   ;; (custom-set-variables
-  ;;   '(git-gutter:visual-line t))
+  ;;   ;; 设置 git-gutter
+  ;;   '(git-gutter+-window-width 6)
+  ;;   '(git-gutter+-modified-sign " ")
+  ;;   '(git-gutter+-added-sign " ")
+  ;;   '(git-gutter+-deleted-sign " ")
+  ;;   ;; ︴‖︳|┆┃║┇
+  ;;   ;; '(git-gutter+:modified-sign nil)
+  ;;   ;; '(git-gutter+:added-sign nil)
+  ;;   ;; '(git-gutter+:deleted-sign nil)
+  ;;   ;; '(git-gutter+:visual-line nil)
+  ;;   '(git-gutter:update-interval 0))
+
+  ;; (global-git-gutter+-mode)
 
 
 
@@ -1022,7 +780,6 @@ If the universal prefix argument is used then will the windows too."
                "%b"))))
 
 
-
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
@@ -1040,10 +797,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages '(evil-unimpaired f s dash)))
+
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  )
 )
