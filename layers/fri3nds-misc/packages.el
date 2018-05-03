@@ -18,7 +18,6 @@
         persp-mode
         tiny
         ;; smartparens
-        flyspell-correct
         peep-dired
         markdown-mode
         swiper
@@ -300,9 +299,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (kbd "q") 'quit-window)
 
       (spacemacs/set-leader-keys
-        ;; helm-ag marks
-        "s`"  'helm-ag-pop-stack
-        ;; opened buffers scope
         "sb"  'spacemacs/helm-buffers-smart-do-search
         "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
         "sab" 'helm-do-ag-buffers
@@ -320,7 +316,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "sf"  'spacemacs/helm-files-smart-do-search
         "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
         "saf" 'helm-do-ag
-        "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
         "skf" 'spacemacs/helm-files-do-ack
         "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
         "stf" 'spacemacs/helm-files-do-pt
@@ -355,12 +350,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :bind (:map dired-mode-map
                 ("P" . peep-dired))))
 
-
-(defun fri3nds-misc/post-init-flyspell-correct ()
-  (progn
-    (with-eval-after-load 'flyspell
-      (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic))
-    (setq flyspell-correct-interface 'flyspell-correct-ivy)))
 
 (defun fri3nds-misc/post-init-smartparens ()
   (use-package smartparens
