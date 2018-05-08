@@ -47,6 +47,7 @@ e.g. Sunday, September 17, 2000."
            message
            (if sticky "yes" "no"))))
 
+
 (defun fri3nds/growl-timer (minutes message)
   "Issue a Growl notification after specified minutes"
   (interactive (list (read-from-minibuffer "Minutes: " "10")
@@ -57,6 +58,7 @@ e.g. Sunday, September 17, 2000."
                  (fri3nds/growl-notification "Emacs Reminder" message t))
                minutes
                message))
+
 
 (defun fri3nds/goto-match-paren (arg)
   "Go to the matching  if on (){}[], similar to vi style of % "
@@ -69,11 +71,13 @@ e.g. Sunday, September 17, 2000."
         ((looking-back "[\[\(\{]" 1) (backward-char) (evil-jump-item))
         (t nil)))
 
+
 (defun fri3nds/hidden-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
+
 
 (defun fri3nds/remove-dos-eol ()
   "Replace DOS eolns CR LF with Unix eolns CR"
@@ -81,10 +85,12 @@ e.g. Sunday, September 17, 2000."
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
 
+
 (defun fri3nds/insert-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
   (interactive)
   (insert (fri3nds/retrieve-chrome-current-tab-url)))
+
 
 (defun fri3nds/retrieve-chrome-current-tab-url()
   "Get the URL of the active tab of the first window"
@@ -112,6 +118,7 @@ e.g. Sunday, September 17, 2000."
     (replace-match "\n")
     (forward-char 1)))
 
+
 ;; for running long run ansi-term
 (defun fri3nds/named-term (name)
   (interactive "sName: ")
@@ -133,6 +140,7 @@ e.g. Sunday, September 17, 2000."
       (interactive)
       (term-send-raw-string (current-kill 0)))))
 
+
 (defun fri3nds/terminal ()
   "Switch to terminal. Launch if nonexistent."
   (interactive)
@@ -143,16 +151,23 @@ e.g. Sunday, September 17, 2000."
       (ansi-term "/bin/zsh")))
   (get-buffer-process "*ansi-term*"))
 
+
 (defalias 'tt 'fri3nds/terminal)
+
 
 ;;add count for chinese, mainly used for writing chinese blog post
 ;; http://kuanyui.github.io/2014/01/18/count-chinese-japanese-and-english-words-in-emacs/
 (defvar wc-regexp-chinese-char-and-punc
   (rx (category chinese)))
+
+
 (defvar wc-regexp-chinese-punc
   "[。，！？；：「」『』（）、【】《》〈〉※—]")
+
+
 (defvar wc-regexp-english-word
   "[a-zA-Z0-9-]+")
+
 
 (defun fri3nds/word-count-for-chinese ()
   "「較精確地」統計中/日/英文字數。
@@ -202,6 +217,7 @@ e.g. Sunday, September 17, 2000."
              chinese-char chinese-char-and-punc english-word
              (+ chinese-char english-word)))))
 
+
 ;; (defun fri3nds/evil-quick-replace (beg end )
 ;;   (interactive "r")
 ;;   (when (evil-visual-state-p)
@@ -212,6 +228,7 @@ e.g. Sunday, September 17, 2000."
 ;;           (lambda () (backward-char 2))
 ;;         (evil-ex command-string)))))
 
+
 (defun fri3nds/git-project-root ()
   "Return the project root for current buffer."
   (let ((directory default-directory))
@@ -220,6 +237,7 @@ e.g. Sunday, September 17, 2000."
 
 (defadvice persp-switch (after my-quit-helm-perspectives activate)
   (setq hydra-deactivate t))
+
 
 (defun fri3nds/my-mc-mark-next-like-this ()
   (interactive)
@@ -234,10 +252,12 @@ e.g. Sunday, September 17, 2000."
   (backward-char)
   (sp-forward-slurp-sexp))
 
+
 (defun evil-paste-after-from-0 ()
   (interactive)
   (let ((evil-this-register ?0))
     (call-interactively 'evil-paste-after)))
+
 
 (defun my-erc-hook (match-type nick message)
   "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
@@ -248,12 +268,14 @@ e.g. Sunday, September 17, 2000."
      t
      )))
 
+
 (defun my-swiper-search (p)
   (interactive "P")
   (let ((current-prefix-arg nil))
     (call-interactively
      (if p #'spacemacs/swiper-region-or-symbol
        #'counsel-grep-or-swiper))))
+
 
 (defun ivy-ff-checksum ()
   (interactive)
@@ -267,8 +289,10 @@ e.g. Sunday, September 17, 2000."
                 (secure-hash algo (current-buffer))))
     (message "Checksum copied to kill-ring.")))
 
+
 (defun ivy-ff-checksum-action (x)
   (ivy-ff-checksum))
+
 
 (defun my-find-file-in-git-repo (repo)
   (if (file-directory-p repo)
@@ -278,6 +302,7 @@ e.g. Sunday, September 17, 2000."
                   :action 'find-file
                   :caller 'my-find-file-in-git-repo))
     (message "%s is not a valid directory." repo)))
+
 
 (defun my-open-file-in-external-app (file)
   "Open file in external application."
@@ -292,13 +317,16 @@ e.g. Sunday, September 17, 2000."
                                         (start-process "" nil "xdg-open" file-path))))
       (message "No file associated to this buffer."))))
 
+
 (defun ivy-insert-action (x)
   (with-ivy-window
     (insert x)))
 
+
 (defun ivy-kill-new-action (x)
   (with-ivy-window
     (kill-new x)))
+
 
 (defun counsel-goto-recent-directory ()
   "Recent directories"
@@ -314,6 +342,7 @@ e.g. Sunday, September 17, 2000."
               :action 'dired
               :caller 'counsel-goto-recent-directory)))
 
+
 (defun counsel-find-file-recent-directory ()
   "Find file in recent git repository."
   (interactive)
@@ -327,6 +356,7 @@ e.g. Sunday, September 17, 2000."
     (ivy-read "directories:" collection
               :action 'my-find-file-in-git-repo
               :caller 'counsel-find-file-recent-directory)))
+
 
 (defun fri3nds/magit-visit-pull-request ()
   "Visit the current branch's PR on GitHub."

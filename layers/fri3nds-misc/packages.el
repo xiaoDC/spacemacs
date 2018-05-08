@@ -767,7 +767,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (add-to-list 'projectile-other-file-alist '("html" "js"))
         (add-to-list 'projectile-other-file-alist '("js" "html"))))
 
-    (defvar my-simple-todo-regex "\\<\\(FIXME\\|TODO\\|BUG\\):")
+    (defvar my-simple-todo-regex "\\(FIXME\\|TODO\\|BUG\\)")
 
     (defun my-simple-todo ()
       "When in a project, create a `multi-occur' buffer matching the
@@ -777,7 +777,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       (if (projectile-project-p)
           (multi-occur (projectile-project-buffers) my-simple-todo-regex)
         (occur my-simple-todo-regex)))
-    (spacemacs/set-leader-keys "kk" 'fri3nds/open-file-with-projectile-or-counsel-git)
+
+    (spacemacs/set-leader-keys "ki" 'fri3nds/open-file-with-projectile-or-counsel-git)
     (spacemacs/set-leader-keys "kt" 'my-simple-todo)))
 
 

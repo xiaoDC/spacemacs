@@ -45,8 +45,7 @@
  '(org-log-into-drawer t)
  '(org-pomodoro-play-sounds nil)
  '(org-reverse-note-order t)
- '(package-selected-packages
-   '())
+ '(package-selected-packages nil)
  '(paradox-github-token t)
  '(ring-bell-function 'ignore)
  '(sp-show-pair-from-inside t)

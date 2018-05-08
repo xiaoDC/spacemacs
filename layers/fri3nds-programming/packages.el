@@ -14,7 +14,6 @@
 
 (setq fri3nds-programming-packages
       '(
-        css-mode
         paredit
         lispy
         ;; cmake-font-lock
@@ -24,12 +23,8 @@
         ;; (nodejs-repl-eval :location local)
         ;; js2-mode
         ;; js2-refactor
-        json-mode
-        racket-mode
         yasnippet
-        web-mode
         ;; js-doc
-        lua-mode
         ;; (cc-mode :location built-in)
         ;; flycheck-clojure
         ;; etags-select
@@ -40,40 +35,9 @@
         (eldoc :location built-in)
         dumb-jump
         graphviz-dot-mode
-        cider
         ;; editorconfig
-        robe
         ))
 
-(defun fri3nds-programming/post-init-robe ()
-  (progn
-    (add-hook 'inf-ruby-mode-hook 'spacemacs/toggle-auto-completion-on)
-    (defun fri3nds/ruby-send-current-line (&optional print)
-      "Send the current line to the inferior Ruby process."
-      (interactive "P")
-      (ruby-send-region
-       (line-beginning-position)
-       (line-end-position))
-      (when print (ruby-print-result)))
-
-    (defun fri3nds/ruby-send-current-line-and-go ()
-      (interactive)
-      (fri3nds/ruby-send-current-line)
-      (ruby-switch-to-inf t))
-
-    (defun fri3nds/start-inf-ruby-and-robe ()
-      (interactive)
-      (when (not (get-buffer "*ruby*"))
-        (inf-ruby))
-      (robe-start))
-
-    (dolist (mode '(ruby-mode enh-ruby-mode))
-      (spacemacs/set-leader-keys-for-major-mode mode
-        "sb" 'ruby-send-block
-        "sB" 'ruby-send-buffer
-        "sl" 'fri3nds/ruby-send-current-line
-        "sL" 'fri3nds/ruby-send-current-line-and-go
-        "sI" 'fri3nds/start-inf-ruby-and-robe))))
 
 (defun fri3nds-programming/init-editorconfig ()
   (use-package editorconfig
@@ -85,28 +49,12 @@
             (editorconfig-apply)))
       (add-hook 'prog-mode-hook 'conditional-enable-editorconfig))))
 
-(defun fri3nds-programming/post-init-cider ()
-  (setq cider-cljs-lein-repl
-        "(do (require 'figwheel-sidecar.repl-api)
-           (figwheel-sidecar.repl-api/start-figwheel!)
-           (figwheel-sidecar.repl-api/cljs-repl))")
-
-  (defun fri3nds/cider-figwheel-repl ()
-    (interactive)
-    (save-some-buffers)
-    (with-current-buffer (cider-current-repl-buffer)
-      (goto-char (point-max))
-      (insert "(require 'figwheel-sidecar.repl-api)
-             (figwheel-sidecar.repl-api/start-figwheel!) ; idempotent
-             (figwheel-sidecar.repl-api/cljs-repl)")
-      (cider-repl-return)))
-
-  (global-set-key (kbd "C-c C-f") #'fri3nds/cider-figwheel-repl))
 
 (defun fri3nds-programming/post-init-graphviz-dot-mode ()
   (with-eval-after-load 'graphviz-dot-mode
       (require 'company-keywords)
       (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)))
+
 
 (defun fri3nds-programming/post-init-dumb-jump ()
   (setq dumb-jump-selector 'ivy)
@@ -116,23 +64,16 @@
     (dumb-jump-go))
   (global-set-key (kbd "C-s-g") 'my-dumb-jump))
 
-(defun fri3nds-programming/post-init-clojure-mode ()
-  )
 
 (defun fri3nds-programming/post-init-emacs-lisp ()
     (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
+
 
 (defun fri3nds-programming/post-init-python ()
   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; if you use pyton3, then you could comment the following line
   (setq python-shell-interpreter "python"))
 
-(defun fri3nds-programming/init-ctags-update ()
-  (use-package ctags-update
-    :init
-    :defer t
-    :config
-    (spacemacs|hide-lighter ctags-auto-update-mode)))
 
 ;; nodejs-repl is much better now.
 ;; (defun fri3nds-programming/init-js-comint ()
@@ -151,16 +92,6 @@
 ;;                  (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output)))))
 ;;       (setq inferior-js-program-command "node"))))
 
-(defun fri3nds-programming/post-init-web-mode ()
-  (with-eval-after-load "web-mode"
-    (web-mode-toggle-current-element-highlight)
-    (web-mode-dom-errors-show))
-  (setq company-backends-web-mode '((company-dabbrev-code
-                                     company-keywords
-                                     company-etags)
-                                    company-files company-dabbrev)))
-
-
 
 (defun fri3nds-programming/post-init-yasnippet ()
   (progn
@@ -172,27 +103,8 @@
 
     (spacemacs/add-to-hooks 'fri3nds/load-yasnippet '(prog-mode-hook
                                                             markdown-mode-hook
-                                                            org-mode-hook))
-    ))
+                                                            org-mode-hook))))
 
-(defun fri3nds-programming/post-init-racket-mode ()
-  (progn
-    (eval-after-load 'racket-repl-mode
-      '(progn
-         (define-key racket-repl-mode-map (kbd "]") nil)
-         (define-key racket-repl-mode-map (kbd "[") nil)))
-
-    (add-hook 'racket-mode-hook #'(lambda () (lispy-mode 1)))
-    (add-hook 'racket-repl-mode-hook #'(lambda () (lispy-mode t)))
-    ;; (add-hook 'racket-repl-mode-hook #'(lambda () (smartparens-mode t)))
-    ))
-
-(defun fri3nds-programming/post-init-json-mode ()
-  (add-to-list 'auto-mode-alist '("\\.tern-project\\'" . json-mode))
-  (add-to-list 'auto-mode-alist '("\\.fire\\'" . json-mode))
-  (add-to-list 'auto-mode-alist '("\\.fire.meta\\'" . json-mode))
-  (spacemacs/set-leader-keys-for-major-mode 'json-mode
-    "ti" 'my-toggle-web-indent))
 
 
 ;; (defun fri3nds-programming/init-nodejs-repl ()
@@ -237,28 +149,11 @@
 ;;   (use-package cmake-font-lock
 ;;     :defer t))
 
-(defun fri3nds-programming/init-google-c-style ()
-  (use-package google-c-style
-    :init (add-hook 'c-mode-common-hook 'google-set-c-style)))
 
 
 (defun fri3nds-programming/post-init-eldoc ()
-  (setq eldoc-idle-delay 0.4))
+  (setq eldoc-idle-delay 0.1))
 
-
-
-(defun fri3nds-programming/post-init-css-mode ()
-  (progn
-    (dolist (hook '(css-mode-hook sass-mode-hook less-mode-hook))
-      (add-hook hook 'rainbow-mode))
-
-    (defun css-imenu-make-index ()
-      (save-excursion
-        (imenu--generic-function '((nil "^ *\\([^ ]+\\) *{ *$" 1)))))
-
-    (add-hook 'css-mode-hook
-              (lambda ()
-                (setq imenu-create-index-function 'css-imenu-make-index)))))
 
 (defun fri3nds-programming/post-init-tagedit ()
   (add-hook 'web-mode-hook (lambda () (tagedit-mode 1))))
@@ -290,24 +185,7 @@
 ;;     :defer t
 ;;     ))
 
-(defun fri3nds-programming/post-init-lua-mode ()
-  (progn
-    (add-hook 'lua-mode-hook 'evil-matchit-mode)
-    ;; (add-hook 'lua-mode-hook 'smartparens-mode)
-    (setq lua-indent-level 2)
 
-    ;; add lua language, basic, string and table keywords.
-    ;; (with-eval-after-load 'lua-mode
-    ;;   (require 'company-keywords)
-    ;;   (push '(lua-mode  "setmetatable" "local" "function" "and" "break" "do" "else" "elseif" "self" "resume" "yield"
-    ;;                     "end" "false" "for" "function" "goto" "if" "nil" "not" "or" "repeat" "return" "then" "true"
-    ;;                     "until" "while" "__index" "dofile" "getmetatable" "ipairs" "pairs" "print" "rawget" "status"
-    ;;                     "rawset" "select" "_G" "assert" "collectgarbage" "error" "pcall" "coroutine"
-    ;;                     "rawequal" "require" "load" "tostring" "tonumber" "xpcall" "gmatch" "gsub"
-    ;;                     "rep" "reverse" "sub" "upper" "concat" "pack" "insert" "remove" "unpack" "sort"
-    ;;                     "lower") company-keywords-alist))
-
-    ))
 
 (;; defun fri3nds-programming/post-init-cc-mode ()
  ;;  (progn
@@ -405,11 +283,12 @@
       (bind-key* "s-{" #'paredit-wrap-curly)
       )))
 
+
 (defun fri3nds-programming/post-init-company ()
   (progn
     (setq company-minimum-prefix-length 1
-          company-idle-delay 0.08)
+          company-idle-delay 0.02)
 
     (when (configuration-layer/package-usedp 'company)
-      (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode lua-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
+      (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
     ))

@@ -11,41 +11,18 @@
 
 (defconst fri3nds-ui-packages
   '(
-    (zilong-mode-line :location built-in)
     diminish
-    popwin
+    ;; popwin
     (whitespace :location built-in)
     ;; hl-anything performance is very slow...
     ;; hl-anything
     ;; if you wnat to use spaceline, please comment out zilong-mode-line
     ;; spaceline
-    ;; beacon
+    beacon
     ;; evil-vimish-fold
     )
   )
 
-(defun fri3nds-ui/init-zilong-mode-line ()
-  (defun fri3nds/display-mode-indent-width ()
-    (let ((mode-indent-level
-            (catch 'break
-              (dolist (test spacemacs--indent-variable-alist)
-                (let ((mode (car test))
-                       (val (cdr test)))
-                  (when (or (and (symbolp mode) (derived-mode-p mode))
-                          (and (listp mode) (apply 'derived-mode-p mode))
-                          (eq 't mode))
-                    (when (not (listp val))
-                      (setq val (list val)))
-                    (dolist (v val)
-                      (cond
-                        ((integerp v) (throw 'break v))
-                        ((and (symbolp v) (boundp v))
-                          (throw 'break (symbol-value v))))))))
-              (throw 'break (default-value 'evil-shift-width)))))
-      (concat "TS:" (int-to-string (or mode-indent-level 0)))))
-
-
-  )
 
 (defun fri3nds-ui/post-init-diminish ()
   (progn
@@ -58,55 +35,6 @@
     (with-eval-after-load 'hungry-delete
       (diminish 'hungry-delete-mode))))
 
-
-(defun fri3nds-ui/post-init-spaceline ()
-  (use-package spaceline-config
-    :config
-    (progn
-      (defvar spaceline-org-clock-format-function
-        'org-clock-get-clock-string
-        "The function called by the `org-clock' segment to determine what to show.")
-
-      (spaceline-define-segment org-clock
-                                "Show information about the current org clock task.  Configure
-`spaceline-org-clock-format-function' to configure. Requires a currently running
-org clock.
-
-This segment overrides the modeline functionality of `org-mode-line-string'."
-                                (when (and (fboundp 'org-clocking-p)
-                                           (org-clocking-p))
-                                  (substring-no-properties (funcall spaceline-org-clock-format-function)))
-                                :global-override org-mode-line-string)
-
-      (spaceline-compile
-        'zilong
-        ;; Left side of the mode line (all the important stuff)
-        '(((persp-name
-             workspace-number
-             window-number
-             )
-            :separator "|"
-            :face highlight-face)
-           ((buffer-modified buffer-size input-method))
-           anzu
-           '(buffer-id remote-host buffer-encoding-abbrev)
-           ((point-position line-column buffer-position selection-info)
-             :separator " | ")
-           major-mode
-           process
-           ;; (flycheck-error flycheck-warning flycheck-info)
-           ;; (python-pyvenv :fallback python-pyenv)
-           ;; ((minor-modes :separator spaceline-minor-modes-separator) :when active)
-           ;; (org-pomodoro :when active)
-           ;; (org-clock :when active)
-           ;; nyan-cat
-           )
-        ;; Right segment (the unimportant stuff)
-        '((version-control :when active)
-           battery))
-
-      (setq-default mode-line-format '("%e" (:eval (spaceline-ml-zilong))))
-      )))
 
 (defun fri3nds-ui/init-beacon ()
   (use-package beacon
@@ -122,16 +50,6 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       (spacemacs/toggle-beacon-on))
     :config (spacemacs|hide-lighter beacon-mode)))
 
-(defun fri3nds-ui/init-evil-vimish-fold ()
-  (use-package evil-vimish-fold
-    :init
-    (vimish-fold-global-mode 1)
-    :config
-    (progn
-      (define-key evil-normal-state-map (kbd "zf") 'vimish-fold)
-      (define-key evil-visual-state-map (kbd "zf") 'vimish-fold)
-      (define-key evil-normal-state-map (kbd "zd") 'vimish-fold-delete)
-      (define-key evil-normal-state-map (kbd "za") 'vimish-fold-toggle))))
 
 (defun fri3nds-ui/post-init-hl-anything ()
   (progn
@@ -148,6 +66,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
       :documentation "Toggle highlight anything mode."
       :evil-leader "ths")))
 
+
 (defun fri3nds-ui/post-init-pangu-spacing ()
   (progn
     ;; add toggle options
@@ -161,9 +80,6 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
               #'(lambda ()
                  (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))))
 
-(defun fri3nds-ui/post-init-popwin ()
-  (progn
-    (delete "*Async Shell Command*" popwin:special-display-config)))
 
 (defun fri3nds-ui/post-init-whitespace ()
   (progn
@@ -182,7 +98,7 @@ This segment overrides the modeline functionality of `org-mode-line-string'."
     ;; show tab;  use untabify to convert tab to whitespace
     (setq spacemacs-show-trailing-whitespace nil)
 
-    (setq-default tab-width 4)
+    (setq-default tab-width 2)
     ;; set-buffer-file-coding-system -> utf8 to convert dos to utf8
     ;; (setq inhibit-eol-conversion t)
     ;; (add-hook 'prog-mode-hook 'whitespace-mode)

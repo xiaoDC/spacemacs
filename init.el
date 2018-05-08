@@ -543,7 +543,9 @@ values."
   ;; force horizontal split window
   (setq split-width-threshold 300)
 
-  (global-linum-mode 1)
+  ;; (global-linum-mode 1)
+
+  ;; (global-linum-mode nil)
   ;; (linum-relative-on)
   (setq-default line-spacing 4)
   ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
@@ -579,14 +581,16 @@ values."
 
 
   ;; https://emacs-china.org/t/topic/4627
-  ;; (setq yas-snippet-dirs
-  ;;   '(
-  ;;      "~/.emacssnippets/snippets/"
-  ;;      "~/.emacs.d/layers/+completion/auto-completion/local/snippets"))
+  (setq yas-snippet-dirs
+    '(
+       "~/.emacssnippets/snippets/"
+       "~/.emacs.d/layers/+completion/auto-completion/local/snippets"))
 
 
   ;; (typescript-mode)
 
+
+  (global-display-line-numbers-mode 1)
 
   (defun my-prog-mode-hook ()
     "active after prog-mode"
@@ -595,7 +599,9 @@ values."
     ;; (auto-complete-mode 1)
     ;; (column-enforce-mode 1)
     ;; (parinfer-active)
+    (linum-mode -1)
     (abbrev-mode 1)
+    (display-line-numbers-mode 1)
     ;; (blank-mode t)
     ;; (global-company-mode)
     ;; (highlight-indent-guides-mode 1)
@@ -614,23 +620,23 @@ values."
   (add-to-list 'auto-mode-alist '("\\.json\\'" . typescript-mode))
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
-  (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-on)) 'append)
+  ;; (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-on)) 'append)
   ;; (global-set-key (kbd "<escape>")      'keyboard-quit)
+
+  (add-hook 'text-mode-hook 'my-prog-mode-hook)
+
 
   (setq neo-theme 'icons)
   (setq neo-vc-integration (quote (char)))
   (setq neo-window-position 'left)
 
-  ;; (setq company-backends-typescript-mode '(
-  ;;                                           company-yasnippet
-  ;;                                           company-dabbrev-code
-  ;;                                           company-gtags
-  ;;                                           company-etags
-  ;;                                           company-keywords
-  ;;                                           company-files
-  ;;                                           company-dabbrev
-  ;;                                           ))
-  (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
+  (setq company-backends-typescript-mode '(
+                                            company-yasnippet
+                                            (company-dabbrev-code company-gtags company-etags company-keywords)
+                                            company-files
+                                            company-dabbrev
+                                            ))
+  ;; (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
   (with-eval-after-load 'company
     (add-to-list 'company-backends '(

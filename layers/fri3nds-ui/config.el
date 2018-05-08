@@ -45,7 +45,7 @@
    #b00000000
    #b00000000])
 
-(add-hook 'prog-mode-hook 'linum-mode)
+;; (add-hook 'prog-mode-hook 'linum-mode)
 
 ;; http://stackoverflow.com/questions/3875213/turning-on-linum-mode-when-in-python-c-mode
 (setq linum-mode-inhibit-modes-list '(eshell-mode
@@ -97,6 +97,6 @@
 ;;   '(set-face-attribute 'linum nil :height 140))
 
 ;; updated line number every second
-(setq linum-delay t)
+;; (setq linum-delay t)
 (defadvice linum-schedule (around my-linum-schedule () activate)
   (run-with-idle-timer 0.1 nil #'linum-update-current))

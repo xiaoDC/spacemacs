@@ -64,7 +64,6 @@
       (kbd "s-w") 'company-show-location)))
 
 
-(spacemacs/set-leader-keys "oc" 'my-auto-update-tags-when-save)
 
 ;;Must set key to nil to prevent error: Key sequence b m s starts with non-prefix key b m
 
@@ -186,7 +185,7 @@ If the universal prefix argument is used then will the windows too."
                   (setq default-directory old-default-directory))))))
 
 
-;; (load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'sanityinc-tomorrow-night t)
 ;; (load-theme 'soothe t)
 ;; (load-theme 'alect-black-alt t)
 
@@ -294,7 +293,19 @@ If the universal prefix argument is used then will the windows too."
     (engine/search-google sym)))
 
 
+(defun fri3nds/open-note-file ()
+  (interactive)
+  (find-file "/Users/fri3nds/org/notes.org"))
 
+
+(defun fri3nds/open-todo-file ()
+  (interactive)
+  (find-file "/Users/fri3nds/org/TODO.org"))
+
+
+(defun fri3nds/open-password-file ()
+  (interactive)
+  (find-file "/Users/fri3nds/workspace/.tuya_password.md"))
 
 
 
@@ -330,15 +341,20 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
 
+(spacemacs/set-leader-keys "jc" 'org-capture)
 (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
 (spacemacs/set-leader-keys "jh" 'ibuffer)
-;; (spacemacs/set-leader-keys "kk" 'projectile-find-file)
+(spacemacs/set-leader-keys "jq" 'fri3nds/open-note-file)
+(spacemacs/set-leader-keys "ja" 'fri3nds/open-todo-file)
+(spacemacs/set-leader-keys "jz" 'fri3nds/open-password-file)
 
+(spacemacs/set-leader-keys "kk" 'projectile-find-file)
 
 (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
 (spacemacs/set-leader-keys "hh" 'previous-buffer)
 (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
 (spacemacs/set-leader-keys "ii" 'evil-avy-goto-char-in-line)
+(spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
 (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
 (spacemacs/set-leader-keys "nn" 'next-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
@@ -350,7 +366,9 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
 ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
 (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
-(spacemacs/set-leader-keys "tl" 'linum-mode)
+;; (spacemacs/set-leader-keys "tl" 'linum-mode)
+(spacemacs/set-leader-keys "tl" 'display-line-numbers-mode)
+(spacemacs/set-leader-keys "ty" 'fri3nds/load-yasnippet)
 
 ;; (spacemacs/set-leader-keys "uu" 'evilnc-comment-or-uncomment-lines)
 

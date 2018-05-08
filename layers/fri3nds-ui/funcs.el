@@ -3,7 +3,6 @@
 ;;
 ;; Copyright (c) 2015-2016 fri3nds
 ;;
-;; Author: fri3nds <guanghui8827@gmail.com>
 ;; URL: https://github.com/fri3nds/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
