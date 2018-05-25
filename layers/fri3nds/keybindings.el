@@ -29,7 +29,6 @@
   :documentation "Toggle shadowsocks proxy mode."
   :evil-leader "ots")
 
-(bind-key* "C-c l" 'fri3nds/insert-chrome-current-tab-url)
 ;; (bind-key* "M-s o" 'occur-dwim)
 (bind-key* "C-=" 'er/expand-region)
 (bind-key* "M--" 'fri3nds/goto-match-paren)
@@ -185,7 +184,7 @@ If the universal prefix argument is used then will the windows too."
                   (setq default-directory old-default-directory))))))
 
 
-(load-theme 'sanityinc-tomorrow-night t)
+;; (load-theme 'sanityinc-tomorrow-night t)
 ;; (load-theme 'soothe t)
 ;; (load-theme 'alect-black-alt t)
 
@@ -349,6 +348,8 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "jz" 'fri3nds/open-password-file)
 
 (spacemacs/set-leader-keys "kk" 'projectile-find-file)
+(spacemacs/set-leader-keys "ka" 'text-scale-increase)
+(spacemacs/set-leader-keys "kd" 'text-scale-decrease)
 
 (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
 (spacemacs/set-leader-keys "hh" 'previous-buffer)

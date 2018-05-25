@@ -778,7 +778,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
           (multi-occur (projectile-project-buffers) my-simple-todo-regex)
         (occur my-simple-todo-regex)))
 
-    (spacemacs/set-leader-keys "ki" 'fri3nds/open-file-with-projectile-or-counsel-git)
     (spacemacs/set-leader-keys "kt" 'my-simple-todo)))
 
 

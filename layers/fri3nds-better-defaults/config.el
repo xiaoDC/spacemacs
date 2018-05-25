@@ -15,18 +15,13 @@
                       (delete (rassoc 'utf-8-with-signature auto-coding-regexp-alist)
                               auto-coding-regexp-alist))))
 
-(defun ffap-hexl-mode ()
-  (interactive)
-  (let ((ffap-file-finder 'hexl-find-file))
-    (call-interactively 'ffap)))
-
 (when (spacemacs/window-system-is-mac)
   (setq ns-pop-up-frames nil))
 
 ;; 进制将 clojure lisp lambda 美化成 λ
 ;; (global-prettify-symbols-mode 1)
 
-(setq-default fill-column 80)
+;; (setq-default fill-column 80)
 
 (setq recenter-positions '(top middle bottom))
 ;; delete the selection with a key press

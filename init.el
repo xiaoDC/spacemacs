@@ -250,9 +250,9 @@ values."
                            ;; spacemacs-light
                            ;; doom-tomorrow-night
                            solarized-dark
+                           solarized-light
                            doom-peacock
                            spacemacs-dark
-                           solarized-light
                            )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -263,7 +263,7 @@ values."
                                  ;; :size 15
 
                                  ;; "Anonymous Pro"
-                                 ;; :size 15
+                                 ;; :size 17
 
                                  ;; "consolas"
                                  ;; :size 16
@@ -279,16 +279,28 @@ values."
                                  ;; :size 16
 
                                  ;; "DejaVu Sans Mono"
-                                 ;; :size 15
+                                 ;; :size 16
 
                                  ;; "Fira Code"
                                  ;; :size 17
 
-                                 "PT Mono"
-                                 :size 16
+                                 ;; "PT Mono"
+                                 ;; :size 16
 
                                  ;; "Hack"
                                  ;; :size 16
+
+                                 "Courier New"
+                                 :size 18
+
+                                 ;; "Iosevka"
+                                 ;; :size 16
+
+                                 ;; "CamingoCode"
+                                 ;; :size 17
+
+                                 ;; "Input Mono"
+                                 ;; :size 15
 
                                  ;; "InconsolataGo Nerd Font"
                                  ;; "Inconsolata"
@@ -604,13 +616,13 @@ values."
     (display-line-numbers-mode 1)
     ;; (blank-mode t)
     ;; (global-company-mode)
-    ;; (highlight-indent-guides-mode 1)
+    (highlight-indent-guides-mode 1)
 
     ;; (fci-mode 1)
     (editorconfig-mode 1)
     )
 
-  (setq highlight-indent-guides-auto-character-face-perc 3)
+  (setq highlight-indent-guides-auto-character-face-perc 8)
   (setq highlight-indent-guides-method 'character)
 
 
@@ -630,13 +642,13 @@ values."
   (setq neo-vc-integration (quote (char)))
   (setq neo-window-position 'left)
 
-  (setq company-backends-typescript-mode '(
-                                            company-yasnippet
-                                            (company-dabbrev-code company-gtags company-etags company-keywords)
-                                            company-files
-                                            company-dabbrev
-                                            ))
-  ;; (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
+  ;; (setq company-backends-typescript-mode '(
+  ;;                                           company-yasnippet
+  ;;                                           (company-dabbrev-code company-gtags company-etags company-keywords)
+  ;;                                           company-files
+  ;;                                           company-dabbrev
+  ;;                                           ))
+  (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
   (with-eval-after-load 'company
     (add-to-list 'company-backends '(

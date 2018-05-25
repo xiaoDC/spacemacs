@@ -26,103 +26,12 @@ e.g. Sunday, September 17, 2000."
   :group 'shadowsocks-proxy)
 
 
-(defun fri3nds/open-file-with-projectile-or-counsel-git ()
-  (interactive)
-  (if (fri3nds/git-project-root)
-      (counsel-git)
-    (if (projectile-project-p)
-        (projectile-find-file)
-      (counsel-file-jump))))
-
-
-;; http://blog.lojic.com/2009/08/06/send-growl-notifications-from-carbon-emacs-on-osx/
-(defun fri3nds/growl-notification (title message &optional sticky)
-  "Send a Growl notification"
-  (do-applescript
-   (format "tell application \"GrowlHelperApp\" \n
-              notify with name \"Emacs Notification\" title \"%s\" description \"%s\" application name \"Emacs.app\" sticky \"%s\"
-              end tell
-              "
-           title
-           message
-           (if sticky "yes" "no"))))
-
-
-(defun fri3nds/growl-timer (minutes message)
-  "Issue a Growl notification after specified minutes"
-  (interactive (list (read-from-minibuffer "Minutes: " "10")
-                     (read-from-minibuffer "Message: " "Reminder") ))
-  (run-at-time (* (string-to-number minutes) 60)
-               nil
-               (lambda (minute message)
-                 (fri3nds/growl-notification "Emacs Reminder" message t))
-               minutes
-               message))
-
-
-(defun fri3nds/goto-match-paren (arg)
-  "Go to the matching  if on (){}[], similar to vi style of % "
-  (interactive "p")
-  ;; first, check for "outside of bracket" positions expected by forward-sexp, etc
-  (cond ((looking-at "[\[\(\{]") (evil-jump-item))
-        ((looking-back "[\]\)\}]" 1) (evil-jump-item))
-        ;; now, try to succeed from inside of a bracket
-        ((looking-at "[\]\)\}]") (forward-char) (evil-jump-item))
-        ((looking-back "[\[\(\{]" 1) (backward-char) (evil-jump-item))
-        (t nil)))
-
 
 (defun fri3nds/hidden-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
-
-
-(defun fri3nds/remove-dos-eol ()
-  "Replace DOS eolns CR LF with Unix eolns CR"
-  (interactive)
-  (goto-char (point-min))
-  (while (search-forward "\r" nil t) (replace-match "")))
-
-
-(defun fri3nds/insert-chrome-current-tab-url()
-  "Get the URL of the active tab of the first window"
-  (interactive)
-  (insert (fri3nds/retrieve-chrome-current-tab-url)))
-
-
-(defun fri3nds/retrieve-chrome-current-tab-url()
-  "Get the URL of the active tab of the first window"
-  (interactive)
-  (let ((result (do-applescript
-                 (concat
-                  "set frontmostApplication to path to frontmost application\n"
-                  "tell application \"Google Chrome\"\n"
-                  "	set theUrl to get URL of active tab of first window\n"
-                  "	set theResult to (get theUrl) \n"
-                  "end tell\n"
-                  "activate application (frontmostApplication as text)\n"
-                  "set links to {}\n"
-                  "copy theResult to the end of links\n"
-                  "return links as string\n"))))
-    (format "%s" (s-chop-suffix "\"" (s-chop-prefix "\"" result)))))
-
-
-;; remove all the duplicated emplies in current buffer
-(defun fri3nds/single-lines-only ()
-  "replace multiple blank lines with a single one"
-  (interactive)
-  (goto-char (point-min))
-  (while (re-search-forward "\\(^\\s-*$\\)\n" nil t)
-    (replace-match "\n")
-    (forward-char 1)))
-
-
-;; for running long run ansi-term
-(defun fri3nds/named-term (name)
-  (interactive "sName: ")
-  (ansi-term "/bin/zsh" name))
 
 
 (defun fri3nds/ash-term-hooks ()

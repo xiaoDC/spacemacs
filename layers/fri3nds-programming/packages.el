@@ -75,23 +75,6 @@
   (setq python-shell-interpreter "python"))
 
 
-;; nodejs-repl is much better now.
-;; (defun fri3nds-programming/init-js-comint ()
-;;   (use-package js-comint
-;;     :init
-;;     (progn
-;;       ;; http://stackoverflow.com/questions/13862471/using-node-js-with-js-comint-in-emacs
-;;       (setq inferior-js-mode-hook
-;;             (lambda ()
-;;               ;; We like nice colors
-;;               (ansi-color-for-comint-mode-on)
-;;               ;; Deal with some prompt nonsense
-;;               (add-to-list
-;;                'comint-preoutput-filter-functions
-;;                (lambda (output)
-;;                  (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output)))))
-;;       (setq inferior-js-program-command "node"))))
-
 
 (defun fri3nds-programming/post-init-yasnippet ()
   (progn
@@ -105,12 +88,6 @@
                                                             markdown-mode-hook
                                                             org-mode-hook))))
 
-
-
-;; (defun fri3nds-programming/init-nodejs-repl ()
-;;   (use-package nodejs-repl
-;;     :init
-;;     :defer t))
 
 
 (defun fri3nds-programming/init-lispy ()

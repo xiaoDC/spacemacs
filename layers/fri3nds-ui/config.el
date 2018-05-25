@@ -77,26 +77,26 @@
                                       inf-ruby-mode
                                       gud-mode
                                       org-mode
-                                      org-agenda-mode
+                                      ;; org-agenda-mode
                                       vc-git-log-edit-mode
                                       log-edit-mode
                                       term-mode
                                       spacemacs-buffer-mode
-                                      w3m-mode
+                                      ;; w3m-mode
                                       speedbar-mode
                                       gnus-summary-mode
                                       gnus-article-mode
                                       calendar-mode))
-(defadvice linum-on (around linum-on-inhibit-for-modes)
-           "Stop the load of linum-mode for some major modes."
-           (unless (member major-mode linum-mode-inhibit-modes-list)
-             ad-do-it))
-(ad-activate 'linum-on)
+;; (defadvice linum-on (around linum-on-inhibit-for-modes)
+;;            "Stop the load of linum-mode for some major modes."
+;;            (unless (member major-mode linum-mode-inhibit-modes-list)
+;;              ad-do-it))
+;; (ad-activate 'linum-on)
 
 ;; (eval-after-load "linum"
 ;;   '(set-face-attribute 'linum nil :height 140))
 
 ;; updated line number every second
 ;; (setq linum-delay t)
-(defadvice linum-schedule (around my-linum-schedule () activate)
-  (run-with-idle-timer 0.1 nil #'linum-update-current))
+;; (defadvice linum-schedule (around my-linum-schedule () activate)
+;;   (run-with-idle-timer 0.1 nil #'linum-update-current))

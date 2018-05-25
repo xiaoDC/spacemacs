@@ -67,20 +67,6 @@
       :evil-leader "ths")))
 
 
-(defun fri3nds-ui/post-init-pangu-spacing ()
-  (progn
-    ;; add toggle options
-    (spacemacs|add-toggle toggle-pangu-spaceing
-      :status pangu-spacing-mode
-      :on (global-pangu-spacing-mode)
-      :off (global-pangu-spacing-mode -1)
-      :documentation "Toggle pangu spacing mode"
-      :evil-leader "ots")
-    (add-hook 'markdown-mode-hook
-              #'(lambda ()
-                 (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))))
-
-
 (defun fri3nds-ui/post-init-whitespace ()
   (progn
     ;; ;; http://emacsredux.com/blog/2013/05/31/highlight-lines-that-exceed-a-certain-length-limit/
