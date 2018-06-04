@@ -18,7 +18,7 @@
     ;; hl-anything
     ;; if you wnat to use spaceline, please comment out zilong-mode-line
     ;; spaceline
-    beacon
+    ;; beacon
     ;; evil-vimish-fold
     )
   )
@@ -36,19 +36,19 @@
       (diminish 'hungry-delete-mode))))
 
 
-(defun fri3nds-ui/init-beacon ()
-  (use-package beacon
-    :init
-    (progn
-      (spacemacs|add-toggle beacon
-        :status beacon-mode
-        :on (beacon-mode)
-        :off (beacon-mode -1)
-        :documentation "Enable point highlighting after scrolling"
-        :evil-leader "otb")
+;; (defun fri3nds-ui/init-beacon ()
+;;   (use-package beacon
+;;     :init
+;;     (progn
+;;       (spacemacs|add-toggle beacon
+;;         :status beacon-mode
+;;         :on (beacon-mode)
+;;         :off (beacon-mode -1)
+;;         :documentation "Enable point highlighting after scrolling"
+;;         :evil-leader "otb")
 
-      (spacemacs/toggle-beacon-on))
-    :config (spacemacs|hide-lighter beacon-mode)))
+;;       (spacemacs/toggle-beacon-on))
+;;     :config (spacemacs|hide-lighter beacon-mode)))
 
 
 (defun fri3nds-ui/post-init-hl-anything ()

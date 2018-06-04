@@ -14,7 +14,7 @@
 
 (setq fri3nds-programming-packages
       '(
-        paredit
+        ;; paredit
         lispy
         ;; cmake-font-lock
         ;; cmake-mode
@@ -89,7 +89,6 @@
                                                             org-mode-hook))))
 
 
-
 (defun fri3nds-programming/init-lispy ()
   (use-package lispy
     :defer t
@@ -109,7 +108,6 @@
 
       (spacemacs|hide-lighter lispy-mode)
       (define-key lispy-mode-map (kbd "s-j") 'lispy-splice)
-      (define-key lispy-mode-map (kbd "s-k") 'paredit-splice-sexp-killing-backward)
 
       (with-eval-after-load 'cider-repl
         (define-key cider-repl-mode-map (kbd "C-s-j") 'cider-repl-newline-and-indent))
@@ -122,143 +120,12 @@
       (define-key lispy-mode-map (kbd "s-2") 'lispy-arglist-inline))))
 
 
-;; (defun fri3nds-programming/init-cmake-font-lock ()
-;;   (use-package cmake-font-lock
-;;     :defer t))
-
-
-
 (defun fri3nds-programming/post-init-eldoc ()
   (setq eldoc-idle-delay 0.1))
 
 
 (defun fri3nds-programming/post-init-tagedit ()
   (add-hook 'web-mode-hook (lambda () (tagedit-mode 1))))
-
-;; For each extension, define a function fri3nds/init-<extension-name>
-;;
-(defun fri3nds-programming/init-doxymacs ()
-  "Initialize doxymacs"
-  (use-package doxymacs
-    :init
-    (add-hook 'c-mode-common-hook 'doxymacs-mode)
-    :config
-    (progn
-      (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
-      (spacemacs|hide-lighter doxymacs-mode))))
-
-;; https://atlanis.net/blog/posts/nodejs-repl-eval.html
-;; (defun fri3nds-programming/init-nodejs-repl-eval ()
-;;   (use-package nodejs-repl-eval
-;;     :commands (nodejs-repl-eval-buffer nodejs-repl-eval-dwim nodejs-repl-eval-function)
-;;     :init
-;;     (progn
-;;       (spacemacs/declare-prefix-for-mode 'js2-mode
-;;                                          "ms" "REPL")
-;;       (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-;;         "sb" 'nodejs-repl-eval-buffer
-;;         "sf" 'nodejs-repl-eval-function
-;;         "sd" 'nodejs-repl-eval-dwim))
-;;     :defer t
-;;     ))
-
-
-
-(;; defun fri3nds-programming/post-init-cc-mode ()
- ;;  (progn
- ;;    (setq company-backends-c-mode-common '((company-dabbrev-code :with company-keywords company-gtags company-etags)
- ;;                                           company-files company-dabbrev))
- ;;    (spacemacs/set-leader-keys-for-major-mode 'c++-mode
- ;;      "gd" 'etags-select-find-tag-at-point)
-
-
-
- ;;    ;; http://stackoverflow.com/questions/23553881/emacs-indenting-of-c11-lambda-functions-cc-mode
- ;;    (defadvice c-lineup-arglist (around my activate)
- ;;      "Improve indentation of continued C++11 lambda function opened as argument."
- ;;      (setq ad-return-value
- ;;            (if (and (equal major-mode 'c++-mode)
- ;;                     (ignore-errors
- ;;                       (save-excursion
- ;;                         (goto-char (c-langelem-pos langelem))
- ;;                         ;; Detect "[...](" or "[...]{". preceded by "," or "(",
- ;;                         ;;   and with unclosed brace.
- ;;                         (looking-at ".*[(,][ \t]*\\[[^]]*\\][ \t]*[({][^}]*$"))))
- ;;                0                       ; no additional indent
- ;;              ad-do-it)))               ; default behavior
-
-
- ;;    (setq c-default-style "linux") ;; set style to "linux"
- ;;    (setq c-basic-offset 4)
- ;;    (c-set-offset 'substatement-open 0)
- ;;    (with-eval-after-load 'c++-mode
- ;;      (define-key c++-mode-map (kbd "s-.") 'company-ycmd)))
-
-  )
-
-(defun fri3nds-programming/post-init-ycmd ()
-  (progn
-    (setq ycmd-tag-files 'auto)
-    (setq ycmd-request-message-level -1)
-    (set-variable 'ycmd-server-command `("python" ,(expand-file-name "~/Github/ycmd/ycmd/__main__.py")))
-    (setq company-backends-c-mode-common '((company-c-headers
-                                            company-dabbrev-code
-                                            company-keywords
-                                            company-gtags :with company-yasnippet)
-                                           company-files company-dabbrev ))
-
-    ;; (fri3nds|toggle-company-backends company-ycmd)
-    (eval-after-load 'ycmd
-      '(spacemacs|hide-lighter ycmd-mode))
-
-    ))
-
-
-
-;; when many project has the need to use tags, I will give etags-table and etags-update a try
-;; (defun fri3nds-programming/init-etags-select ()
-;;   (use-package etags-select
-;;     :init
-;;     (progn
-;;       (define-key evil-normal-state-map (kbd "gf")
-;;         (lambda () (interactive) (find-tag (find-tag-default-as-regexp))))
-
-;;       (define-key evil-normal-state-map (kbd "gb") 'pop-tag-mark)
-
-;;       (define-key evil-normal-state-map (kbd "gn")
-;;         (lambda () (interactive) (find-tag last-tag t)))
-
-;;       (define-key evil-normal-state-map (kbd "gf")
-;;       (evilified-state-evilify etags-select-mode etags-select-mode-map)
-;;       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-;;         "gd" 'etags-select-find-tag-at-point))))
-
-;; (defun fri3nds-programming/init-gulpjs ()
-;;   (use-package gulpjs
-;;     :init
-;;     (progn
-;;       (defun zilong/build-engine ()
-;;         (interactive)
-;;         (gulpjs-start-task-with-file-name "~/Github/fireball/app.js"))
-
-;;       (spacemacs/set-leader-keys "ags" 'gulpjs-start-task)
-;;       (spacemacs/set-leader-keys "agS" 'zilong/build-engine)
-;;       (spacemacs/set-leader-keys "agr" 'gulpjs-restart-task))))
-
-
-(defun fri3nds-programming/init-paredit ()
-  (use-package paredit
-    :commands (paredit-wrap-round
-               paredit-wrap-square
-               paredit-wrap-curly
-               paredit-splice-sexp-killing-backward)
-    :init
-    (progn
-
-      (bind-key* "s-(" #'paredit-wrap-round)
-      (bind-key* "s-[" #'paredit-wrap-square)
-      (bind-key* "s-{" #'paredit-wrap-curly)
-      )))
 
 
 (defun fri3nds-programming/post-init-company ()

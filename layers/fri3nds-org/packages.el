@@ -1,6 +1,6 @@
 (defconst fri3nds-org-packages
   '(
-    org-bullets
+    ;; org-bullets
     org-pomodoro
     )
   )

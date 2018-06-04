@@ -1,8 +1,26 @@
+;; (defvar *unix-epoch-difference*
+;;   (encode-universal-time 0 0 0 1 1 1970 0))
+;;
+;; (defun universal-to-unix-time (universal-time)
+;;   (- universal-time *unix-epoch-difference*))
+;;
+;; (defun unix-to-universal-time (unix-time)
+;;   (+ unix-time *unix-epoch-difference*))
+;;
+;; (defun get-unix-time ()
+;;   (universal-to-unix-time (get-universal-time)))
+;;
+;; (defun fri3nds/timestamp ()
+;;   "Insert string for the current time timestap"
+;;   (interactive)                 ; permit invocation in minibuffer
+;;   (insert (get-unix-time)))
+;;
+
 ;; insert date and time
 (defun fri3nds/now ()
   "Insert string for the current time formatted like '2:34 PM'."
   (interactive)                 ; permit invocation in minibuffer
-  (insert (format-time-string "%D %-I:%M %p")))
+  (insert (format-time-string "<%F %a %H:%S>")))
 
 (defun fri3nds/today ()
   "Insert string for today's date nicely formatted in American style,

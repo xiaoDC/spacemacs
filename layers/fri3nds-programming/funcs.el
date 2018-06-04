@@ -43,8 +43,3 @@
 (defun conditionally-enable-lispy ()
   (when (eq this-command 'eval-expression)
     (lispy-mode 1)))
-
-
-(defun my-doxymacs-font-lock-hook ()
-  (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-      (doxymacs-font-lock)))

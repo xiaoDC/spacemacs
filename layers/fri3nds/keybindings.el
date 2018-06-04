@@ -8,7 +8,7 @@
 
 (global-set-key [(shift return)] 'fri3nds/smart-open-line)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(define-key global-map (kbd "<f9>") 'org-capture)
+;; (define-key global-map (kbd "<f9>") 'org-capture)
 
 (global-set-key (kbd "C-.") 'company-files)
 
@@ -302,11 +302,23 @@ If the universal prefix argument is used then will the windows too."
   (find-file "/Users/fri3nds/org/TODO.org"))
 
 
+(defun fri3nds/open-sync-todo-file ()
+  (interactive)
+  (find-file "/Users/fri3nds/Dropbox/org/tuya-work.org"))
+
+
 (defun fri3nds/open-password-file ()
   (interactive)
   (find-file "/Users/fri3nds/workspace/.tuya_password.md"))
 
 
+(defun fri3nds/neotree-keep-size (fn &rest args)
+  "Reset neotree width after open, if user adjusted it's size."
+  (let ((w (window-width)))
+    (funcall fn)
+    (neo-global--set-window-width w)))
+
+(advice-add 'neotree-enter :around 'fri3nds/neotree-keep-size)
 
 
 
@@ -344,6 +356,7 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
 (spacemacs/set-leader-keys "jh" 'ibuffer)
 (spacemacs/set-leader-keys "jq" 'fri3nds/open-note-file)
+(spacemacs/set-leader-keys "jd" 'fri3nds/open-sync-todo-file)
 (spacemacs/set-leader-keys "ja" 'fri3nds/open-todo-file)
 (spacemacs/set-leader-keys "jz" 'fri3nds/open-password-file)
 
@@ -361,6 +374,7 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
 
+(spacemacs/set-leader-keys "oc" 'org-capture)
 (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
 (spacemacs/set-leader-keys "sl" 'helm-resume)
@@ -405,3 +419,14 @@ If the universal prefix argument is used then will the windows too."
 (global-set-key (kbd "<S-down>") 'enlarge-window)
 (global-set-key (kbd "<S-left>") 'shrink-window-horizontally)
 (global-set-key (kbd "<S-right>") 'enlarge-window-horizontally)
+
+
+
+(setq org-capture-templates nil)
+
+(add-to-list 'org-capture-templates '("t" "Tasks"))
+
+(add-to-list 'org-capture-templates
+  '("w" "Work Task" entry
+     (file+headline "/Users/fri3nds/Dropbox/org/tuya-work.org" "Work")
+     "* TODO %^{任务名}\n%U\n%a\n"))

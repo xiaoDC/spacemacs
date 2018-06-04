@@ -113,6 +113,7 @@ values."
     dotspacemacs-additional-packages '(
                                         ;; sicp
                                         doom-themes
+                                        solarized-theme
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
@@ -157,11 +158,13 @@ values."
       anaconda
       lispy
       flycheck-gometalinter
-      ;; org-bullets
+      org-bullets
       ;; org-repo-todo
       ;; org-download
       flycheck
       js-mode
+      pangu-spacing
+      js2refactor
       ;; js2-mode
       ;; company
       ;; org-timer
@@ -202,7 +205,7 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 50
+   dotspacemacs-elpa-timeout 100
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -251,7 +254,7 @@ values."
                            ;; doom-tomorrow-night
                            solarized-dark
                            solarized-light
-                           doom-peacock
+                           ;; doom-peacock
                            spacemacs-dark
                            )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -260,58 +263,29 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
     dotspacemacs-default-font '(
                                  ;; "Source Code Pro"
-                                 ;; :size 15
-
                                  ;; "Anonymous Pro"
-                                 ;; :size 17
-
                                  ;; "consolas"
-                                 ;; :size 16
-
-
                                  ;; "Monaco"
-                                 ;; :size 14
-
                                  ;; "Menlo"
-                                 ;; :size 15
-
                                  ;; "Operator Mono"
-                                 ;; :size 16
-
                                  ;; "DejaVu Sans Mono"
-                                 ;; :size 16
-
                                  ;; "Fira Code"
-                                 ;; :size 17
-
                                  ;; "PT Mono"
-                                 ;; :size 16
-
                                  ;; "Hack"
-                                 ;; :size 16
-
-                                 "Courier New"
-                                 :size 18
-
+                                 ;; "Office Code Pro"
                                  ;; "Iosevka"
-                                 ;; :size 16
-
                                  ;; "CamingoCode"
-                                 ;; :size 17
-
                                  ;; "Input Mono"
-                                 ;; :size 15
-
                                  ;; "InconsolataGo Nerd Font"
                                  ;; "Inconsolata"
-                                 ;; :size 16
-
-                                 ;; "Inconsolata"
-                                 ;; :size 17
-
+                                 ;; "Nitti Basic"
+                                 ;; "Go Mono"
+                                 ;; "Courier New"
+                                 "Pica10 BT"
+                                 :size 18
                                  :weight normal
                                  :width normal
-                                 :powerline-scale 1.1)
+                                 :powerline-scale 1.2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -487,10 +461,15 @@ values."
   ;; hack for remove purpose mode
   (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
+
+  (defun spacemacs-buffer/goto-buffer ()
+    (interactive))
   )
 
 (defun dotspacemacs/user-config ()
   (setq save-abbrevs nil)
+
+
   ;; (setq racer-rust-src-path "/Users/fri3nds/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")
 
   ;;解决org表格里面中英文对齐的问题
@@ -506,7 +485,9 @@ values."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
         charset
-        (font-spec :family "Microsoft Yahei" :size 14))))
+        (font-spec :family "Monoid" :size 14))))
+        ;; (font-spec :family "Microsoft Yahei" :size 14))))
+
 
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq org-default-notes-file "/Users/fri3nds/org/notes.org")
@@ -602,6 +583,37 @@ values."
   ;; (typescript-mode)
 
 
+
+
+  ;; make the fringe stand out from the background
+  ;; (setq solarized-distinct-fringe-background t)
+  ;; Don't change the font for some headings and titles
+  ;; (setq solarized-use-variable-pitch nil)
+  ;; make the modeline high contrast
+  ;; (setq solarized-high-contrast-mode-line t)
+  ;; Use less bolding
+  ;; (setq solarized-use-less-bold t)
+  ;; Use more italics
+  ;; (setq solarized-use-more-italic t)
+  ;; Use less colors for indicators such as git:gutter, flycheck and similar
+  ;; (setq solarized-emphasize-indicators nil)
+  ;; Don't change size of org-mode headlines (but keep other size-changes)
+  ;; (setq solarized-scale-org-headlines nil)
+  ;; Avoid all font-size changes
+  ;; (setq solarized-height-minus-1 1.0)
+  ;; (setq solarized-height-plus-1 1.0)
+  ;; (setq solarized-height-plus-2 1.0)
+  ;; (setq solarized-height-plus-3 1.0)
+  ;; (setq solarized-height-plus-4 1.0)
+
+
+  ;; (add-to-list 'org-capture-templates '("w" "Work Tasks"))
+
+
+
+
+
+
   (global-display-line-numbers-mode 1)
 
   (defun my-prog-mode-hook ()
@@ -667,6 +679,8 @@ values."
     (define-key neotree-mode-map (kbd "y") 'neotree-copy-node)
     (define-key neotree-mode-map (kbd "r") 'neotree-change-root)
     (setq-default neo-show-updir-line t)
+
+    (setq neo-window-fixed-size nil)
     (setq neo-show-hidden-files nil)
     (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
     )
@@ -711,13 +725,13 @@ values."
       '(:eval (propertize
                 (window-number-mode-line)
                 'face
-                'font-lock-keyword-face))
+                'font-lock-type-face))
 
       ;; '(:eval (custom-update-persp-name))
 
       "%1 "
       ;; the buffer name; the file name as a tool tip
-      '(:eval (propertize "%b " 'face 'font-lock-keyword-face
+      '(:eval (propertize "%b " 'face 'font-lock-type-face
                 'help-echo (buffer-file-name)))
 
       (propertize "%I" 'face 'font-lock-constant-face) ;; size
@@ -799,6 +813,7 @@ values."
                "%b"))))
 
 
+
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
@@ -810,18 +825,22 @@ values."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(evil-unimpaired f s dash)))
-
-(custom-set-faces
-
-  ;; custom-set-faces was added by Custom.
+  (set-face-background 'company-tooltip-selection "red")
+  (custom-set-variables
+  ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+  '(package-selected-packages '(evil-unimpaired f s dash)))
+
+  (custom-set-faces
+
+    ;; custom-set-faces was added by Custom.
+    ;; If you edit it by hand, you could mess it up, so be careful.
+    ;; Your init file should contain only one such instance.
+    ;; If there is more than one, they won't work right.
+
+    ;; '(default ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :slant normal :weight normal :height 130 :width normal))))
+    )
+
   )
-)

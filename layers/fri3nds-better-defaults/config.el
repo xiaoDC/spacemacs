@@ -15,17 +15,21 @@
                       (delete (rassoc 'utf-8-with-signature auto-coding-regexp-alist)
                               auto-coding-regexp-alist))))
 
+
 (when (spacemacs/window-system-is-mac)
   (setq ns-pop-up-frames nil))
+
 
 ;; 进制将 clojure lisp lambda 美化成 λ
 ;; (global-prettify-symbols-mode 1)
 
 ;; (setq-default fill-column 80)
 
+
 (setq recenter-positions '(top middle bottom))
 ;; delete the selection with a key press
 (delete-selection-mode t)
+
 
 ;;add auto format paste code
 (dolist (command '(yank yank-pop))
@@ -50,6 +54,7 @@
            (let ((mark-even-if-inactive transient-mark-mode))
              (indent-region (region-beginning) (region-end) nil))))))
 
+
 ;; tramp, for sudo access
 ;; very slow!!!!
 ;; for profiling emacs --debug-init --timed-requires --profile
@@ -72,6 +77,7 @@
 (setq large-file-warning-threshold 100000000)
 ;;http://batsov.com/emacsredux/blog/2015/05/09/emacs-on-os-x/
 
+
 (setq save-abbrevs nil)
 
 ;; turn on abbrev mode globally
@@ -91,13 +97,6 @@
       (remq 'process-kill-buffer-query-function
             kill-buffer-query-functions))
 
-;; cleanup recent files
-(defun fri3nds/cleanup-recentf ()
-  (progn
-    (and (fboundp 'recentf-cleanup)
-         (recentf-cleanup))))
-
-(add-hook 'kill-emacs-hook #'fri3nds/cleanup-recentf)
 
 ;; change evil initial mode state
 (menu-bar-mode t)
@@ -141,7 +140,9 @@ Single Capitals as you type."
               5000))
       (linum-mode -1)))
 
+
 (add-hook 'find-file-hook 'spacemacs/check-large-file)
+
 
 (defadvice find-file (before make-directory-maybe
                              (filename &optional wildcards) activate)
