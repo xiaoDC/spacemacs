@@ -117,9 +117,11 @@ If the universal prefix argument is used then will the windows too."
   (interactive)
   (let ((bf (or (buffer-file-name) list-buffers-directory)))
     (if bf
-      (copy-string-to-clipboard (file-name-sans-extension
-                                  (substring bf
-                                    (+ 1 (last-index-of "/" bf)))))
+      ;; (copy-string-to-clipboard (file-name-sans-extension
+      ;;                             (substring bf
+      ;;                               (+ 1 (last-index-of "/" bf)))))
+      (copy-string-to-clipboard (substring bf
+                                  (+ 1 (last-index-of "/" bf))))
       (message "buffer-file-name not exist"))))
 
 
@@ -129,6 +131,22 @@ If the universal prefix argument is used then will the windows too."
   (require 'cl)
   (let ((sym (my-prompt-input)))
     (dotimes (i (cl-parse-integer sym)) (insert (format "%d\n" (1+ i))))))
+
+
+(defun fri3nds/delete-line-before ()
+  (interactive)
+  (kill-line 0))
+
+(defun fri3nds/delete-line-after ()
+  (interactive)
+  (kill-line))
+
+
+(defun fri3nds/clear-this-line ()
+  (interactive)
+  (kill-whole-line)
+  (newline-and-indent)
+  (previous-line))
 
 
 
@@ -297,6 +315,16 @@ If the universal prefix argument is used then will the windows too."
   (find-file "/Users/fri3nds/org/notes.org"))
 
 
+(defun fri3nds/open-snippets ()
+  (interactive)
+  (find-file "/Users/fri3nds/Dropbox/Note/Snippets/regex.md"))
+
+
+(defun fri3nds/open-tools ()
+  (interactive)
+  (find-file "/Users/fri3nds/Dropbox/Note/tool.md"))
+
+
 (defun fri3nds/open-todo-file ()
   (interactive)
   (find-file "/Users/fri3nds/org/TODO.org"))
@@ -306,6 +334,15 @@ If the universal prefix argument is used then will the windows too."
   (interactive)
   (find-file "/Users/fri3nds/Dropbox/org/tuya-work.org"))
 
+
+(defun fri3nds/show-and-copy-buffer-filename ()
+  "Show and copy the full path to the current file in the minibuffer."
+  (interactive)
+  ;; list-buffers-directory is the variable set in dired buffers
+  (let ((file-name (or (buffer-file-name) list-buffers-directory)))
+    (if file-name
+      (message (kill-new file-name))
+      (error "Buffer not visiting a file"))))
 
 (defun fri3nds/open-password-file ()
   (interactive)
@@ -318,9 +355,29 @@ If the universal prefix argument is used then will the windows too."
     (funcall fn)
     (neo-global--set-window-width w)))
 
+
+
+
+
+(defvar spacemacs--killed-buffer-list nil
+  "List of recently killed buffers.")
+
+(defun spacemacs//add-buffer-to-killed-list ()
+  "If buffer is associated with a file name, add that file
+to the `killed-buffer-list' when killing the buffer."
+  (when buffer-file-name
+    (push buffer-file-name spacemacs--killed-buffer-list)))
+
+
+(add-hook 'kill-buffer-hook #'spacemacs//add-buffer-to-killed-list)
+
+(defun fri3nds/reopen-killed-buffer ()
+  "Reopen the most recently killed file buffer, if one exists."
+  (interactive)
+  (when spacemacs--killed-buffer-list
+    (find-file (pop spacemacs--killed-buffer-list))))
+
 (advice-add 'neotree-enter :around 'fri3nds/neotree-keep-size)
-
-
 
 
 
@@ -329,12 +386,15 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "ag" 'helm-ag)
 
 (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
-(spacemacs/set-leader-keys "bb" 'helm-recentf)
+(spacemacs/set-leader-keys "bb" 'helm-find-files)
 (spacemacs/set-leader-keys "bc" 'erase-buffer)
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
 (spacemacs/set-leader-keys "bm" 'spacemacs/switch-to-messages-buffer)
 (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
 (spacemacs/set-leader-keys "br" 'revert-all-buffers)
+
+;;;;;;
+(spacemacs/set-leader-keys "bu" 'fri3nds/reopen-killed-buffer)
 (spacemacs/set-leader-keys "by" 'just-get-buffer-file-the-name)
 
 (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
@@ -342,22 +402,31 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
 
 (spacemacs/set-leader-keys "dd" 'dired-jump)
+(spacemacs/set-leader-keys "dh" 'fri3nds/delete-line-before)
+(spacemacs/set-leader-keys "dk" 'fri3nds/delete-line-after)
+(spacemacs/set-leader-keys "dl" 'fri3nds/clear-this-line)
 (spacemacs/set-leader-keys "df" 'magit-diff-buffer-file)
 (spacemacs/set-leader-keys "dt" 'magit-diff-working-tree)
 
 ;; (spacemacs/set-leader-keys "en" 'git-gutter+-next-hunk)
 ;; (spacemacs/set-leader-keys "ee" 'git-gutter+-previous-hunk)
 
-(spacemacs/set-leader-keys "ff" 'helm-find-files)
+(spacemacs/set-leader-keys "ff" 'helm-recentf)
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
+(spacemacs/set-leader-keys "gb" 'magit-blame)
 
-(spacemacs/set-leader-keys "jc" 'org-capture)
-(spacemacs/set-leader-keys "jj" 'helm-buffers-list)
-(spacemacs/set-leader-keys "jh" 'ibuffer)
-(spacemacs/set-leader-keys "jq" 'fri3nds/open-note-file)
-(spacemacs/set-leader-keys "jd" 'fri3nds/open-sync-todo-file)
+(spacemacs/set-leader-keys "fy" 'fri3nds/show-and-copy-buffer-filename)
+
+
 (spacemacs/set-leader-keys "ja" 'fri3nds/open-todo-file)
+(spacemacs/set-leader-keys "jc" 'org-capture)
+(spacemacs/set-leader-keys "jd" 'fri3nds/open-sync-todo-file)
+(spacemacs/set-leader-keys "jh" 'ibuffer)
+(spacemacs/set-leader-keys "jj" 'helm-buffers-list)
+(spacemacs/set-leader-keys "jq" 'fri3nds/open-note-file)
+(spacemacs/set-leader-keys "js" 'fri3nds/open-snippets)
+(spacemacs/set-leader-keys "jt" 'fri3nds/open-tools)
 (spacemacs/set-leader-keys "jz" 'fri3nds/open-password-file)
 
 (spacemacs/set-leader-keys "kk" 'projectile-find-file)
@@ -367,12 +436,12 @@ If the universal prefix argument is used then will the windows too."
 (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
 (spacemacs/set-leader-keys "hh" 'previous-buffer)
 (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
+
 (spacemacs/set-leader-keys "ii" 'evil-avy-goto-char-in-line)
 (spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
 (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
 (spacemacs/set-leader-keys "nn" 'next-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
-
 
 (spacemacs/set-leader-keys "oc" 'org-capture)
 (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)

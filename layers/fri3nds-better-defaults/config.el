@@ -34,7 +34,8 @@
 ;;add auto format paste code
 (dolist (command '(yank yank-pop))
   (eval
-   `(defadvice ,command (after indent-region activate)
+   ;; `(defadvice ,command (after indent-region activate)
+   `(defadvice ,command (after activate)
       (and (not current-prefix-arg)
            (member major-mode
                    '(emacs-lisp-mode
@@ -99,7 +100,7 @@
 
 
 ;; change evil initial mode state
-(menu-bar-mode t)
+(menu-bar-mode nil)
 
 (add-hook 'before-save-hook
           (lambda ()

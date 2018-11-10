@@ -40,7 +40,7 @@ values."
        emacs-lisp
        ;; javascript
        (go :variables
-         go-tab-width 2)
+         go-tab-width 4)
        ;; haskell
        html
        ;; lua
@@ -112,21 +112,25 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
     dotspacemacs-additional-packages '(
                                         ;; sicp
-                                        doom-themes
-                                        solarized-theme
+                                        ;; doom-themes
+                                        ;; base16-theme
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
-                                        color-theme-sanityinc-tomorrow
+                                        evil-indent-plus
+                                        ;; color-theme-sanityinc-tomorrow
                                         all-the-icons
                                         all-the-icons-dired
                                         exec-path-from-shell
+
+                                        ;; flower
                                         ;; spacemacs-dark
                                         ;; spacemacs-light
+                                        (vline :location (recipe :fetcher github :repo "emacsmirror/vline"))
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
                                         ;; (reason-mode :location (recipe :fetcher github :repo "reasonml-editor/reason-mode" :stable t))
-                                        (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
-                                        (carbon-now-sh :location (recipe :fetcher github :repo "veelenga/carbon-now-sh.el"))
+                                        ;; (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
+                                        ;; (carbon-now-sh :location (recipe :fetcher github :repo "veelenga/carbon-now-sh.el"))
                                         ;; tide
                                         hierarchy
                                         string-inflection
@@ -151,14 +155,14 @@ values."
    dotspacemacs-excluded-packages
    '(magit-gh-pulls magit-gitflow org-projectile evil-mc realgud
       evil-args evil-ediff evil-exchange evil-unimpaired
-      evil-indent-plus volatile-highlights smartparens
+      volatile-highlights smartparens
       spaceline holy-mode skewer-mode
       ;; rainbow-delimiters
       highlight-indentation vi-tilde-fringe eyebrowse
       anaconda
       lispy
       flycheck-gometalinter
-      org-bullets
+      ;; org-bullets
       ;; org-repo-todo
       ;; org-download
       flycheck
@@ -183,7 +187,8 @@ values."
       helm-themes helm-swoop helm-spacemacs-help smeargle
       ido-vertical-mode flx-ido company-quickhelp counsel-projectile
       window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
-      ac-ispell 2048-game 4clojure tide
+      ac-ispell 2048-game 4clojure
+      tide
       )
    dotspacemacs-install-packages 'used-only
    dotspacemacs-delete-orphan-packages t))
@@ -252,9 +257,12 @@ values."
     dotspacemacs-themes '(
                            ;; spacemacs-light
                            ;; doom-tomorrow-night
+                           ;; base16-3024
                            solarized-dark
                            solarized-light
                            ;; doom-peacock
+                           ;; base16-atelier-estuary
+                           ;; base16-atelier-plateau
                            spacemacs-dark
                            )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -270,6 +278,7 @@ values."
                                  ;; "Operator Mono"
                                  ;; "DejaVu Sans Mono"
                                  ;; "Fira Code"
+                                 ;; "Fira Mono"
                                  ;; "PT Mono"
                                  ;; "Hack"
                                  ;; "Office Code Pro"
@@ -280,8 +289,14 @@ values."
                                  ;; "Inconsolata"
                                  ;; "Nitti Basic"
                                  ;; "Go Mono"
-                                 ;; "Courier New"
-                                 "Pica10 BT"
+                                 ;; "Courier Prime Code"
+                                 ;; "Pica10 BT"
+                                 ;; "Dank Mono"
+                                 ;; "PragmataPro"
+                                 ;; "Roboto Mono for Powerline"
+                                 ;; "League Mono"
+                                 ;; "Meslo LG S for Powerline"
+                                 "Courier New"
                                  :size 18
                                  :weight normal
                                  :width normal
@@ -400,8 +415,8 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling t
-   ;; dotspacemacs-smooth-scrolling nil
+   ;; dotspacemacs-smooth-scrolling t
+   dotspacemacs-smooth-scrolling nil
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
@@ -493,38 +508,38 @@ values."
   (setq org-default-notes-file "/Users/fri3nds/org/notes.org")
 
 
-  ;; (when (window-system)
-  ;;  (set-default-font "Fira Code"))
+  (when (window-system)
+   (set-default-font "Fira Code"))
 
-  ;; (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-  ;;                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-  ;;                 (36 . ".\\(?:>\\)")
-  ;;                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-  ;;                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-  ;;                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-  ;;                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-  ;;                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-  ;;                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-  ;;                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-  ;;                 (48 . ".\\(?:x[a-zA-Z]\\)")
-  ;;                 (58 . ".\\(?:::\\|[:=]\\)")
-  ;;                 (59 . ".\\(?:;;\\|;\\)")
-  ;;                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-  ;;                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-  ;;                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-  ;;                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-  ;;                 (91 . ".\\(?:]\\)")
-  ;;                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-  ;;                 (94 . ".\\(?:=\\)")
-  ;;                 (119 . ".\\(?:ww\\)")
-  ;;                 (123 . ".\\(?:-\\)")
-  ;;                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-  ;;                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-  ;;                 )
-  ;;         ))
-  ;;   (dolist (char-regexp alist)
-  ;;     (set-char-table-range composition-function-table (car char-regexp)
-  ;;       `([,(cdr char-regexp) 0 font-shape-gstring]))))
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                  (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                  (36 . ".\\(?:>\\)")
+                  (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                  (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                  (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                  (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                  (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                  (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                  (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                  (48 . ".\\(?:x[a-zA-Z]\\)")
+                  (58 . ".\\(?:::\\|[:=]\\)")
+                  (59 . ".\\(?:;;\\|;\\)")
+                  (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                  (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                  (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                  (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                  (91 . ".\\(?:]\\)")
+                  (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                  (94 . ".\\(?:=\\)")
+                  (119 . ".\\(?:ww\\)")
+                  (123 . ".\\(?:-\\)")
+                  (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                  (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                  )
+          ))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+        `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
 
   (add-hook 'helm-major-mode-hook
@@ -535,12 +550,20 @@ values."
 
   ;; force horizontal split window
   (setq split-width-threshold 300)
+  (setq
+    scroll-conservatively 101
+    scroll-margin 5
+    scroll-preserve-screen-position 't
+    )
+
+
+
 
   ;; (global-linum-mode 1)
 
   ;; (global-linum-mode nil)
   ;; (linum-relative-on)
-  (setq-default line-spacing 4)
+  (setq-default line-spacing 0)
   ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
   ;; (spacemacs|add-company-backends :modes text-mode)
@@ -614,6 +637,8 @@ values."
 
 
 
+  ;; (vline-global-mode 1)
+  ;; (set-face-background vline-face "#073642")
   (global-display-line-numbers-mode 1)
 
   (defun my-prog-mode-hook ()
@@ -626,22 +651,32 @@ values."
     (linum-mode -1)
     (abbrev-mode 1)
     (display-line-numbers-mode 1)
+    ;; (vline-mode -1)
     ;; (blank-mode t)
     ;; (global-company-mode)
     (highlight-indent-guides-mode 1)
-
+    ;; (set-face-background vline-face "#c2ebff")
     ;; (fci-mode 1)
     (editorconfig-mode 1)
     )
 
   (setq highlight-indent-guides-auto-character-face-perc 8)
   (setq highlight-indent-guides-method 'character)
+  ;; (setq highlight-indent-guides-character ?\⎨)
+  ;; (setq highlight-indent-guides-character ?\￤)
+  ;; (setq highlight-indent-guides-character ?\：)
+  ;; (setq highlight-indent-guides-character ?\｜)
+  (setq highlight-indent-guides-character ?\┆)
+  ;; 𝄀 𝄁 𝄂 𝄃 𝄄 𝄅
+
+
 
 
 
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . typescript-mode))
+
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
   ;; (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-on)) 'append)
@@ -662,11 +697,27 @@ values."
   ;;                                           ))
   (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
+  ;; (defun setup-tide-mode ()
+  ;;   (electric-indent-local-mode -1)
+  ;;   (electric-indent-mode -1)
+    ;; (interactive)
+  ;;   (tide-setup)
+  ;;   (flycheck-mode -1)
+  ;;   ;; (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  ;;   (eldoc-mode -1)
+  ;;   (tide-hl-identifier-mode -1)
+  ;;   ;; company is an optional dependency. You have to
+  ;;   ;; install it separately via package-install
+  ;;   ;; `M-x package-install [ret] company`
+    ;; (company-mode -1))
+  ;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
   (with-eval-after-load 'company
     (add-to-list 'company-backends '(
                                       company-files
                                       company-capf :with company-dabbrev
                                       )))
+
 
   (setq company-dabbrev-code-everywhere t)
   (setq company-dabbrev-code-modes t)
@@ -813,7 +864,6 @@ values."
                "%b"))))
 
 
-
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
@@ -825,7 +875,6 @@ values."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (set-face-background 'company-tooltip-selection "red")
   (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -834,6 +883,7 @@ This function is called at the very end of Spacemacs initialization."
   '(package-selected-packages '(evil-unimpaired f s dash)))
 
   (custom-set-faces
+    ;; (face-attribute hl-line-face :background)
 
     ;; custom-set-faces was added by Custom.
     ;; If you edit it by hand, you could mess it up, so be careful.
