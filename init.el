@@ -2,6 +2,8 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+;; 862e81e49aefd6689e9d92a150212ac46ec66e99
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -243,10 +245,11 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-    dotspacemacs-startup-lists '(
-                                  (recents . 40)
-                                  ;; (projects . 20)
-                                  )
+   dotspacemacs-startup-lists nil
+    ;; dotspacemacs-startup-lists '(
+    ;;                               (recents . 40)
+    ;;                               ;; (projects . 20)
+    ;;                               )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -477,13 +480,16 @@ values."
   (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
 
-  (defun spacemacs-buffer/goto-buffer ()
-    (interactive))
+  // 直接进入 scratch buffer
+  ;; (defun spacemacs-buffer/goto-buffer ()
+  ;;   (interactive))
   )
 
 (defun dotspacemacs/user-config ()
   (setq save-abbrevs nil)
 
+  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
   ;; (setq racer-rust-src-path "/Users/fri3nds/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")
 
@@ -689,13 +695,13 @@ values."
   (setq neo-vc-integration (quote (char)))
   (setq neo-window-position 'left)
 
-  ;; (setq company-backends-typescript-mode '(
-  ;;                                           company-yasnippet
-  ;;                                           (company-dabbrev-code company-gtags company-etags company-keywords)
-  ;;                                           company-files
-  ;;                                           company-dabbrev
-  ;;                                           ))
-  (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
+  (setq company-backends-typescript-mode '(
+                                            company-yasnippet
+                                            (company-dabbrev-code company-gtags company-etags company-keywords)
+                                            company-files
+                                            company-dabbrev
+                                            ))
+  ;; (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
   ;; (defun setup-tide-mode ()
   ;;   (electric-indent-local-mode -1)
