@@ -43,7 +43,7 @@ values."
        ;; javascript
        (go :variables
          go-tab-width 4)
-       ;; haskell
+       haskell
        html
        ;; lua
        ;; nginx
@@ -119,7 +119,7 @@ values."
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
-                                        evil-indent-plus
+                                        ;; evil-indent-plus
                                         ;; color-theme-sanityinc-tomorrow
                                         all-the-icons
                                         all-the-icons-dired
@@ -128,7 +128,7 @@ values."
                                         ;; flower
                                         ;; spacemacs-dark
                                         ;; spacemacs-light
-                                        (vline :location (recipe :fetcher github :repo "emacsmirror/vline"))
+                                        ;; (vline :location (recipe :fetcher github :repo "emacsmirror/vline"))
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
                                         ;; (reason-mode :location (recipe :fetcher github :repo "reasonml-editor/reason-mode" :stable t))
                                         ;; (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
@@ -140,7 +140,7 @@ values."
                                         ;; git-gutter+
                                         neotree
                                         ;; rainbow-delimiters
-                                        rainbow-mode
+                                        ;; rainbow-mode
                                         ;; ox-reveal
                                         ;; org-reveal
                                         ;; js-doc
@@ -155,7 +155,10 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
-   '(magit-gh-pulls magit-gitflow org-projectile evil-mc realgud
+    '(magit-gh-pulls
+       magit-gitflow org-projectile evil-mc realgud
+       ghub
+       helm-github-stars
       evil-args evil-ediff evil-exchange evil-unimpaired
       volatile-highlights smartparens
       spaceline holy-mode skewer-mode
@@ -166,7 +169,7 @@ values."
       flycheck-gometalinter
       ;; org-bullets
       ;; org-repo-todo
-      ;; org-download
+      org-download
       flycheck
       js-mode
       pangu-spacing
@@ -174,8 +177,8 @@ values."
       ;; js2-mode
       ;; company
       ;; org-timer
-      ;; org-pomodoro
-      ;; org-brain
+      org-pomodoro
+      org-brain
       ;; org-plus-contrib
       livid-mode
       git-gutter
@@ -185,7 +188,8 @@ values."
       clang-format define-word google-translate disaster epic
       fancy-battery org-present orgit orglue spacemacs-theme
       helm-flyspell flyspell-correct-helm clean-aindent-mode
-      helm-c-yasnippet ace-jump-helm-line helm-make magithub
+       helm-c-yasnippet ace-jump-helm-line helm-make
+       magithub
       helm-themes helm-swoop helm-spacemacs-help smeargle
       ido-vertical-mode flx-ido company-quickhelp counsel-projectile
       window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
@@ -300,7 +304,7 @@ values."
                                  ;; "League Mono"
                                  ;; "Meslo LG S for Powerline"
                                  "Courier New"
-                                 :size 18
+                                 :size 20
                                  :weight normal
                                  :width normal
                                  :powerline-scale 1.2)
@@ -585,7 +589,7 @@ values."
   (spacemacs|diminish ggtags-mode)
   (spacemacs|diminish which-key-mode)
   (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
-  (spacemacs|diminish counsel-mode)
+  ;; (spacemacs|diminish counsel-mode)
 
   ;; 让 cnfonts 随着 Emacs 自动生效。
   ;; (cnfonts-enable)

@@ -88,6 +88,18 @@
   (mapc 'kill-buffer(buffer-list)))
 
 
+;; (setq-default buffer-predicate '("*Messages*" "*scratch*" "*Help*"))
+(defadvice next-buffer (after avoid-messages-buffer-in-next-buffer)
+  "Advice around `next-buffer' to avoid going into the *Messages* buffer."
+  (when (or
+          (string= "*Messages*" (buffer-name))
+          (string= "*Help*" (buffer-name))
+          (string= "*spacemacs*" (buffer-name))
+          (string= "*ibuffer*" (buffer-name)))
+    (next-buffer)))
+
+;; activate the advice
+(ad-activate 'next-buffer)
 
 (defun kill-other-buffers (&optional arg)
   "Kill all other buffers.
@@ -476,6 +488,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (define-key evil-insert-state-map (kbd "C-a") 'evil-insert-line)
 
 (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
+(define-key evil-normal-state-map (kbd "<tab>") 'next-buffer)
 (define-key evil-visual-state-map (kbd "H") 'evil-beginning-of-line)
 
 (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
