@@ -85,15 +85,15 @@
 
 (defun kill-all-buffers ()
   (interactive)
-  (mapc 'kill-buffer(buffer-list)))
+  (mapc 'kill-buffer (buffer-list)))
 
 
-;; (setq-default buffer-predicate '("*Messages*" "*scratch*" "*Help*"))
 (defadvice next-buffer (after avoid-messages-buffer-in-next-buffer)
   "Advice around `next-buffer' to avoid going into the *Messages* buffer."
   (when (or
           (string= "*Messages*" (buffer-name))
           (string= "*Help*" (buffer-name))
+          (string= "*Compile-Log*" (buffer-name))
           (string= "*spacemacs*" (buffer-name))
           (string= "*ibuffer*" (buffer-name)))
     (next-buffer)))
@@ -474,6 +474,7 @@ to the `killed-buffer-list' when killing the buffer."
 
 (spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
 (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
+(spacemacs/set-leader-keys "zz" 'fzf)
 
 
 

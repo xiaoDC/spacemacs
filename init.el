@@ -119,6 +119,7 @@ values."
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
+                                        fzf
                                         ;; evil-indent-plus
                                         ;; color-theme-sanityinc-tomorrow
                                         all-the-icons
@@ -264,13 +265,13 @@ values."
     dotspacemacs-themes '(
                            ;; spacemacs-light
                            ;; doom-tomorrow-night
-                           ;; base16-3024
                            solarized-dark
+                           spacemacs-dark
+                           ;; base16-3024
                            solarized-light
                            ;; doom-peacock
                            ;; base16-atelier-estuary
                            ;; base16-atelier-plateau
-                           spacemacs-dark
                            )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -304,10 +305,10 @@ values."
                                  ;; "League Mono"
                                  ;; "Meslo LG S for Powerline"
                                  "Courier New"
-                                 :size 20
+                                 :size 18
                                  :weight normal
                                  :width normal
-                                 :powerline-scale 1.2)
+                                 :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -870,7 +871,16 @@ values."
 
   (setq-default header-line-format
     '((:eval (if (buffer-file-name)
-               (abbreviate-file-name (buffer-file-name))
+               (let ((buffer-coll (remove nil (mapcar 'buffer-file-name (buffer-list)))))
+                 (concat
+                   (number-to-string (+ 1 (position
+                                       (buffer-file-name)
+                                       buffer-coll)))
+                   "-"
+                   (number-to-string (list-length buffer-coll))
+                   " "
+                   (abbreviate-file-name (buffer-file-name)))
+                 )
                "%b"))))
 
 
