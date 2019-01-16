@@ -9,6 +9,7 @@
 ;;
 ;;; License: GPLv3
 
+
 (defconst fri3nds-ui-packages
   '(
     diminish

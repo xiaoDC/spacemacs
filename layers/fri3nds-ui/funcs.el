@@ -22,12 +22,14 @@
    ((string= "9" str) "➒")
    ((string= "0" str) "➓")))
 
+
 (defun window-number-mode-line ()
   "The current window number. Requires `winum-mode' to be enabled."
   (when (bound-and-true-p winum-mode)
     (let* ((num (winum-get-number))
            (str (when num (int-to-string num))))
       (spaceline--unicode-number str))))
+
 
 (defun mode-line-fill (face reserve)
   "Return empty space using FACE and leaving RESERVE space on the right."
@@ -39,6 +41,7 @@
               'display `((space :align-to
                                 (- (+ right right-fringe right-margin) ,reserve)))
               'face face))
+
 
 (defun buffer-encoding-abbrev ()
   "The line ending convention used in the buffer."

@@ -43,7 +43,7 @@ values."
        ;; javascript
        (go :variables
          go-tab-width 4)
-       haskell
+       ;; haskell
        html
        ;; lua
        ;; nginx
@@ -55,7 +55,7 @@ values."
        ;; ruby-on-rails
        ;; rust
        ;; (shell :variables shell-default-shell 'eshell)
-       sql
+       ;; sql
        typescript
        ;; yaml
        ivy
@@ -72,7 +72,7 @@ values."
        ;; (spell-checking :variables spell-checking-enable-by-default nil)
        (vinegar :variables vinegar-reuse-dired-buffer t)
        (spacemacs-layouts :variables layouts-enable-autosave nil
-         layouts-autosave-delay 3000)
+         layouts-autosave-delay 30000)
 
        (git :variables
          git-magit-status-fullscreen t
@@ -88,10 +88,11 @@ values."
        (auto-completion :variables
          auto-completion-enable-sort-by-usage t
          auto-completion-enable-snippets-in-popup t
-         :disabled-for org markdown)
+         ;; :disabled-for org markdown
+         )
 
-       (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
-         osx-command-as 'super)
+       ;; (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
+       ;;   osx-command-as 'super)
        ;; restclient
        ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
        ;; docker
@@ -101,7 +102,8 @@ values."
        ;; (org :variables org-want-todo-bindings t)
        (org :variables
          org-want-todo-bindings t
-         org-enable-reveal-js-support t)
+         ;; org-enable-reveal-js-support t
+         )
 
        fri3nds
        ;; (chinese :packages youdao-dictionary fcitx
@@ -116,6 +118,15 @@ values."
                                         ;; sicp
                                         ;; doom-themes
                                         ;; base16-theme
+                                        ;; soothe-theme
+                                        alect-themes
+                                        ;; calfw-cal
+                                        ;; calfw-org
+                                        ;; color-theme-sanityinc-solarized
+                                        diff-hl
+                                        ;; dash
+                                        ;; dash-functional
+                                        ;; helm-dash
                                         youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
@@ -124,13 +135,15 @@ values."
                                         ;; color-theme-sanityinc-tomorrow
                                         all-the-icons
                                         all-the-icons-dired
-                                        exec-path-from-shell
+                                        ;; exec-path-from-shell
+                                        reveal-in-osx-finder
 
                                         ;; flower
                                         ;; spacemacs-dark
                                         ;; spacemacs-light
                                         ;; (vline :location (recipe :fetcher github :repo "emacsmirror/vline"))
                                         (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
+                                        (ishikk :location (recipe :fetcher github :repo "raxod502/ishikk"))
                                         ;; (reason-mode :location (recipe :fetcher github :repo "reasonml-editor/reason-mode" :stable t))
                                         ;; (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
                                         ;; (carbon-now-sh :location (recipe :fetcher github :repo "veelenga/carbon-now-sh.el"))
@@ -152,6 +165,8 @@ values."
                                         ;; treemacs-evil
                                         ;; treemacs-projectile
                                         ;; cnfonts
+                                        window-purpose
+                                        whitespace
                                         )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -160,16 +175,26 @@ values."
        magit-gitflow org-projectile evil-mc realgud
        ghub
        helm-github-stars
-      evil-args evil-ediff evil-exchange evil-unimpaired
-      volatile-highlights smartparens
+       evil-args evil-ediff evil-exchange evil-unimpaired
+
+       evil-tutor
+       evil-matchit
+       evil-lion
+       ghub
+       git-timemachine
+
+       clojure-cheatsheet
+
+       volatile-highlights smartparens
       spaceline holy-mode skewer-mode
       ;; rainbow-delimiters
+      dash
       highlight-indentation vi-tilde-fringe eyebrowse
       anaconda
       lispy
       flycheck-gometalinter
       ;; org-bullets
-      ;; org-repo-todo
+      org-repo-todo
       org-download
       flycheck
       js-mode
@@ -177,7 +202,7 @@ values."
       js2refactor
       ;; js2-mode
       ;; company
-      ;; org-timer
+      org-timer
       org-pomodoro
       org-brain
       ;; org-plus-contrib
@@ -187,13 +212,15 @@ values."
       leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
       ac-ispell ace-jump-mode auto-complete auto-dictionary
       clang-format define-word google-translate disaster epic
-      fancy-battery org-present orgit orglue spacemacs-theme
+       fancy-battery org-present orgit orglue
+       ;; spacemacs-theme
       helm-flyspell flyspell-correct-helm clean-aindent-mode
        helm-c-yasnippet ace-jump-helm-line helm-make
        magithub
       helm-themes helm-swoop helm-spacemacs-help smeargle
       ido-vertical-mode flx-ido company-quickhelp counsel-projectile
-      window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
+       ;; window-purpose
+      ivy-purpose helm-purpose spacemacs-purpose-popwin
       ac-ispell 2048-game 4clojure
       tide
       )
@@ -262,13 +289,17 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-    dotspacemacs-themes '(
-                           ;; spacemacs-light
+   dotspacemacs-themes '(
+                          solarized-dark
+                          spacemacs-light
+                          solarized-light
+                           ;; alect-black
+                          spacemacs-dark
+                          deeper-blue
+                          tsdh-light
+                          wheatgrass
                            ;; doom-tomorrow-night
-                           solarized-dark
-                           spacemacs-dark
                            ;; base16-3024
-                           solarized-light
                            ;; doom-peacock
                            ;; base16-atelier-estuary
                            ;; base16-atelier-plateau
@@ -280,7 +311,6 @@ values."
     dotspacemacs-default-font '(
                                  ;; "Source Code Pro"
                                  ;; "Anonymous Pro"
-                                 ;; "consolas"
                                  ;; "Monaco"
                                  ;; "Menlo"
                                  ;; "Operator Mono"
@@ -288,25 +318,30 @@ values."
                                  ;; "Fira Code"
                                  ;; "Fira Mono"
                                  ;; "PT Mono"
-                                 ;; "Hack"
-                                 ;; "Office Code Pro"
-                                 ;; "Iosevka"
-                                 ;; "CamingoCode"
-                                 ;; "Input Mono"
-                                 ;; "InconsolataGo Nerd Font"
-                                 ;; "Inconsolata"
-                                 ;; "Nitti Basic"
                                  ;; "Go Mono"
+                                 ;; "Hack"
+                                 ;; "Iosevka"
+                                 ;; "Input Mono"
+                                 ;; "Monoid"
+                                 ;; "Inconsolata"
                                  ;; "Courier Prime Code"
                                  ;; "Pica10 BT"
                                  ;; "Dank Mono"
                                  ;; "PragmataPro"
+                                 ;; "FandolKai"
                                  ;; "Roboto Mono for Powerline"
-                                 ;; "League Mono"
                                  ;; "Meslo LG S for Powerline"
-                                 "Courier New"
-                                 :size 18
+                                 ;; "Inconsolata-dz for Powerline"
+                                 ;; "Source Code Pro for Powerline"
+                                 ;; "Input Mono"
+                                 ;; "League Mono"
+                                 ;; "Office Code Pro"
+                                 ;; "Courier New"
+                                 "SF Mono"
+                                 ;; "Luxi Mono"
+                                 :size 16
                                  :weight normal
+                                 ;; :weight light
                                  :width normal
                                  :powerline-scale 1.0)
    ;; The leader key
@@ -482,15 +517,18 @@ values."
   (setq byte-compile-warnings '(not obsolete))
   ;; (setq warning-minimum-level :error)
   ;; hack for remove purpose mode
-  (setq exec-path-from-shell-arguments '("-l"))
+  ;; (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
 
-  // 直接进入 scratch buffer
+  ;; // 直接进入 scratch buffer
   ;; (defun spacemacs-buffer/goto-buffer ()
   ;;   (interactive))
   )
 
 (defun dotspacemacs/user-config ()
+  ;; (add-to-list 'load-path (expand-file-name "/Users/fri3nds/.spacemacs.d/aweshell"))
+  ;; (require 'aweshell)
+
   (setq save-abbrevs nil)
 
   (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
@@ -516,7 +554,6 @@ values."
 
 
   (fset 'evil-visual-update-x-selection 'ignore)
-  (setq org-default-notes-file "/Users/fri3nds/org/notes.org")
 
 
   (when (window-system)
@@ -570,9 +607,9 @@ values."
 
 
 
-  ;; (global-linum-mode 1)
-
   ;; (global-linum-mode nil)
+  ;; (setq linum-format "%4d \u2502")
+
   ;; (linum-relative-on)
   (setq-default line-spacing 0)
   ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
@@ -618,7 +655,7 @@ values."
 
 
 
-
+  ;; (load-theme 'solarized t)
   ;; make the fringe stand out from the background
   ;; (setq solarized-distinct-fringe-background t)
   ;; Don't change the font for some headings and titles
@@ -628,9 +665,9 @@ values."
   ;; Use less bolding
   ;; (setq solarized-use-less-bold t)
   ;; Use more italics
-  ;; (setq solarized-use-more-italic t)
+  (setq solarized-use-more-italic t)
   ;; Use less colors for indicators such as git:gutter, flycheck and similar
-  ;; (setq solarized-emphasize-indicators nil)
+  ;; (setq solarized-emphasize-indicators t)
   ;; Don't change size of org-mode headlines (but keep other size-changes)
   ;; (setq solarized-scale-org-headlines nil)
   ;; Avoid all font-size changes
@@ -639,6 +676,13 @@ values."
   ;; (setq solarized-height-plus-2 1.0)
   ;; (setq solarized-height-plus-3 1.0)
   ;; (setq solarized-height-plus-4 1.0)
+
+
+  ;; (add-to-list 'custom-theme-load-path "/Users/fri3nds/.spacemacs.d/theme/emacs-color-theme-solarized")
+  ;; (require 'color-theme-solarized)
+  ;; (load-theme 'solarized t)
+  ;; (set-frame-parameter nil 'background-mode 'dark)    ;;选择solarized dark
+  ;; (enable-theme 'solarized)
 
 
   ;; (add-to-list 'org-capture-templates '("w" "Work Tasks"))
@@ -650,7 +694,22 @@ values."
 
   ;; (vline-global-mode 1)
   ;; (set-face-background vline-face "#073642")
+
   (global-display-line-numbers-mode 1)
+  (global-diff-hl-mode 1)
+
+  (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark newline-mark)))
+  ;; (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark)))
+  (setq whitespace-display-mappings '(
+                                       (space-mark 32 [183] [46]) ; normal space
+                                       (space-mark 160 [164] [95])
+                                       (space-mark 2208 [2212] [95])
+                                       (space-mark 2336 [2340] [95])
+                                       (space-mark 3616 [3620] [95])
+                                       (space-mark 3872 [3876] [95])
+                                       ;; (newline-mark 10 [35 10]) ; newlne
+                                       (tab-mark 9 [9655 9] [92 9]) ; tab
+                                      ))
 
   (defun my-prog-mode-hook ()
     "active after prog-mode"
@@ -665,11 +724,13 @@ values."
     ;; (vline-mode -1)
     ;; (blank-mode t)
     ;; (global-company-mode)
+    ;; (whitespace-mode 1)
     (highlight-indent-guides-mode 1)
     ;; (set-face-background vline-face "#c2ebff")
     ;; (fci-mode 1)
     (editorconfig-mode 1)
     )
+
 
   (setq highlight-indent-guides-auto-character-face-perc 8)
   (setq highlight-indent-guides-method 'character)
@@ -698,6 +759,7 @@ values."
 
   (setq neo-theme 'icons)
   (setq neo-vc-integration (quote (char)))
+  ;; (setq neo-window-position 'right)
   (setq neo-window-position 'left)
 
   (setq company-backends-typescript-mode '(
@@ -729,6 +791,8 @@ values."
                                       company-capf :with company-dabbrev
                                       )))
 
+  ;; (eval-after-load 'dash '(dash-enable-font-lock))
+  ;; (setq helm-dash-docsets-path "/Users/fri3nds/Library/Application Support/Dash/Versioned DocSets")
 
   (setq company-dabbrev-code-everywhere t)
   (setq company-dabbrev-code-modes t)
@@ -752,17 +816,19 @@ values."
 
   (setq ido-ignore-buffers '("\\` " "^\*grep*" "^\*scratch*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
   (setq iswitchb-buffer-ignore '("\\` " "^\*grep*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
+  ;; (setq helm-ff-skip-boring-files t)
   (setq helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*Messages" "\\*scratch"))
-
 
 
   (setq yas-indent-line 'fixed)
 
 
-  ;; (custom-set-faces
+  (custom-set-faces
   ;;   (set-face-background 'git-gutter+-modified "yellow") ;; background color
   ;;   (set-face-foreground 'git-gutter+-added "green")
-  ;;   (set-face-foreground 'git-gutter+-deleted "DarkRed"))
+    ;; (set-face-foreground 'git-gutter+-deleted "DarkRed")
+    (set-face-background 'highlight "#EEAD0E")
+    )
 
   ;; (custom-set-variables
   ;;   ;; 设置 git-gutter
@@ -779,11 +845,51 @@ values."
 
   ;; (global-git-gutter+-mode)
 
+  ;; Removing dot files in helm-find-files menu
+  ;; https://www.reddit.com/r/emacs/comments/5q922h/removing_dot_files_in_helmfindfiles_menu/
+  (require 'cl-lib)
+  (defvar no-dots-whitelist
+    '()
+    "List of helm buffers in which to show dots.")
 
+  (defun no-dots/whitelistedp ()
+    (member (with-helm-buffer (buffer-name)) no-dots-whitelist))
+
+  (defun no-dots/helm-ff-filter-candidate-one-by-one (fcn file)
+    (when (or (no-dots/whitelistedp)
+              (not (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)))
+      (funcall fcn file)))
+
+  (defun no-dots/helm-file-completion-source-p (&rest args) t)
+
+  (defun no-dots/helm-attrset (fcn attribute-name value &optional src)
+    (let ((src (or src (helm-get-current-source))))
+      (when src
+        (funcall fcn attribute-name value src))))
+
+  (defun no-dots/helm-find-files-up-one-level (fcn &rest args)
+    (advice-add 'helm-file-completion-source-p
+                :around 'no-dots/helm-file-completion-source-p)
+    (advice-add 'helm-attrset
+                :around 'no-dots/helm-attrset)
+    (let ((res (apply fcn args)))
+      (advice-remove 'helm-file-completion-source-p
+                    'no-dots/helm-file-completion-source-p)
+      (advice-remove 'helm-attrset
+                    'no-dots/helm-attrset)
+      res))
+
+  (with-eval-after-load 'helm-files
+    (advice-add 'helm-ff-filter-candidate-one-by-one
+                :around 'no-dots/helm-ff-filter-candidate-one-by-one)
+    (advice-add 'helm-find-files-up-one-level
+                :around 'no-dots/helm-find-files-up-one-level))
+  ;; end ====================================================== Removing dot files in helm-find-files menu
 
   (setq-default mode-line-format
     (list
-      " %1"
+      " ❐ "
+      ;; " %1"
       '(:eval (propertize
                 (window-number-mode-line)
                 'face
@@ -835,9 +941,9 @@ values."
 
       ;; line and column
       "("
-      (propertize "%4l" 'face 'font-lock-type-face)
-      ","
-      (propertize "%3c" 'face 'font-lock-type-face)
+      (propertize "%6l" 'face 'font-lock-type-face)
+      " "
+      (propertize "%4c" 'face 'font-lock-type-face)
       ")"
 
       "    "
@@ -865,6 +971,7 @@ values."
                 (concat ","  (propertize "RO"
                                'face 'font-lock-warning-face
                                'help-echo "Buffer is read-only"))))
+
       ))
 
 
@@ -873,10 +980,12 @@ values."
     '((:eval (if (buffer-file-name)
                (let ((buffer-coll (remove nil (mapcar 'buffer-file-name (buffer-list)))))
                  (concat
+                   ;; "⟹"
+                   " ❐ "
                    (number-to-string (+ 1 (position
-                                       (buffer-file-name)
-                                       buffer-coll)))
-                   "-"
+                                            (buffer-file-name)
+                                            buffer-coll)))
+                   "/"
                    (number-to-string (list-length buffer-coll))
                    " "
                    (abbreviate-file-name (buffer-file-name)))

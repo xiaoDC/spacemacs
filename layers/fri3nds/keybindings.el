@@ -111,7 +111,6 @@ If the universal prefix argument is used then will the windows too."
              (buffer-name))))
 
 
-
 (defun revert-all-buffers ()
   "Refreshes all open buffers from their respective files."
   (interactive)
@@ -127,7 +126,11 @@ If the universal prefix argument is used then will the windows too."
 
 (defun just-get-buffer-file-the-name ()
   (interactive)
-  (let ((bf (or (buffer-file-name) list-buffers-directory)))
+  (let ((bf (or (buffer-file-name) (substring
+                                     list-buffers-directory
+                                     0
+                                     (last-index-of "/" list-buffers-directory)))))
+    (message bf)
     (if bf
       ;; (copy-string-to-clipboard (file-name-sans-extension
       ;;                             (substring bf
@@ -141,17 +144,24 @@ If the universal prefix argument is used then will the windows too."
 (defun fri3nds-insert-lines ()
   (interactive)
   (require 'cl)
+  (let ((num (cl-parse-integer (my-prompt-input))))
+    (dotimes (i num) (insert (format "%d\n" (+ 1 i))))))
+
+
+(defun fri3nds-insert-lines-with-number ()
+  (interactive)
+  (require 'cl)
   (let ((sym (my-prompt-input)))
-    (dotimes (i (cl-parse-integer sym)) (insert (format "%d\n" (1+ i))))))
+    (dotimes (i (cl-parse-integer sym)) (insert (format "%d. %d\n" (1+ i) (1+ i))))))
 
 
-(defun fri3nds/delete-line-before ()
-  (interactive)
-  (kill-line 0))
+;; (defun fri3nds/delete-line-before ()
+;;   (interactive)
+;;   (kill-line 0))
 
-(defun fri3nds/delete-line-after ()
-  (interactive)
-  (kill-line))
+;; (defun fri3nds/delete-line-after ()
+;;   (interactive)
+;;   (kill-line))
 
 
 (defun fri3nds/clear-this-line ()
@@ -310,6 +320,7 @@ If the universal prefix argument is used then will the windows too."
 (defun my-prompt-input ()
   "Prompt input object for translate."
   (let ((current-word (my-region-or-word)))
+    (message current-word)
     (read-string (format "Word (%s): "
                     (or current-word ""))
       nil nil
@@ -329,7 +340,7 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-snippets ()
   (interactive)
-  (find-file "/Users/fri3nds/Dropbox/Note/Snippets/regex.md"))
+  (find-file "/Users/fri3nds/Dropbox/Note/README.org"))
 
 
 (defun fri3nds/open-tools ()
@@ -347,7 +358,7 @@ If the universal prefix argument is used then will the windows too."
   (find-file "/Users/fri3nds/Dropbox/org/tuya-work.org"))
 
 
-(defun fri3nds/show-and-copy-buffer-filename ()
+(defun fri3nds/showcopy-buffer-filename ()
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
   ;; list-buffers-directory is the variable set in dired buffers
@@ -392,15 +403,40 @@ to the `killed-buffer-list' when killing the buffer."
 (advice-add 'neotree-enter :around 'fri3nds/neotree-keep-size)
 
 
+;; (defvar helm-fzf-source
+;;   (helm-build-async-source "fzf"
+;;     :candidates-process 'helm-fzf--do-candidate-process
+;;     :nohighlight t
+;;     :requires-pattern 2
+;;     :candidate-number-limit 9999))
 
-(spacemacs/set-leader-keys "as" 'evil-avy-goto-line)
-(spacemacs/set-leader-keys "aa" 'evil-avy-goto-char)
+;; (defun helm-fzf--do-candidate-process ()
+;;   (let* ((cmd-args `("fzf" "-x" "-f" ,helm-pattern))
+;;           (proc (apply #'start-file-process "helm-fzf" nil cmd-args)))
+;;     (prog1 proc
+;;       (set-process-sentinel
+;;         proc
+;;         (lambda (process event)
+;;           (helm-process-deferred-sentinel-hook
+;;             process event (helm-default-directory)))))))
+
+;; (defun helm-fzf ()
+;;   (interactive)
+;;   (let ((default-directory "~/"))
+;; 	  (find-file
+;; 	    (concat "~/" (helm :sources '(helm-fzf-source)
+;; 						         :buffer "*helm-fzf*")))))
+
+
+(spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
+(spacemacs/set-leader-keys "as" 'evil-avy-goto-char)
 (spacemacs/set-leader-keys "ag" 'helm-ag)
 
 (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
 (spacemacs/set-leader-keys "bb" 'helm-find-files)
 (spacemacs/set-leader-keys "bc" 'erase-buffer)
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
+(spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
 (spacemacs/set-leader-keys "bm" 'spacemacs/switch-to-messages-buffer)
 (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
 (spacemacs/set-leader-keys "br" 'revert-all-buffers)
@@ -414,10 +450,11 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
 
 (spacemacs/set-leader-keys "dd" 'dired-jump)
-(spacemacs/set-leader-keys "dh" 'fri3nds/delete-line-before)
-(spacemacs/set-leader-keys "dk" 'fri3nds/delete-line-after)
-(spacemacs/set-leader-keys "dl" 'fri3nds/clear-this-line)
 (spacemacs/set-leader-keys "df" 'magit-diff-buffer-file)
+;; (spacemacs/set-leader-keys "dh" 'fri3nds/delete-line-before)
+;; (spacemacs/set-leader-keys "dk" 'fri3nds/delete-line-after)
+(spacemacs/set-leader-keys "dl" 'fri3nds/clear-this-line)
+(spacemacs/set-leader-keys "dn" 'diff-hl-next-hunk)
 (spacemacs/set-leader-keys "dt" 'magit-diff-working-tree)
 
 ;; (spacemacs/set-leader-keys "en" 'git-gutter+-next-hunk)
@@ -426,13 +463,12 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ff" 'helm-recentf)
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
-(spacemacs/set-leader-keys "gb" 'magit-blame)
+(spacemacs/set-leader-keys "gb" 'magit-blame-addition)
 
-(spacemacs/set-leader-keys "fy" 'fri3nds/show-and-copy-buffer-filename)
+(spacemacs/set-leader-keys "fy" 'fri3nds/showcopy-buffer-filename)
 
 
 (spacemacs/set-leader-keys "ja" 'fri3nds/open-todo-file)
-(spacemacs/set-leader-keys "jc" 'org-capture)
 (spacemacs/set-leader-keys "jd" 'fri3nds/open-sync-todo-file)
 (spacemacs/set-leader-keys "jh" 'ibuffer)
 (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
@@ -450,12 +486,13 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
 
 (spacemacs/set-leader-keys "ii" 'evil-avy-goto-char-in-line)
-(spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
+;; (spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
 (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
 (spacemacs/set-leader-keys "nn" 'next-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
 (spacemacs/set-leader-keys "oc" 'org-capture)
+(spacemacs/set-leader-keys "oo" 'projectile-switch-project)
 (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
 (spacemacs/set-leader-keys "sl" 'helm-resume)
@@ -481,8 +518,8 @@ to the `killed-buffer-list' when killing the buffer."
 
 (global-set-key (kbd "s-y") 'redo)
 
-(define-key evil-normal-state-map (kbd "L") 'evil-last-non-blank)
-(define-key evil-visual-state-map (kbd "L") 'evil-last-non-blank)
+(define-key evil-normal-state-map (kbd "L") 'move-end-of-line)
+(define-key evil-visual-state-map (kbd "L") 'move-end-of-line)
 ;; evil-last-non-blank
 
 ;; (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
