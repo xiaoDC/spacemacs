@@ -529,6 +529,9 @@ to the `killed-buffer-list' when killing the buffer."
 (define-key evil-normal-state-map (kbd "<tab>") 'next-buffer)
 (define-key evil-visual-state-map (kbd "H") 'evil-beginning-of-line)
 
+(define-key evil-normal-state-map (kbd "M") 'evil-search-clear-highlight)
+(define-key evil-visual-state-map (kbd "M") 'evil-search-clear-highlight)
+
 (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
 
 (global-set-key (kbd "s-i") 'string-inflection-toggle)
