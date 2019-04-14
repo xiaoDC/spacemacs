@@ -494,6 +494,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "oc" 'org-capture)
 (spacemacs/set-leader-keys "oo" 'projectile-switch-project)
 (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
+;; (spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
 (spacemacs/set-leader-keys "sl" 'helm-resume)
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)

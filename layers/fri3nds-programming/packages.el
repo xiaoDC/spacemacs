@@ -129,10 +129,12 @@
 
 
 (defun fri3nds-programming/post-init-company ()
-  (progn
-    (setq company-minimum-prefix-length 1
-          company-idle-delay 0.02)
+  (use-package company-tabnine
+    :defer t
+    :init
+    (progn
+      (setq company-minimum-prefix-length 1
+            company-idle-delay 0.02)
 
-    (when (configuration-layer/package-usedp 'company)
-      (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
-    ))
+      (with-eval-after-load 'company
+        (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode)))))

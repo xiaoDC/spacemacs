@@ -37,12 +37,15 @@ values."
        ;; (c-c++ :variables
        ;;        c-c++-default-mode-for-headers 'c++-mode)
        ;; clojure
-       (clojure :variables clojure-enable-fancify-symbols nil)
+       ;; (clojure :variables clojure-enable-fancify-symbols nil)
        ;; elm
        emacs-lisp
        ;; javascript
        (go :variables
-         go-tab-width 4)
+         go-tab-width 4
+         go-use-gometalinter t
+         ;; gofmt-command "goimports"
+         )
        ;; haskell
        html
        ;; lua
@@ -70,9 +73,11 @@ values."
        ;; (syntax-checking :variables syntax-checking-enable-by-default nil
        ;;                  syntax-checking-enable-tooltips nil)
        ;; (spell-checking :variables spell-checking-enable-by-default nil)
-       (vinegar :variables vinegar-reuse-dired-buffer t)
-       (spacemacs-layouts :variables layouts-enable-autosave nil
-         layouts-autosave-delay 30000)
+       ;; (vinegar :variables vinegar-reuse-dired-buffer t)
+       (spacemacs-layouts
+         :variables layouts-enable-autosave nil
+         ;; layouts-autosave-delay 30000
+         )
 
        (git :variables
          git-magit-status-fullscreen t
@@ -124,13 +129,14 @@ values."
                                         ;; calfw-org
                                         ;; color-theme-sanityinc-solarized
                                         diff-hl
+                                        company-tabnine
                                         ;; dash
                                         ;; dash-functional
                                         ;; helm-dash
-                                        youdao-dictionary
+                                        ;; youdao-dictionary
                                         highlight-indent-guides
                                         editorconfig
-                                        fzf
+                                        ;; fzf
                                         ;; evil-indent-plus
                                         ;; color-theme-sanityinc-tomorrow
                                         all-the-icons
@@ -142,13 +148,13 @@ values."
                                         ;; spacemacs-dark
                                         ;; spacemacs-light
                                         ;; (vline :location (recipe :fetcher github :repo "emacsmirror/vline"))
-                                        (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
-                                        (ishikk :location (recipe :fetcher github :repo "raxod502/ishikk"))
+                                        ;; (stylus-mode :location (recipe :fetcher github :repo "vladh/stylus-mode"))
+                                        ;; (ishikk :location (recipe :fetcher github :repo "raxod502/ishikk"))
                                         ;; (reason-mode :location (recipe :fetcher github :repo "reasonml-editor/reason-mode" :stable t))
                                         ;; (alect-themes :location (recipe :fetcher github :repo "alezost/alect-themes"))
                                         ;; (carbon-now-sh :location (recipe :fetcher github :repo "veelenga/carbon-now-sh.el"))
                                         ;; tide
-                                        hierarchy
+                                        ;; hierarchy
                                         string-inflection
                                         ;; git-gutter
                                         ;; git-gutter+
@@ -215,8 +221,8 @@ values."
        fancy-battery org-present orgit orglue
        ;; spacemacs-theme
       helm-flyspell flyspell-correct-helm clean-aindent-mode
-       helm-c-yasnippet ace-jump-helm-line helm-make
-       magithub
+      helm-c-yasnippet ace-jump-helm-line helm-make
+      magithub
       helm-themes helm-swoop helm-spacemacs-help smeargle
       ido-vertical-mode flx-ido company-quickhelp counsel-projectile
        ;; window-purpose
@@ -291,8 +297,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                           solarized-dark
-                          spacemacs-light
                           solarized-light
+                          spacemacs-light
                            ;; alect-black
                           spacemacs-dark
                           deeper-blue
@@ -758,6 +764,7 @@ values."
 
 
   (setq neo-theme 'icons)
+  ;; (setq neo-theme 'arrow)
   (setq neo-vc-integration (quote (char)))
   ;; (setq neo-window-position 'right)
   (setq neo-window-position 'left)
@@ -768,7 +775,7 @@ values."
   ;;                                           company-files
   ;;                                           company-dabbrev
   ;;                                           ))
-  (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
+  ;; (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
   ;; (defun setup-tide-mode ()
   ;;   (electric-indent-local-mode -1)
@@ -789,6 +796,7 @@ values."
     (add-to-list 'company-backends '(
                                       company-files
                                       company-capf :with company-dabbrev
+                                      company-tabnine
                                       )))
 
   ;; (eval-after-load 'dash '(dash-enable-font-lock))
@@ -806,6 +814,7 @@ values."
     (define-key neotree-mode-map (kbd "r") 'neotree-change-root)
     (setq-default neo-show-updir-line t)
 
+    (setq neo-window-width 64)
     (setq neo-window-fixed-size nil)
     (setq neo-show-hidden-files nil)
     (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
@@ -847,44 +856,44 @@ values."
 
   ;; Removing dot files in helm-find-files menu
   ;; https://www.reddit.com/r/emacs/comments/5q922h/removing_dot_files_in_helmfindfiles_menu/
-  (require 'cl-lib)
-  (defvar no-dots-whitelist
-    '()
-    "List of helm buffers in which to show dots.")
+  ;; (require 'cl-lib)
+  ;; (defvar no-dots-whitelist
+  ;;   '()
+  ;;   "List of helm buffers in which to show dots.")
 
-  (defun no-dots/whitelistedp ()
-    (member (with-helm-buffer (buffer-name)) no-dots-whitelist))
+  ;; (defun no-dots/whitelistedp ()
+  ;;   (member (with-helm-buffer (buffer-name)) no-dots-whitelist))
 
-  (defun no-dots/helm-ff-filter-candidate-one-by-one (fcn file)
-    (when (or (no-dots/whitelistedp)
-              (not (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)))
-      (funcall fcn file)))
+  ;; (defun no-dots/helm-ff-filter-candidate-one-by-one (fcn file)
+  ;;   (when (or (no-dots/whitelistedp)
+  ;;             (not (string-match "\\(?:/\\|\\`\\)\\.\\{1,2\\}\\'" file)))
+  ;;     (funcall fcn file)))
 
-  (defun no-dots/helm-file-completion-source-p (&rest args) t)
+  ;; (defun no-dots/helm-file-completion-source-p (&rest args) t)
 
-  (defun no-dots/helm-attrset (fcn attribute-name value &optional src)
-    (let ((src (or src (helm-get-current-source))))
-      (when src
-        (funcall fcn attribute-name value src))))
+  ;; (defun no-dots/helm-attrset (fcn attribute-name value &optional src)
+  ;;   (let ((src (or src (helm-get-current-source))))
+  ;;     (when src
+  ;;       (funcall fcn attribute-name value src))))
 
-  (defun no-dots/helm-find-files-up-one-level (fcn &rest args)
-    (advice-add 'helm-file-completion-source-p
-                :around 'no-dots/helm-file-completion-source-p)
-    (advice-add 'helm-attrset
-                :around 'no-dots/helm-attrset)
-    (let ((res (apply fcn args)))
-      (advice-remove 'helm-file-completion-source-p
-                    'no-dots/helm-file-completion-source-p)
-      (advice-remove 'helm-attrset
-                    'no-dots/helm-attrset)
-      res))
+  ;; (defun no-dots/helm-find-files-up-one-level (fcn &rest args)
+  ;;   (advice-add 'helm-file-completion-source-p
+  ;;               :around 'no-dots/helm-file-completion-source-p)
+  ;;   (advice-add 'helm-attrset
+  ;;               :around 'no-dots/helm-attrset)
+  ;;   (let ((res (apply fcn args)))
+  ;;     (advice-remove 'helm-file-completion-source-p
+  ;;                   'no-dots/helm-file-completion-source-p)
+  ;;     (advice-remove 'helm-attrset
+  ;;                   'no-dots/helm-attrset)
+  ;;     res))
 
-  (with-eval-after-load 'helm-files
-    (advice-add 'helm-ff-filter-candidate-one-by-one
-                :around 'no-dots/helm-ff-filter-candidate-one-by-one)
-    (advice-add 'helm-find-files-up-one-level
-                :around 'no-dots/helm-find-files-up-one-level))
-  ;; end ====================================================== Removing dot files in helm-find-files menu
+  ;; (with-eval-after-load 'helm-files
+  ;;   (advice-add 'helm-ff-filter-candidate-one-by-one
+  ;;               :around 'no-dots/helm-ff-filter-candidate-one-by-one)
+  ;;   (advice-add 'helm-find-files-up-one-level
+  ;;               :around 'no-dots/helm-find-files-up-one-level))
+  ;; ;; end ====================================================== Removing dot files in helm-find-files menu
 
   (setq-default mode-line-format
     (list
