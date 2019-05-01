@@ -37,7 +37,7 @@ values."
        ;; (c-c++ :variables
        ;;        c-c++-default-mode-for-headers 'c++-mode)
        ;; clojure
-       ;; (clojure :variables clojure-enable-fancify-symbols nil)
+       (clojure :variables clojure-enable-fancify-symbols nil)
        ;; elm
        emacs-lisp
        ;; javascript
@@ -344,7 +344,9 @@ values."
                                  ;; "Office Code Pro"
                                  ;; "Courier New"
                                  "SF Mono"
+                                 ;; "Inconsolata"
                                  ;; "Luxi Mono"
+                                 ;; "Noto Mono"
                                  :size 16
                                  :weight normal
                                  ;; :weight light
@@ -814,7 +816,7 @@ values."
     (define-key neotree-mode-map (kbd "r") 'neotree-change-root)
     (setq-default neo-show-updir-line t)
 
-    (setq neo-window-width 64)
+    (setq neo-window-width 48)
     (setq neo-window-fixed-size nil)
     (setq neo-show-hidden-files nil)
     (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))

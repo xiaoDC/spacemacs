@@ -136,5 +136,6 @@
       (setq company-minimum-prefix-length 1
             company-idle-delay 0.02)
 
-      (with-eval-after-load 'company
-        (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode)))))
+      ;; (with-eval-after-load 'company
+      ;;   (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
+      )))
