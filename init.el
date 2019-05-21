@@ -63,6 +63,9 @@ values."
        ;; yaml
        ivy
 
+       ;; json
+       ;; prettier
+       ;; spacemacs-prettier
        ;; gpu
        ;; better-defaults
        ;; ranger
@@ -73,7 +76,7 @@ values."
        ;; (syntax-checking :variables syntax-checking-enable-by-default nil
        ;;                  syntax-checking-enable-tooltips nil)
        ;; (spell-checking :variables spell-checking-enable-by-default nil)
-       ;; (vinegar :variables vinegar-reuse-dired-buffer t)
+       (vinegar :variables vinegar-reuse-dired-buffer t)
        (spacemacs-layouts
          :variables layouts-enable-autosave nil
          ;; layouts-autosave-delay 30000
@@ -129,7 +132,8 @@ values."
                                         ;; calfw-org
                                         ;; color-theme-sanityinc-solarized
                                         diff-hl
-                                        company-tabnine
+                                        ;; prettier-js
+                                        ;; company-tabnine
                                         ;; dash
                                         ;; dash-functional
                                         ;; helm-dash
@@ -164,6 +168,7 @@ values."
                                         ;; ox-reveal
                                         ;; org-reveal
                                         ;; js-doc
+                                        json-reformat
                                         ;; soothe-theme
                                         ;; material-theme
                                         ;; ample-theme
@@ -298,9 +303,9 @@ values."
    dotspacemacs-themes '(
                           solarized-dark
                           solarized-light
+                          spacemacs-dark
                           spacemacs-light
                            ;; alect-black
-                          spacemacs-dark
                           deeper-blue
                           tsdh-light
                           wheatgrass
@@ -336,17 +341,17 @@ values."
                                  ;; "PragmataPro"
                                  ;; "FandolKai"
                                  ;; "Roboto Mono for Powerline"
-                                 ;; "Meslo LG S for Powerline"
                                  ;; "Inconsolata-dz for Powerline"
                                  ;; "Source Code Pro for Powerline"
                                  ;; "Input Mono"
                                  ;; "League Mono"
                                  ;; "Office Code Pro"
                                  ;; "Courier New"
-                                 "SF Mono"
                                  ;; "Inconsolata"
                                  ;; "Luxi Mono"
+                                 ;; "Meslo LG S for Powerline"
                                  ;; "Noto Mono"
+                                 "SF Mono"
                                  :size 16
                                  :weight normal
                                  ;; :weight light
@@ -619,6 +624,7 @@ values."
   ;; (setq linum-format "%4d \u2502")
 
   ;; (linum-relative-on)
+  ;; (setq-default line-spacing 1)
   (setq-default line-spacing 0)
   ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
@@ -663,11 +669,10 @@ values."
 
 
 
-  ;; (load-theme 'solarized t)
   ;; make the fringe stand out from the background
-  ;; (setq solarized-distinct-fringe-background t)
+  (setq solarized-distinct-fringe-background t)
   ;; Don't change the font for some headings and titles
-  ;; (setq solarized-use-variable-pitch nil)
+  (setq solarized-use-variable-pitch t)
   ;; make the modeline high contrast
   ;; (setq solarized-high-contrast-mode-line t)
   ;; Use less bolding
@@ -677,13 +682,14 @@ values."
   ;; Use less colors for indicators such as git:gutter, flycheck and similar
   ;; (setq solarized-emphasize-indicators t)
   ;; Don't change size of org-mode headlines (but keep other size-changes)
-  ;; (setq solarized-scale-org-headlines nil)
+  (setq solarized-scale-org-headlines nil)
   ;; Avoid all font-size changes
-  ;; (setq solarized-height-minus-1 1.0)
-  ;; (setq solarized-height-plus-1 1.0)
-  ;; (setq solarized-height-plus-2 1.0)
-  ;; (setq solarized-height-plus-3 1.0)
-  ;; (setq solarized-height-plus-4 1.0)
+  (setq solarized-height-minus-1 1.0)
+  (setq solarized-height-plus-1 1.0)
+  (setq solarized-height-plus-2 1.0)
+  (setq solarized-height-plus-3 1.0)
+  (setq solarized-height-plus-4 1.0)
+  (setq x-underline-at-descent-line t)
 
 
   ;; (add-to-list 'custom-theme-load-path "/Users/fri3nds/.spacemacs.d/theme/emacs-color-theme-solarized")
@@ -718,6 +724,7 @@ values."
                                        ;; (newline-mark 10 [35 10]) ; newlne
                                        (tab-mark 9 [9655 9] [92 9]) ; tab
                                       ))
+  ;; (setq display-line-numbers-type 'relative)
 
   (defun my-prog-mode-hook ()
     "active after prog-mode"
@@ -728,6 +735,7 @@ values."
     ;; (parinfer-active)
     (linum-mode -1)
     (abbrev-mode 1)
+    ;; (display-line-numbers-mode 'relative)
     (display-line-numbers-mode 1)
     ;; (vline-mode -1)
     ;; (blank-mode t)
@@ -748,7 +756,6 @@ values."
   ;; (setq highlight-indent-guides-character ?\｜)
   (setq highlight-indent-guides-character ?\┆)
   ;; 𝄀 𝄁 𝄂 𝄃 𝄄 𝄅
-
 
 
 
@@ -798,7 +805,7 @@ values."
     (add-to-list 'company-backends '(
                                       company-files
                                       company-capf :with company-dabbrev
-                                      company-tabnine
+                                      ;; company-tabnine
                                       )))
 
   ;; (eval-after-load 'dash '(dash-enable-font-lock))

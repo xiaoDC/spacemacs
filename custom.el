@@ -50,7 +50,7 @@
  '(org-reverse-note-order t)
  '(package-selected-packages
    (quote
-    (parseedn parseclj a company-tabnine unicode-escape writeroom-mode visual-fill-column treemacs-projectile treemacs-evil treemacs ht pfuture prettier-js magit-svn ivy-yasnippet go-impl go-gen-test go-fill-struct gitignore-templates evil-goggles doom-modeline eldoc-eval shrink-path dotenv-mode transient lv names chinese-word-at-point pos-tip imenu-list visual-regexp powerline json-mode json-snatcher json-reformat js2-mode simple-httpd htmlize parent-mode hierarchy haml-mode with-editor popup makey go-mode inflections edn multiple-cursors paredit peg highlight spinner pkg-info clojure-mode epl f s packed all-the-icons memoize log4e gntp avy dash hydra bind-key spaceline async docker-tramp projectile markdown-mode flycheck diff-hl yasnippet-snippets ivy-xref ivy-hydra helm-ag evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit magit ghub evil-lion evil-indent-plus evil-iedit-state evil-cleverparens smartparens evil-anzu counsel-css counsel swiper ivy company-web company-tern company-statistics company-go company-ghci company-ghc company-cabal cider-eval-sexp-fu ace-window ace-link helm helm-core magit-popup company yasnippet cider evil youdao-dictionary yaml-mode ws-butler wrap-region winum window-purpose which-key wgrep web-mode web-completion-data web-beautify visual-regexp-steroids uuidgen use-package undo-tree typescript-mode treepy toc-org tiny tern tagedit stylus-mode string-inflection sql-indent spaceline-all-the-icons solarized-theme smex slim-mode sesman scss-mode sayid sass-mode reveal-in-osx-finder restart-emacs request rainbow-delimiters queue pug-mode popwin persp-mode peep-dired pcre2el password-generator paradox overseer org-plus-contrib org-mime org-bullets open-junk-file neotree nameless move-text mmm-mode markdown-toc macrostep linum-relative link-hint json-navigator js2-refactor js-doc ishikk intero indent-guide impatient-mode iedit ibuffer-projectile hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indent-guides haskell-snippets graphql goto-chg golden-ratio godoctor go-tag go-rename go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-commit ghc fzf fuzzy font-lock+ flx fill-column-indicator expand-region exec-path-from-shell eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker discover-my-major diminish dash-functional dante column-enforce-mode cmm-mode clojure-snippets clojure-cheatsheet clj-refactor centered-cursor-mode calfw-org calfw browse-at-remote bind-map auto-yasnippet auto-highlight-symbol auto-compile anzu all-the-icons-dired alert alect-themes aggressive-indent adaptive-wrap)))
+    (imenu-list visual-regexp markdown-mode projectile parent-mode haml-mode highlight git-commit iedit anzu transient hydra json-reformat prettier-js stylus-mode company ivy helm helm-core evil swiper magit with-editor avy cider ws-butler wrap-region winum window-purpose which-key wgrep web-mode visual-regexp-steroids uuidgen use-package typescript-mode toc-org tiny tagedit string-inflection solarized-theme smex slim-mode scss-mode sass-mode reveal-in-osx-finder restart-emacs request rainbow-delimiters pug-mode popwin persp-mode peep-dired pcre2el paradox org-plus-contrib org-mime org-bullets open-junk-file neotree move-text mmm-mode markdown-toc macrostep linum-relative link-hint ivy-hydra indent-guide ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indent-guides helm-ag golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-messenger git-link fuzzy flx fill-column-indicator expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-magit evil-indent-plus evil-iedit-state evil-anzu emmet-mode elisp-slime-nav editorconfig dumb-jump discover-my-major diminish diff-hl counsel company-web company-statistics company-go column-enforce-mode clojure-snippets clj-refactor cider-eval-sexp-fu browse-at-remote bind-map auto-yasnippet auto-highlight-symbol auto-compile all-the-icons-dired aggressive-indent adaptive-wrap ace-window ace-link)))
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore))
  '(sp-show-pair-from-inside t)
@@ -63,18 +63,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ahs-definition-face ((t (:foreground "#d33682" :slant normal :weight bold))))
- '(ahs-face ((t (:foreground "#d33682" :weight bold))))
- '(command-log-command ((t (:foreground "dark magenta"))))
- '(command-log-key ((t (:foreground "dark cyan"))))
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
- '(iedit-occurrence ((t (:inherit cursor))))
- '(ivy-virtual ((t (:background "skyblue"))))
- '(js2-external-variable ((t (:foreground "plum3"))))
- '(mc/cursor-bar-face ((t (:background "chartreuse3"))))
- '(show-paren-match ((t (:background "dark gray" :foreground "#d33682" :weight bold))))
- '(sp-show-pair-match-face ((t (:background "#272822" :foreground "gray" :inverse-video t :weight normal))))
- '(web-mode-current-element-highlight-face ((t (:background "dark gray")))))
+ )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

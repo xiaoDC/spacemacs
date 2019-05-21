@@ -379,7 +379,38 @@ If the universal prefix argument is used then will the windows too."
     (neo-global--set-window-width w)))
 
 
+;; insert date and time
+(defun fri3nds/now ()
+  "Insert string for the current time formatted like '2:34 PM'."
+  (interactive)                 ; permit invocation in minibuffer
+  (insert (format-time-string "%Y-%m-%d %H:%M:%S %s" (current-time))))
+;; (insert (format-time-string "<%F %a %H:%S>")))
 
+(defun fri3nds/today ()
+  "Insert string for today's date nicely formatted in American style,
+e.g. Sunday, September 17, 2000."
+  (interactive)                 ; permit invocation in minibuffer
+  (insert (format-time-string "%A, %B %e, %Y")))
+
+
+(defun fri3nds/kill-all-other-project-buffers (&optional kill-special)
+  "Kill buffers that do not belong to a `projectile' project.
+  With prefix argument (`C-u'), also kill the special buffers."
+
+  (interactive "P")
+  (require 'projectile)
+  (let ((bufs (buffer-list))
+         (buffers (projectile-project-buffers))
+         res (list))
+
+    (dolist (a bufs)
+      (if (not (member a buffers))
+        (setq res (cons a res))))
+
+    (dolist (a res)
+      (kill-buffer a)
+      (message (format "buffer filename -- \"%s\" is killed"
+                 (buffer-name a))))))
 
 
 (defvar spacemacs--killed-buffer-list nil
@@ -440,6 +471,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "bm" 'spacemacs/switch-to-messages-buffer)
 (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
 (spacemacs/set-leader-keys "br" 'revert-all-buffers)
+(spacemacs/set-leader-keys "bk" 'projectile-kill-buffers)
 
 ;;;;;;
 (spacemacs/set-leader-keys "bu" 'fri3nds/reopen-killed-buffer)
@@ -463,6 +495,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ff" 'helm-recentf)
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
+(spacemacs/set-leader-keys "fn" 'fri3nds/now)
 (spacemacs/set-leader-keys "gb" 'magit-blame-addition)
 
 (spacemacs/set-leader-keys "fy" 'fri3nds/showcopy-buffer-filename)
@@ -480,6 +513,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "kk" 'projectile-find-file)
 (spacemacs/set-leader-keys "ka" 'text-scale-increase)
 (spacemacs/set-leader-keys "kd" 'text-scale-decrease)
+(spacemacs/set-leader-keys "ko" 'fri3nds/kill-all-other-project-buffers)
 
 (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
 (spacemacs/set-leader-keys "hh" 'previous-buffer)
