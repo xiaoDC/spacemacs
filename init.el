@@ -302,8 +302,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                           solarized-dark
-                          solarized-light
                           spacemacs-dark
+                          solarized-light
                           spacemacs-light
                            ;; alect-black
                           deeper-blue

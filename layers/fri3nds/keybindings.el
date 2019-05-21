@@ -22,12 +22,12 @@
 ;;C-M-e end-of-defun
 ;;C-M-h mark-defun
 
-(spacemacs|add-toggle toggle-shadowsocks-proxy-mode
-  :status shadowsocks-proxy-mode
-  :on (global-shadowsocks-proxy-mode)
-  :off (global-shadowsocks-proxy-mode -1)
-  :documentation "Toggle shadowsocks proxy mode."
-  :evil-leader "ots")
+;; (spacemacs|add-toggle toggle-shadowsocks-proxy-mode
+;;   :status shadowsocks-proxy-mode
+;;   :on (global-shadowsocks-proxy-mode)
+;;   :off (global-shadowsocks-proxy-mode -1)
+;;   :documentation "Toggle shadowsocks proxy mode."
+;;   :evil-leader "ots")
 
 ;; (bind-key* "M-s o" 'occur-dwim)
 (bind-key* "C-=" 'er/expand-region)
@@ -300,7 +300,14 @@ If the universal prefix argument is used then will the windows too."
     (neotree-find (buffer-file-name))
     (neotree-find-project-root)
     ))
-
+;; (defun neotree-project-dir ()
+;;   "Open NeoTree using the git root."
+;;   (interactive)
+;;   (let ((file-name (buffer-file-name)))
+;;     (if file-name
+;;         (progn (neotree-find file-name))
+;;       (message "Could not find git project root.")
+;;       )))
 
 
 (defcustom use-chinese-word-segmentation nil
