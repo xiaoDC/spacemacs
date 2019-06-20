@@ -13,7 +13,7 @@
      ;; org-gcal
      calfw-org
      alert
-     ishikk
+     ;; ishikk
      ))
 
 (defun fri3nds-calendar/init-calfw ()
@@ -34,11 +34,9 @@
 
 (defun fri3nds-calendar/init-calfw-org ()
   "Initialize alert"
-  (use-package calfw-org)
-  )
+  (use-package calfw-org))
 
 
-(defun fri3nds-calendar/init-ishikk ()
-  "Initialize ishikk"
-  (use-package ishikk)
-  )
+;; (defun fri3nds-calendar/init-ishikk ()
+;;   "Initialize ishikk"
+;;   (use-package ishikk))

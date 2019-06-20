@@ -123,6 +123,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
     dotspacemacs-additional-packages '(
+                                        ibuffer-sidebar
                                         ;; sicp
                                         ;; doom-themes
                                         ;; base16-theme
@@ -170,7 +171,6 @@ values."
                                         ;; js-doc
                                         json-reformat
                                         ;; soothe-theme
-                                        ;; material-theme
                                         ;; ample-theme
                                         ;; treemacs
                                         ;; treemacs-evil
@@ -302,19 +302,19 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                           solarized-dark
-                          spacemacs-dark
-                          solarized-light
-                          spacemacs-light
-                           ;; alect-black
-                          deeper-blue
                           tsdh-light
-                          wheatgrass
-                           ;; doom-tomorrow-night
-                           ;; base16-3024
-                           ;; doom-peacock
-                           ;; base16-atelier-estuary
-                           ;; base16-atelier-plateau
-                           )
+                         spacemacs-dark
+                         ;; solarized-light
+                         ;; spacemacs-light
+                         ;; alect-black
+                         ;; deeper-blue
+                         ;; wheatgrass
+                         ;; doom-tomorrow-night
+                         ;; base16-3024
+                         ;; doom-peacock
+                         ;; base16-atelier-estuary
+                         ;; base16-atelier-plateau
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -328,11 +328,12 @@ values."
                                  ;; "DejaVu Sans Mono"
                                  ;; "Fira Code"
                                  ;; "Fira Mono"
-                                 ;; "PT Mono"
                                  ;; "Go Mono"
                                  ;; "Hack"
                                  ;; "Iosevka"
                                  ;; "Input Mono"
+                                 ;; "Input Mono Narrow"
+                                 ;; "Ubuntu Mono"
                                  ;; "Monoid"
                                  ;; "Inconsolata"
                                  ;; "Courier Prime Code"
@@ -351,7 +352,8 @@ values."
                                  ;; "Luxi Mono"
                                  ;; "Meslo LG S for Powerline"
                                  ;; "Noto Mono"
-                                 "SF Mono"
+                                 ;; "SF Mono"
+                                 "PT Mono"
                                  :size 16
                                  :weight normal
                                  ;; :weight light
@@ -570,7 +572,7 @@ values."
 
 
   ;; (when (window-system)
-  ;;  (set-default-font "Fira Code"))
+   ;; (set-default-font "Fira Code"))
 
   ;; (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
   ;;                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
@@ -654,6 +656,10 @@ values."
 
   (add-to-list 'auto-mode-alist
     '("Capstanfile\\'" . yaml-mode))
+
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  ;; (add-to-list 'default-frame-alist '(ns-appearance . light))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
   ;; (add-hook 'text-mode-hook 'spacemacs/toggle-spelling-checking-on)
 
@@ -775,15 +781,15 @@ values."
   (setq neo-theme 'icons)
   ;; (setq neo-theme 'arrow)
   (setq neo-vc-integration (quote (char)))
-  ;; (setq neo-window-position 'right)
-  (setq neo-window-position 'left)
+  (setq neo-window-position 'right)
+  ;; (setq neo-window-position 'left)
 
-  ;; (setq company-backends-typescript-mode '(
-  ;;                                           company-yasnippet
-  ;;                                           (company-dabbrev-code company-gtags company-etags company-keywords)
-  ;;                                           company-files
-  ;;                                           company-dabbrev
-  ;;                                           ))
+  (setq company-backends-typescript-mode '(
+                                            company-yasnippet
+                                            (company-dabbrev-code company-gtags company-etags company-keywords)
+                                            company-files
+                                            company-dabbrev
+                                            ))
   ;; (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
 
   ;; (defun setup-tide-mode ()

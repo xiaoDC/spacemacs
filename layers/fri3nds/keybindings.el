@@ -365,6 +365,13 @@ If the universal prefix argument is used then will the windows too."
   (find-file "/Users/fri3nds/Dropbox/org/tuya-work.org"))
 
 
+
+(defun fri3nds/open-template-file ()
+  (interactive)
+  (find-file "/Users/fri3nds/tt.log"))
+
+
+
 (defun fri3nds/showcopy-buffer-filename ()
   "Show and copy the full path to the current file in the minibuffer."
   (interactive)
@@ -477,6 +484,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
 (spacemacs/set-leader-keys "bm" 'spacemacs/switch-to-messages-buffer)
 (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
+(spacemacs/set-leader-keys "bq" 'fri3nds/open-template-file)
 (spacemacs/set-leader-keys "br" 'revert-all-buffers)
 (spacemacs/set-leader-keys "bk" 'projectile-kill-buffers)
 
@@ -553,7 +561,8 @@ to the `killed-buffer-list' when killing the buffer."
 
 (spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
 (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
-(spacemacs/set-leader-keys "zz" 'fzf)
+(spacemacs/set-leader-keys "zz" 'ibuffer-sidebar-toggle-sidebar)
+;; (spacemacs/set-leader-keys "zz" 'fzf)
 
 
 
