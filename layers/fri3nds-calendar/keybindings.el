@@ -14,8 +14,7 @@
 (defun fri3nds/open-calendar ()
   "Reopen the most recently killed file buffer, if one exists."
   (interactive)
-  (cfw:open-calendar-buffer
-    ))
+  (cfw:open-calendar-buffer))
 
 
 (defun fri3nds/open-calendar-with-agenda ()
@@ -24,11 +23,11 @@
   (require 'calfw-org)
   (cfw:open-org-calendar))
 
-(defun fri3nds/sync-calendar ()
-  (interactive)
-  (org-icalendar-export-agenda-files)
-  (shell-command "mv /Users/fri3nds/Dropbox/org/tuya-work.ics /Users/fri3nds/Dropbox/org/home/tuya-work.ics")
-  (shell-command "vdirsyncer sync"))
+;; (defun fri3nds/sync-calendar ()
+;;   (interactive)
+;;   (org-icalendar-export-agenda-files)
+;;   (shell-command "mv /Users/fri3nds/Dropbox/org/tuya-work.ics /Users/fri3nds/Dropbox/org/home/tuya-work.ics")
+;;   (shell-command "vdirsyncer sync"))
 ;; (setq cfw:org-overwrite-default-keybinding t)
 
 

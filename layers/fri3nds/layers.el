@@ -15,5 +15,5 @@
                                       fri3nds-ui
                                       fri3nds-org
                                       fri3nds-better-defaults
-                                      ;; fri3nds-calendar
+                                      fri3nds-calendar
                                       ))

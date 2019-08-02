@@ -368,8 +368,12 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-template-file ()
   (interactive)
-  (find-file "/Users/fri3nds/tt.log"))
+  (find-file "/Users/fri3nds/scratch.org"))
 
+(defun fri3nds/open-clojure-file ()
+  (interactive)
+  ;; (find-file "/Users/fri3nds/tools/script/src/script/core.clj"))
+  (find-file "/Users/fri3nds/tools/script/src/script/huskar.clj"))
 
 
 (defun fri3nds/showcopy-buffer-filename ()
@@ -397,7 +401,8 @@ If the universal prefix argument is used then will the windows too."
 (defun fri3nds/now ()
   "Insert string for the current time formatted like '2:34 PM'."
   (interactive)                 ; permit invocation in minibuffer
-  (insert (format-time-string "%Y-%m-%d %H:%M:%S %s" (current-time))))
+  (insert (format-time-string "%Y-%m-%d %H:%M %s %a %W" (current-time))))
+;; (insert (format-time-string "%Y-%m-%d %H:%M:%S %s" (current-time))))
 ;; (insert (format-time-string "<%F %a %H:%S>")))
 
 (defun fri3nds/today ()
@@ -485,6 +490,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "bm" 'spacemacs/switch-to-messages-buffer)
 (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
 (spacemacs/set-leader-keys "bq" 'fri3nds/open-template-file)
+(spacemacs/set-leader-keys "bw" 'fri3nds/open-clojure-file)
 (spacemacs/set-leader-keys "br" 'revert-all-buffers)
 (spacemacs/set-leader-keys "bk" 'projectile-kill-buffers)
 
@@ -595,12 +601,24 @@ to the `killed-buffer-list' when killing the buffer."
 (global-set-key (kbd "<S-right>") 'enlarge-window-horizontally)
 
 
+(setq org-capture-templates
+  ;; '(("t" "Todo" entry (file+headline "~/org/TODO.org" "TUYA WORK")
+  '(("t" "Todo" entry (file "~/Dropbox/org/tuya-work.org")
+      "* TODO %?\n %U\n %i\n %a\n")
+     ;; "* TODO %^{任务名}\n%U\n%a\n")
+     ("i" "Idea" entry (file+headline "~/org/notes.org" "Ideas")
+       "* %? \n %U")
+     ("e" "Tweak" entry (file+headline "~/org/notes.org" "Tweaks")
+       "* %? \n %U")
+     ;; ("l" "Learn" entry (file+headline "~/org/Learning.org" "Learn")
 
-(setq org-capture-templates nil)
+     ("l" "Learn" entry (file "~/org/Learning.org")
+       "* %? \n")
 
-(add-to-list 'org-capture-templates '("t" "Tasks"))
+     ("w" "Work note" entry (file+headline "~/Dropbox/org/tuya-work.org" "Work")
+       "* %? \n")))
 
-(add-to-list 'org-capture-templates
-  '("w" "Work Task" entry
-     (file+headline "/Users/fri3nds/Dropbox/org/tuya-work.org" "Work")
-     "* TODO %^{任务名}\n%U\n%a\n"))
+;; (add-to-list 'org-capture-templates
+;;   '("w" "Work Task" entry
+;;      (file+headline "/Users/fri3nds/Dropbox/org/tuya-work.org" "Work")
+;;      "* TODO %^{任务名}\n%U\n%a\n"))

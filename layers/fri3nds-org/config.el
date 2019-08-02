@@ -86,8 +86,13 @@
 
 (setq org-default-notes-file "/Users/fri3nds/org/notes.org")
 
-(setq org-agenda-files (list "/Users/fri3nds/org/notes.org"
-                         "/Users/fri3nds/Dropbox/org/tuya-work.org"))
+(setq org-agenda-files (list "/Users/fri3nds/Dropbox/org/tuya-work.org"
+                         "/Users/fri3nds/org/Learning.org"
+                         "/Users/fri3nds/Dropbox/org/interview.org"
+                         ;; "/Users/fri3nds/org/notes.org"
+                         ;; "/Users/fri3nds/org/API.org"
+                         ;; "/Users/fri3nds/org/malfunction.org"
+                         ))
 
 (setq org-html-checkbox-type 'unicode)
 

@@ -40,11 +40,12 @@ values."
        (clojure :variables clojure-enable-fancify-symbols nil)
        ;; elm
        emacs-lisp
+       ;; chinese
        ;; javascript
        (go :variables
          go-tab-width 4
          go-use-gometalinter t
-         ;; gofmt-command "goimports"
+         gofmt-command "goimports"
          )
        ;; haskell
        html
@@ -52,7 +53,7 @@ values."
        ;; nginx
        ;; (python :variables
        ;;         python-test-runner '(nose pytest))
-       ;; racket
+       racket
        ;; react
        ;; (ruby :variables ruby-version-manager 'chruby)
        ;; ruby-on-rails
@@ -123,7 +124,8 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
     dotspacemacs-additional-packages '(
-                                        ibuffer-sidebar
+                                        ;; ibuffer-sidebar
+                                        ;; lsp-mode
                                         ;; sicp
                                         ;; doom-themes
                                         ;; base16-theme
@@ -134,7 +136,7 @@ values."
                                         ;; color-theme-sanityinc-solarized
                                         diff-hl
                                         ;; prettier-js
-                                        ;; company-tabnine
+                                        company-tabnine
                                         ;; dash
                                         ;; dash-functional
                                         ;; helm-dash
@@ -144,6 +146,7 @@ values."
                                         ;; fzf
                                         ;; evil-indent-plus
                                         ;; color-theme-sanityinc-tomorrow
+                                        ;; chocolate-theme
                                         all-the-icons
                                         all-the-icons-dired
                                         ;; exec-path-from-shell
@@ -161,6 +164,7 @@ values."
                                         ;; tide
                                         ;; hierarchy
                                         string-inflection
+                                        ;; cal-china-x
                                         ;; git-gutter
                                         ;; git-gutter+
                                         neotree
@@ -301,14 +305,16 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                          ;; chocolate
                           solarized-dark
+                          solarized-light
                           tsdh-light
-                         spacemacs-dark
-                         ;; solarized-light
+                          wheatgrass
+                          spacemacs-dark
+                          adwaita
                          ;; spacemacs-light
                          ;; alect-black
                          ;; deeper-blue
-                         ;; wheatgrass
                          ;; doom-tomorrow-night
                          ;; base16-3024
                          ;; doom-peacock
@@ -335,25 +341,24 @@ values."
                                  ;; "Input Mono Narrow"
                                  ;; "Ubuntu Mono"
                                  ;; "Monoid"
-                                 ;; "Inconsolata"
                                  ;; "Courier Prime Code"
                                  ;; "Pica10 BT"
                                  ;; "Dank Mono"
                                  ;; "PragmataPro"
                                  ;; "FandolKai"
                                  ;; "Roboto Mono for Powerline"
-                                 ;; "Inconsolata-dz for Powerline"
+                                 "Inconsolata-dz for Powerline"
                                  ;; "Source Code Pro for Powerline"
                                  ;; "Input Mono"
                                  ;; "League Mono"
                                  ;; "Office Code Pro"
                                  ;; "Courier New"
-                                 ;; "Inconsolata"
-                                 ;; "Luxi Mono"
+                                 ;; "Fantasque Sans Mono"
                                  ;; "Meslo LG S for Powerline"
                                  ;; "Noto Mono"
+                                 ;; "Inconsolata"
                                  ;; "SF Mono"
-                                 "PT Mono"
+                                 ;; "PT Mono"
                                  :size 16
                                  :weight normal
                                  ;; :weight light
@@ -554,19 +559,23 @@ values."
   ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 12 14)))
+
+  (when (display-graphic-p)
+    (dolist (charset '(kana han cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font) charset
+        (font-spec :family "PingFang SC" :size 12))))
 
   ;; Setting Chinese Font
-  (when (and (spacemacs/system-is-mswindows) window-system)
-    (setq ispell-program-name "aspell")
-    (setq w32-pass-alt-to-system nil)
-    (setq w32-apps-modifier 'super)
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font)
-        charset
-        (font-spec :family "Monoid" :size 14))))
+  ;; (when (and (spacemacs/system-is-mswindows) window-system)
+  ;;   (setq ispell-program-name "aspell")
+  ;;   (setq w32-pass-alt-to-system nil)
+  ;;   (setq w32-apps-modifier 'super)
+  ;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
+  ;;     (set-fontset-font (frame-parameter nil 'font)
+  ;;       charset
+  ;;       (font-spec :family "Monoid" :size 12))))
         ;; (font-spec :family "Microsoft Yahei" :size 14))))
-
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
@@ -676,26 +685,26 @@ values."
 
 
   ;; make the fringe stand out from the background
-  (setq solarized-distinct-fringe-background t)
+  ;; (setq solarized-distinct-fringe-background t)
   ;; Don't change the font for some headings and titles
-  (setq solarized-use-variable-pitch t)
+  ;; (setq solarized-use-variable-pitch t)
   ;; make the modeline high contrast
-  ;; (setq solarized-high-contrast-mode-line t)
+  ;; ;; (setq solarized-high-contrast-mode-line t)
   ;; Use less bolding
-  ;; (setq solarized-use-less-bold t)
+  ;; ;; (setq solarized-use-less-bold t)
   ;; Use more italics
-  (setq solarized-use-more-italic t)
+  ;; (setq solarized-use-more-italic t)
   ;; Use less colors for indicators such as git:gutter, flycheck and similar
   ;; (setq solarized-emphasize-indicators t)
   ;; Don't change size of org-mode headlines (but keep other size-changes)
-  (setq solarized-scale-org-headlines nil)
+  ;; (setq solarized-scale-org-headlines nil)
   ;; Avoid all font-size changes
-  (setq solarized-height-minus-1 1.0)
-  (setq solarized-height-plus-1 1.0)
-  (setq solarized-height-plus-2 1.0)
-  (setq solarized-height-plus-3 1.0)
-  (setq solarized-height-plus-4 1.0)
-  (setq x-underline-at-descent-line t)
+  ;; (setq solarized-height-minus-1 1.0)
+  ;; (setq solarized-height-plus-1 1.0)
+  ;; (setq solarized-height-plus-2 1.0)
+  ;; (setq solarized-height-plus-3 1.0)
+  ;; (setq solarized-height-plus-4 1.0)
+  ;; (setq x-underline-at-descent-line t)
 
 
   ;; (add-to-list 'custom-theme-load-path "/Users/fri3nds/.spacemacs.d/theme/emacs-color-theme-solarized")
@@ -718,6 +727,13 @@ values."
   (global-display-line-numbers-mode 1)
   (global-diff-hl-mode 1)
 
+  ;; (setq my-holidays
+  ;;   ;;纪念日
+  ;;   (holiday-fixed 1 1 "New Year")
+  ;;   ;; (holiday-lunar 1 2 "我的生日"  0)
+  ;;   )
+  ;; (setq calendar-holidays my-holidays)  ;只显示我定制的节假日
+
   (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark newline-mark)))
   ;; (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark)))
   (setq whitespace-display-mappings '(
@@ -735,6 +751,7 @@ values."
   (defun my-prog-mode-hook ()
     "active after prog-mode"
     (interactive)
+    (spacemacs/toggle-fill-column-indicator-on)
     ;; (yas-minor-mode 1)
     ;; (auto-complete-mode 1)
     ;; (column-enforce-mode 1)
@@ -747,7 +764,7 @@ values."
     ;; (blank-mode t)
     ;; (global-company-mode)
     ;; (whitespace-mode 1)
-    (highlight-indent-guides-mode 1)
+    ;; (highlight-indent-guides-mode 1)
     ;; (set-face-background vline-face "#c2ebff")
     ;; (fci-mode 1)
     (editorconfig-mode 1)
@@ -781,8 +798,8 @@ values."
   (setq neo-theme 'icons)
   ;; (setq neo-theme 'arrow)
   (setq neo-vc-integration (quote (char)))
-  (setq neo-window-position 'right)
-  ;; (setq neo-window-position 'left)
+  ;; (setq neo-window-position 'right)
+  (setq neo-window-position 'left)
 
   (setq company-backends-typescript-mode '(
                                             company-yasnippet
@@ -811,7 +828,7 @@ values."
     (add-to-list 'company-backends '(
                                       company-files
                                       company-capf :with company-dabbrev
-                                      ;; company-tabnine
+                                      company-tabnine
                                       )))
 
   ;; (eval-after-load 'dash '(dash-enable-font-lock))
@@ -821,6 +838,7 @@ values."
   (setq company-dabbrev-code-modes t)
   (setq company-dabbrev-code-other-buffers 'all)
   (setq company-dabbrev-ignore-buffers "\\`\\'")
+  (setq company-idle-delay 0)
 
   (with-eval-after-load 'neotree
     (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
@@ -926,17 +944,19 @@ values."
       '(:eval (propertize "%b " 'face 'font-lock-type-face
                 'help-echo (buffer-file-name)))
 
+      "  "
       (propertize "%I" 'face 'font-lock-constant-face) ;; size
 
-      " "
+      "  "
 
       ;; anzu
-      anzu--mode-line-format
+      ;; anzu--mode-line-format
 
       ;; the current major mode for the buffer.
-      " "
-      '(:eval (propertize "%m" 'face 'font-lock-string-face
+      '(:eval (propertize "%m" 'face nil
                 'help-echo buffer-file-coding-system))
+      ;; '(:eval (propertize "%m" 'face 'font-lock-string-face
+      ;;           'help-echo buffer-file-coding-system))
 
       ;; my-flycheck-mode-line
       ;; evil state
@@ -945,9 +965,9 @@ values."
       ;; minor modes
       ;; minor-mode-alist
       ;; git info
-      " "
+      "  "
       `(vc-mode vc-mode)
-      " "
+      "  "
 
       ;; global-mode-string goes in mode-line-misc-info
       ;; mode-line-misc-info
@@ -964,19 +984,19 @@ values."
       ;; relative position, size of file
 
       ;; line and column
-      "("
-      (propertize "%6l" 'face 'font-lock-type-face)
-      " "
-      (propertize "%4c" 'face 'font-lock-type-face)
-      ")"
+      ;; "("
+      (propertize "%06l" 'face 'font-lock-type-face)
+      "  "
+      (propertize "%04c" 'face 'font-lock-type-face)
+      ;; ")"
 
-      "    "
+      "  "
       '(:eval (buffer-encoding-abbrev))
 
-      " "
+      "  "
       (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
 
-      "   " ;; insert vs overwrite mode, input-method in a tooltip
+      "  " ;; insert vs overwrite mode, input-method in a tooltip
       '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
                 'face 'font-lock-preprocessor-face
                 'help-echo (concat "Buffer is in "
