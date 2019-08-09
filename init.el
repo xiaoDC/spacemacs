@@ -45,9 +45,9 @@ values."
        (go :variables
          go-tab-width 4
          go-use-gometalinter t
-         gofmt-command "goimports"
-         )
-       ;; haskell
+         gofmt-command "goimports")
+
+       haskell
        html
        ;; lua
        ;; nginx
@@ -147,8 +147,11 @@ values."
                                         ;; evil-indent-plus
                                         ;; color-theme-sanityinc-tomorrow
                                         ;; chocolate-theme
+
                                         all-the-icons
                                         all-the-icons-dired
+                                        ;; treemacs-icons-dired
+
                                         ;; exec-path-from-shell
                                         reveal-in-osx-finder
 
@@ -306,12 +309,12 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                           ;; chocolate
+                          tsdh-light
                           solarized-dark
                           solarized-light
-                          tsdh-light
+                          adwaita
                           wheatgrass
                           spacemacs-dark
-                          adwaita
                          ;; spacemacs-light
                          ;; alect-black
                          ;; deeper-blue
@@ -399,7 +402,7 @@ values."
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
    ;; Name of the default layout (default "Default")
-    dotspacemacs-default-layout-name "fri3nds"
+    dotspacemacs-default-layout-name "fri3nd"
    ;; If non nil the default layout name is displayed in the mode-line.
    ;; (default nil)
    dotspacemacs-display-default-layout t
@@ -759,7 +762,7 @@ values."
     (linum-mode -1)
     (abbrev-mode 1)
     ;; (display-line-numbers-mode 'relative)
-    (display-line-numbers-mode 1)
+    ;; (display-line-numbers-mode 1)
     ;; (vline-mode -1)
     ;; (blank-mode t)
     ;; (global-company-mode)
@@ -778,6 +781,7 @@ values."
   ;; (setq highlight-indent-guides-character ?\：)
   ;; (setq highlight-indent-guides-character ?\｜)
   (setq highlight-indent-guides-character ?\┆)
+  ;; (setq highlight-indent-guides-character ?\⫶)
   ;; 𝄀 𝄁 𝄂 𝄃 𝄄 𝄅
 
 
@@ -850,9 +854,65 @@ values."
     (setq neo-window-width 48)
     (setq neo-window-fixed-size nil)
     (setq neo-show-hidden-files nil)
-    (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
+    ;; (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
     )
 
+  ;; (treemacs-git-mode 'deferred)
+
+  (setq treemacs-width 48)
+
+  (with-eval-after-load "treemacs"
+    (define-key treemacs-mode-map (kbd "h") 'treemacs-collapse-parent-node)
+    (define-key treemacs-mode-map (kbd "o") 'treemacs-visit-node-no-split)
+    (define-key treemacs-mode-map (kbd "s") 'treemacs-toggle-show-dotfiles)
+    (define-key treemacs-mode-map (kbd "y") 'treemacs-copy-file)
+
+    (setq treemacs-indentation-string (propertize "⫶  " 'face 'font-lock-comment-face)
+      treemacs-indentation 1)
+
+    ;; (with-eval-after-load 'all-the-icons
+    ;;   (let ((all-the-icons-default-adjust 0)
+    ;;         (tab-width 1))
+    ;;     ;; Root icon
+    ;;     (setq treemacs-icon-root-png
+    ;;           (concat (all-the-icons-octicon "repo" :height 0.8 :v-adjust -0.2)  " "))
+    ;;     ;; File icons
+    ;;     (setq treemacs-icon-open-png
+    ;;           (concat
+    ;;            (all-the-icons-octicon "chevron-down" :height 0.8 :v-adjust 0.1)
+    ;;            "\t"
+    ;;            (all-the-icons-octicon "file-directory" :v-adjust 0)
+    ;;            "\t")
+    ;;           treemacs-icon-closed-png
+    ;;           (concat
+    ;;            (all-the-icons-octicon "chevron-right" :height 0.8
+    ;;                                   :v-adjust 0.1 :face 'font-lock-doc-face)
+    ;;            "\t"
+    ;;            (all-the-icons-octicon "file-directory" :v-adjust 0 :face 'font-lock-doc-face)
+    ;;            "\t"))
+    ;;     ;; File type icons
+    ;;     (setq treemacs-icons-hash (make-hash-table :size 200 :test #'equal)
+    ;;           treemacs-icon-fallback (concat
+    ;;                                   "\t\t"
+    ;;                                   (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver
+    ;;                                                         :height 0.8 :v-adjust 0.0)
+    ;;                                   "\t")
+    ;;           treemacs-icon-text treemacs-icon-fallback)
+
+    ;;     (dolist (item all-the-icons-icon-alist)
+    ;;       (let* ((extension (car item))
+    ;;              (func (cadr item))
+    ;;              (args (append (list (caddr item)) '(:v-adjust -0.05) (cdddr item)))
+    ;;              (icon (apply func args))
+    ;;              (key (s-replace-all '(("^" . "") ("\\" . "") ("$" . "") ("." . "")) extension))
+    ;;              (value (concat "\t\t" icon "\t")))
+
+    ;;         (unless (ht-get treemacs-icons-hash (s-replace-regexp "\\?" "" key))
+    ;;           (ht-set! treemacs-icons-hash (s-replace-regexp "\\?" "" key) value))
+    ;;         (unless (ht-get treemacs-icons-hash (s-replace-regexp ".\\?" "" key))
+    ;;           (ht-set! treemacs-icons-hash (s-replace-regexp ".\\?" "" key) value))))))
+
+      )
 
 
 

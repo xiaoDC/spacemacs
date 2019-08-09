@@ -141,6 +141,14 @@ If the universal prefix argument is used then will the windows too."
 
 
 
+(defun fri3nds/projectile-root-copy-path ()
+  (interactive)
+  (let ((allbf (fri3nds/showcopy-buffer-filename))
+         (rebf (spacemacs/projectile-copy-file-path)))
+    (copy-string-to-clipboard (replace-regexp-in-string rebf "" allbf))))
+
+
+
 (defun fri3nds-insert-lines ()
   (interactive)
   (require 'cl)
@@ -229,12 +237,39 @@ If the universal prefix argument is used then will the windows too."
 ;; (load-theme 'alect-black-alt t)
 
 
-(defun fri3nds-neotree-toggle ()
-  (interactive)
-  (if (neo-global--window-exists-p)
-    (neotree-hide)
-    (neotree-find-project-root)))
+;; (defun fri3nds-neotree-toggle ()
+;;   (interactive)
+;;   (if (neo-global--window-exists-p)
+;;     (neotree-hide)
+;;     (neotree-find-project-root)))
 
+(defun fri3nds-neotree-toggle ()
+  "Toggle and add the current project to treemacs if not already added."
+  (interactive)
+  (if
+    (eq (treemacs-current-visibility) 'visible)
+    (delete-window (treemacs-get-local-window))
+    (let ((path (projectile-project-root))
+           (name (projectile-project-name)))
+
+      (if (null path)
+        (progn
+          (neotree-toggle)
+          (neotree-find))
+        (treemacs-select-window)))))
+
+
+(defun fri3nds/treemacs-find-file ()
+  "Toggle and add the current project to treemacs if not already added."
+  (interactive)
+  (let ((path (projectile-project-root))
+         (name (projectile-project-name)))
+
+    (if (null path)
+      (neotree-find)
+      (if (eq (treemacs-current-visibility) 'visible)
+        (treemacs-find-file)
+        ))))
 
 
 ;; http://wenshanren.org/?p=327
@@ -497,8 +532,11 @@ to the `killed-buffer-list' when killing the buffer."
 ;;;;;;
 (spacemacs/set-leader-keys "bu" 'fri3nds/reopen-killed-buffer)
 (spacemacs/set-leader-keys "by" 'just-get-buffer-file-the-name)
+(spacemacs/set-leader-keys "bi" 'spacemacs/projectile-copy-file-path)
+(spacemacs/set-leader-keys "bt" 'fri3nds/projectile-root-copy-path)
 
-(spacemacs/set-leader-keys "cc" 'neotree-project-dir)
+(spacemacs/set-leader-keys "cc" 'fri3nds/treemacs-find-file)
+;; (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
 (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
 (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
 
@@ -548,6 +586,7 @@ to the `killed-buffer-list' when killing the buffer."
 
 (spacemacs/set-leader-keys "oc" 'org-capture)
 (spacemacs/set-leader-keys "oo" 'projectile-switch-project)
+;; (spacemacs/set-leader-keys "ft" 'fri3nds-neotree-toggle)
 (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
 ;; (spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
@@ -586,8 +625,8 @@ to the `killed-buffer-list' when killing the buffer."
 (define-key evil-normal-state-map (kbd "<tab>") 'next-buffer)
 (define-key evil-visual-state-map (kbd "H") 'evil-beginning-of-line)
 
-(define-key evil-normal-state-map (kbd "M") 'evil-search-clear-highlight)
-(define-key evil-visual-state-map (kbd "M") 'evil-search-clear-highlight)
+(define-key evil-normal-state-map (kbd "M") 'spacemacs/evil-search-clear-highlight)
+(define-key evil-visual-state-map (kbd "M") 'spacemacs/evil-search-clear-highlight)
 
 (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
 
