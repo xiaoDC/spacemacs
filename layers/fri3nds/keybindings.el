@@ -237,26 +237,14 @@ If the universal prefix argument is used then will the windows too."
 ;; (load-theme 'alect-black-alt t)
 
 
-;; (defun fri3nds-neotree-toggle ()
-;;   (interactive)
-;;   (if (neo-global--window-exists-p)
-;;     (neotree-hide)
-;;     (neotree-find-project-root)))
-
 (defun fri3nds-neotree-toggle ()
   "Toggle and add the current project to treemacs if not already added."
   (interactive)
-  (if
-    (eq (treemacs-current-visibility) 'visible)
-    (delete-window (treemacs-get-local-window))
-    (let ((path (projectile-project-root))
-           (name (projectile-project-name)))
+  (let ((path (projectile-project-root)))
+    (if (null path)
+      (neotree-find)
+      (neotree-show))))
 
-      (if (null path)
-        (progn
-          (neotree-toggle)
-          (neotree-find))
-        (treemacs-select-window)))))
 
 
 (defun fri3nds/treemacs-find-file ()
@@ -268,8 +256,7 @@ If the universal prefix argument is used then will the windows too."
     (if (null path)
       (neotree-find)
       (if (eq (treemacs-current-visibility) 'visible)
-        (treemacs-find-file)
-        ))))
+        (treemacs-find-file)))))
 
 
 ;; http://wenshanren.org/?p=327
@@ -326,24 +313,6 @@ If the universal prefix argument is used then will the windows too."
     (progn
       (kill-new str)
       (message "Copied buffer file name '%s' to the clipboard." str))))
-
-;; 已经有了 SPC b K
-(defun neotree-project-dir ()
-  "Open NeoTree using the git root."
-  (interactive)
-  (if (neo-global--window-exists-p)
-    (neotree-find (buffer-file-name))
-    (neotree-find-project-root)
-    ))
-;; (defun neotree-project-dir ()
-;;   "Open NeoTree using the git root."
-;;   (interactive)
-;;   (let ((file-name (buffer-file-name)))
-;;     (if file-name
-;;         (progn (neotree-find file-name))
-;;       (message "Could not find git project root.")
-;;       )))
-
 
 (defcustom use-chinese-word-segmentation nil
   "If Non-nil, support Chinese word segmentation(中文分词).
@@ -485,8 +454,15 @@ to the `killed-buffer-list' when killing the buffer."
   (when spacemacs--killed-buffer-list
     (find-file (pop spacemacs--killed-buffer-list))))
 
-(advice-add 'neotree-enter :around 'fri3nds/neotree-keep-size)
+;; (advice-add 'neotree-enter :around 'fri3nds/neotree-keep-size)
 
+(defun fri3nds/format-js-file ()
+  (interactive)
+  (if (executable-find "prettier")
+    ;; (shell-command-to-string "ls -al")
+    ;; (message (buffer-file-name))
+    (shell-command-to-string (format "prettier --config /Users/fri3nds/.prettierrc --write %s" (buffer-file-name)))
+    ))
 
 ;; (defvar helm-fzf-source
 ;;   (helm-build-async-source "fzf"
@@ -515,10 +491,13 @@ to the `killed-buffer-list' when killing the buffer."
 
 (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
 (spacemacs/set-leader-keys "as" 'evil-avy-goto-char)
-(spacemacs/set-leader-keys "ag" 'helm-ag)
+;; (spacemacs/set-leader-keys "ag" 'helm-ag)
+(spacemacs/set-leader-keys "ag" 'counsel-ag)
+
 
 (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
-(spacemacs/set-leader-keys "bb" 'helm-find-files)
+;; (spacemacs/set-leader-keys "bb" 'helm-find-files)
+(spacemacs/set-leader-keys "bb" 'counsel-find-file)
 (spacemacs/set-leader-keys "bc" 'erase-buffer)
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
 (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
@@ -551,7 +530,8 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "en" 'git-gutter+-next-hunk)
 ;; (spacemacs/set-leader-keys "ee" 'git-gutter+-previous-hunk)
 
-(spacemacs/set-leader-keys "ff" 'helm-recentf)
+;; (spacemacs/set-leader-keys "ff" 'helm-recentf)
+(spacemacs/set-leader-keys "ff" 'counsel-recentf)
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
 (spacemacs/set-leader-keys "fn" 'fri3nds/now)
@@ -563,7 +543,8 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ja" 'fri3nds/open-todo-file)
 (spacemacs/set-leader-keys "jd" 'fri3nds/open-sync-todo-file)
 (spacemacs/set-leader-keys "jh" 'ibuffer)
-(spacemacs/set-leader-keys "jj" 'helm-buffers-list)
+(spacemacs/set-leader-keys "jj" 'ivy-switch-buffer)
+;; (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
 (spacemacs/set-leader-keys "jq" 'fri3nds/open-note-file)
 (spacemacs/set-leader-keys "js" 'fri3nds/open-snippets)
 (spacemacs/set-leader-keys "jt" 'fri3nds/open-tools)
@@ -574,23 +555,27 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "kd" 'text-scale-decrease)
 (spacemacs/set-leader-keys "ko" 'fri3nds/kill-all-other-project-buffers)
 
-(spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
+;; (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
+(spacemacs/set-leader-keys "gg" 'spacemacs/search-project-ag-region-or-symbol)
 (spacemacs/set-leader-keys "hh" 'previous-buffer)
 (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
 
 (spacemacs/set-leader-keys "ii" 'evil-avy-goto-char-in-line)
 ;; (spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
-(spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
+;; (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
+(spacemacs/set-leader-keys "mm" 'counsel-yank-pop)
 (spacemacs/set-leader-keys "nn" 'next-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
 (spacemacs/set-leader-keys "oc" 'org-capture)
 (spacemacs/set-leader-keys "oo" 'projectile-switch-project)
 ;; (spacemacs/set-leader-keys "ft" 'fri3nds-neotree-toggle)
-(spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
-;; (spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
+;; (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
+;; (spacemacs/set-leader-keys "qq" 'treemacs)
+(spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
-(spacemacs/set-leader-keys "sl" 'helm-resume)
+(spacemacs/set-leader-keys "sl" 'ivy-resume)
+;; (spacemacs/set-leader-keys "sl" 'helm-resume)
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
 ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
 (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)

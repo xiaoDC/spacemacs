@@ -25,12 +25,12 @@
 ;;   (if shadowsocks-proxy-mode
 ;;       (setq url-gateway-method 'socks)
 ;;     (setq url-gateway-method 'native)))
-;; 
-;; 
+;;
+;;
 ;; (define-global-minor-mode
 ;;   global-shadowsocks-proxy-mode shadowsocks-proxy-mode shadowsocks-proxy-mode
 ;;   :group 'shadowsocks-proxy)
-;; 
+;;
 
 
 (defun fri3nds/hidden-dos-eol ()
@@ -150,8 +150,8 @@
     (locate-dominating-file directory ".git")))
 
 
-(defadvice persp-switch (after my-quit-helm-perspectives activate)
-  (setq hydra-deactivate t))
+;;;; (defadvice persp-switch (after my-quit-helm-perspectives activate)
+;;;;   (setq hydra-deactivate t))
 
 
 (defun fri3nds/my-mc-mark-next-like-this ()

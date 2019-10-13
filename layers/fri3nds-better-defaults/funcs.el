@@ -38,6 +38,12 @@ Position the cursor at its beginning, according to the current mode."
   (interactive)
   (evil-yank (point) (point-at-eol)))
 
+(defun fri3nds/yank-begin-to-end-of-line ()
+  "Yank to end of line."
+  (interactive)
+  (evil-yank (point-at-bol) (point-at-eol)))
+
+
 (defun occur-dwim ()
   "Call `occur' with a sane default."
   (interactive)

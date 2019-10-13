@@ -38,31 +38,40 @@ values."
        ;;        c-c++-default-mode-for-headers 'c++-mode)
        ;; clojure
        (clojure :variables clojure-enable-fancify-symbols nil)
-       ;; elm
+       elm
        emacs-lisp
        ;; chinese
        ;; javascript
+       lsp
        (go :variables
          go-tab-width 4
-         go-use-gometalinter t
+         ;; go-use-gometalinter t
+         godoc-at-point-function 'godoc-gogetdoc
+         ;; go-backend 'lsp
          gofmt-command "goimports")
 
-       haskell
+       (haskell :variables
+         haskell-completion-backend 'lsp)
        html
        ;; lua
        ;; nginx
        ;; (python :variables
        ;;         python-test-runner '(nose pytest))
-       racket
+       ;; racket
        ;; react
        ;; (ruby :variables ruby-version-manager 'chruby)
        ;; ruby-on-rails
        ;; rust
        ;; (shell :variables shell-default-shell 'eshell)
        ;; sql
+
        typescript
-       ;; yaml
+       ;; (typescript :variables
+       ;;   typescript-backend 'lsp)
+
+       yaml
        ivy
+       ;; idris
 
        ;; json
        ;; prettier
@@ -70,7 +79,7 @@ values."
        ;; gpu
        ;; better-defaults
        ;; ranger
-       ;; colors
+       ;; (colors :variables colors-enable-nyan-cat-progress-bar t)
        ;; prodigy
        ;; search-engine
        ;; graphviz
@@ -80,7 +89,7 @@ values."
        (vinegar :variables vinegar-reuse-dired-buffer t)
        (spacemacs-layouts
          :variables layouts-enable-autosave nil
-         ;; layouts-autosave-delay 30000
+         layouts-autosave-delay 3000
          )
 
        (git :variables
@@ -104,8 +113,8 @@ values."
        ;;   osx-command-as 'super)
        ;; restclient
        ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
-       ;; docker
-       ;; latex
+       docker
+       latex
        ;; deft
        markdown
        ;; (org :variables org-want-todo-bindings t)
@@ -124,10 +133,12 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
     dotspacemacs-additional-packages '(
+                                        abyss-theme
+                                        cyberpunk-theme
                                         ;; ibuffer-sidebar
                                         ;; lsp-mode
                                         ;; sicp
-                                        ;; doom-themes
+                                        doom-themes
                                         ;; base16-theme
                                         ;; soothe-theme
                                         ;; alect-themes
@@ -136,7 +147,8 @@ values."
                                         ;; color-theme-sanityinc-solarized
                                         diff-hl
                                         ;; prettier-js
-                                        company-tabnine
+                                        ;; company-tabnine
+                                        ;; company-sql
                                         ;; dash
                                         ;; dash-functional
                                         ;; helm-dash
@@ -146,14 +158,15 @@ values."
                                         ;; fzf
                                         ;; evil-indent-plus
                                         ;; color-theme-sanityinc-tomorrow
-                                        ;; chocolate-theme
 
-                                        all-the-icons
-                                        all-the-icons-dired
+                                        ;; all-the-icons
+                                        ;; all-the-icons-dired
                                         ;; treemacs-icons-dired
 
                                         ;; exec-path-from-shell
                                         reveal-in-osx-finder
+                                        format-all
+                                        format-sql
 
                                         ;; flower
                                         ;; spacemacs-dark
@@ -170,12 +183,13 @@ values."
                                         ;; cal-china-x
                                         ;; git-gutter
                                         ;; git-gutter+
-                                        neotree
+                                        ;; neotree
                                         ;; rainbow-delimiters
                                         ;; rainbow-mode
                                         ;; ox-reveal
                                         ;; org-reveal
                                         ;; js-doc
+                                        ;; (lsp-haskell :location (recipe :fetcher github :repo "emacs-lisp/lsp-haskell"))
                                         json-reformat
                                         ;; soothe-theme
                                         ;; ample-theme
@@ -183,7 +197,7 @@ values."
                                         ;; treemacs-evil
                                         ;; treemacs-projectile
                                         ;; cnfonts
-                                        window-purpose
+                                        ;; window-purpose
                                         whitespace
                                         )
    ;; A list of packages that cannot be updated.
@@ -195,7 +209,7 @@ values."
        helm-github-stars
        evil-args evil-ediff evil-exchange evil-unimpaired
 
-       evil-tutor
+       evil-tuto
        evil-matchit
        evil-lion
        ghub
@@ -232,6 +246,7 @@ values."
       clang-format define-word google-translate disaster epic
        fancy-battery org-present orgit orglue
        ;; spacemacs-theme
+       helm
       helm-flyspell flyspell-correct-helm clean-aindent-mode
       helm-c-yasnippet ace-jump-helm-line helm-make
       magithub
@@ -308,19 +323,19 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                          ;; chocolate
-                          tsdh-light
+                          ;; doom-solarized-dark
+                          cyberpunk
                           solarized-dark
                           solarized-light
-                          adwaita
+                          tsdh-light
+                          abyss
+                          ;; adwaita
                           wheatgrass
                           spacemacs-dark
                          ;; spacemacs-light
                          ;; alect-black
                          ;; deeper-blue
-                         ;; doom-tomorrow-night
                          ;; base16-3024
-                         ;; doom-peacock
                          ;; base16-atelier-estuary
                          ;; base16-atelier-plateau
                          )
@@ -329,40 +344,46 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
     dotspacemacs-default-font '(
-                                 ;; "Source Code Pro"
                                  ;; "Anonymous Pro"
-                                 ;; "Monaco"
-                                 ;; "Menlo"
-                                 ;; "Operator Mono"
+                                 ;; "Courier New"
+                                 ;; "Courier Prime Code"
+                                 ;; "Code New Roman"
+                                 ;; "Dank Mono"
                                  ;; "DejaVu Sans Mono"
+                                 ;; "Droid Sans Mono"
+                                 ;; "Fantasque Sans Mono"
+                                 ;; "FandolKai"
                                  ;; "Fira Code"
                                  ;; "Fira Mono"
                                  ;; "Go Mono"
                                  ;; "Hack"
+                                 ;; "Hasklig"
                                  ;; "Iosevka"
                                  ;; "Input Mono"
                                  ;; "Input Mono Narrow"
-                                 ;; "Ubuntu Mono"
-                                 ;; "Monoid"
-                                 ;; "Courier Prime Code"
-                                 ;; "Pica10 BT"
-                                 ;; "Dank Mono"
-                                 ;; "PragmataPro"
-                                 ;; "FandolKai"
-                                 ;; "Roboto Mono for Powerline"
-                                 "Inconsolata-dz for Powerline"
-                                 ;; "Source Code Pro for Powerline"
-                                 ;; "Input Mono"
-                                 ;; "League Mono"
-                                 ;; "Office Code Pro"
-                                 ;; "Courier New"
-                                 ;; "Fantasque Sans Mono"
-                                 ;; "Meslo LG S for Powerline"
-                                 ;; "Noto Mono"
+                                 ;; "Inconsolata-dz for Powerline"
                                  ;; "Inconsolata"
-                                 ;; "SF Mono"
+                                 ;; "Inconsolata LGC"
+                                 ;; "League Mono"
+                                 ;; "Menlo"
+                                 ;; "Meslo LG S for Powerline"
+                                 ;; "Monoid"
+                                 ;; "Monaco"
+                                 ;; "monospace"
+                                 ;; "Noto Mono"
+                                 ;; "Office Code Pro"
+                                 ;; "Operator Mono"
+                                 ;; "Pica10 BT"
+                                 ;; "PragmataPro"
                                  ;; "PT Mono"
-                                 :size 16
+                                 ;; "Roboto Mono for Powerline"
+                                 "SF Mono"
+                                 ;; "Source Code Pro"
+                                 ;; "Source Code Pro for Powerline"
+                                 ;; "Sometype Mono"
+                                 ;; "Cascadia Code"
+                                 ;; "Ubuntu Mono"
+                                 :size 17
                                  :weight normal
                                  ;; :weight light
                                  :width normal
@@ -525,9 +546,11 @@ values."
 
 (defun dotspacemacs/user-init ()
   (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
-          ("org-cn"   . "https://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+    '(
+       ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+       ("org-cn"   . "https://elpa.emacs-china.org/org/")
+       ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
+       ))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
@@ -543,6 +566,9 @@ values."
   ;; (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
 
+  ;; (add-to-list 'load-path "~/.emacs.d/elpa/develop/doom-themes-20190904.2252")
+  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/develop/doom-themes-20190904.2252")
+
   ;; // 直接进入 scratch buffer
   ;; (defun spacemacs-buffer/goto-buffer ()
   ;;   (interactive))
@@ -550,9 +576,46 @@ values."
 
 (defun dotspacemacs/user-config ()
   ;; (add-to-list 'load-path (expand-file-name "/Users/fri3nds/.spacemacs.d/aweshell"))
-  ;; (require 'aweshell)
 
+
+  ;; (require 'aweshell)
+  (when (window-system)
+  (set-frame-font "Fira Code"))
+
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+               (36 . ".\\(?:>\\)")
+               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+               (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+               (48 . ".\\(?:x[a-zA-Z]\\)")
+               (58 . ".\\(?:::\\|[:=]\\)")
+               (59 . ".\\(?:;;\\|;\\)")
+               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+               (91 . ".\\(?:]\\)")
+               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+               (94 . ".\\(?:=\\)")
+               (119 . ".\\(?:ww\\)")
+               (123 . ".\\(?:-\\)")
+               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+               ;; (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+               )
+             ))
+  (dolist (char-regexp alist)
+    (set-char-table-range composition-function-table (car char-regexp)
+                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
+
+  ;; (spacemacs/load-theme 'doom-solarized-light t)
+  ;; (spacemacs/load-theme 'doom-solarized-dark t)
   (setq save-abbrevs nil)
+  (setq ivy-use-virtual-buffers t)
 
   (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
   (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
@@ -582,46 +645,9 @@ values."
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
-
-  ;; (when (window-system)
-   ;; (set-default-font "Fira Code"))
-
-  ;; (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-  ;;                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-  ;;                 (36 . ".\\(?:>\\)")
-  ;;                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-  ;;                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-  ;;                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-  ;;                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-  ;;                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-  ;;                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-  ;;                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-  ;;                 (48 . ".\\(?:x[a-zA-Z]\\)")
-  ;;                 (58 . ".\\(?:::\\|[:=]\\)")
-  ;;                 (59 . ".\\(?:;;\\|;\\)")
-  ;;                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-  ;;                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-  ;;                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-  ;;                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-  ;;                 (91 . ".\\(?:]\\)")
-  ;;                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-  ;;                 (94 . ".\\(?:=\\)")
-  ;;                 (119 . ".\\(?:ww\\)")
-  ;;                 (123 . ".\\(?:-\\)")
-  ;;                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-  ;;                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-  ;;                 )
-  ;;         ))
-  ;;   (dolist (char-regexp alist)
-  ;;     (set-char-table-range composition-function-table (car char-regexp)
-  ;;       `([,(cdr char-regexp) 0 font-shape-gstring]))))
-
-
-  (add-hook 'helm-major-mode-hook
-    (lambda ()
-      (setq auto-composition-mode nil)))
-
-
+  ;;;; (add-hook 'helm-major-mode-hook
+  ;;;;   (lambda ()
+  ;;;;     (setq auto-composition-mode nil)))
 
   ;; force horizontal split window
   (setq split-width-threshold 300)
@@ -631,15 +657,25 @@ values."
     scroll-preserve-screen-position 't
     )
 
-
-
-
   ;; (global-linum-mode nil)
   ;; (setq linum-format "%4d \u2502")
 
   ;; (linum-relative-on)
   ;; (setq-default line-spacing 1)
   (setq-default line-spacing 0)
+  (setq calendar-mark-diary-entries-flag t)
+  ;; (setq org-agenda-include-diary t)
+
+  (add-hook 'org-finalize-agenda-hook
+    (lambda ()
+      (setq appt-message-warning-time 10        ;; warn 10 min in advance
+        appt-display-diary nil              ;; do not display diary when (appt-activate) is called
+        appt-display-mode-line t            ;; show in the modeline
+        appt-display-format 'window         ;; display notification in window
+        calendar-mark-diary-entries-flag t) ;; mark diary entries in calendar
+      (org-agenda-to-appt)                      ;; copy all agenda schedule to appointments
+      (appt-activate 1)))
+
   ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
 
   ;; (spacemacs|add-company-backends :modes text-mode)
@@ -647,11 +683,8 @@ values."
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
-  ;; temp fix for ivy-switch-buffer
-  ;; (spacemacs/set-leader-keys "bb" 'helm-mini)
-
   (global-hungry-delete-mode t)
-  (spacemacs|diminish helm-gtags-mode)
+  ;; (spacemacs|diminish helm-gtags-mode)
   (spacemacs|diminish ggtags-mode)
   (spacemacs|diminish which-key-mode)
   (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
@@ -661,7 +694,6 @@ values."
   ;; (cnfonts-enable)
   ;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
   ;; (cnfonts-set-spacemacs-fallback-fonts)
-
 
 
   ;; (evilified-state-evilify-map special-mode-map :mode special-mode)
@@ -685,23 +717,23 @@ values."
 
   ;; (typescript-mode)
 
-
-
   ;; make the fringe stand out from the background
   ;; (setq solarized-distinct-fringe-background t)
   ;; Don't change the font for some headings and titles
-  ;; (setq solarized-use-variable-pitch t)
   ;; make the modeline high contrast
   ;; ;; (setq solarized-high-contrast-mode-line t)
   ;; Use less bolding
-  ;; ;; (setq solarized-use-less-bold t)
   ;; Use more italics
   ;; (setq solarized-use-more-italic t)
   ;; Use less colors for indicators such as git:gutter, flycheck and similar
+
+
   ;; (setq solarized-emphasize-indicators t)
-  ;; Don't change size of org-mode headlines (but keep other size-changes)
+  ;; ;; Don't change size of org-mode headlines (but keep other size-changes)
+  ;; (setq solarized-use-less-bold t)
   ;; (setq solarized-scale-org-headlines nil)
-  ;; Avoid all font-size changes
+  ;; (setq solarized-use-variable-pitch t)
+  ;; ;; Avoid all font-size changes
   ;; (setq solarized-height-minus-1 1.0)
   ;; (setq solarized-height-plus-1 1.0)
   ;; (setq solarized-height-plus-2 1.0)
@@ -709,20 +741,8 @@ values."
   ;; (setq solarized-height-plus-4 1.0)
   ;; (setq x-underline-at-descent-line t)
 
-
-  ;; (add-to-list 'custom-theme-load-path "/Users/fri3nds/.spacemacs.d/theme/emacs-color-theme-solarized")
-  ;; (require 'color-theme-solarized)
-  ;; (load-theme 'solarized t)
-  ;; (set-frame-parameter nil 'background-mode 'dark)    ;;选择solarized dark
-  ;; (enable-theme 'solarized)
-
-
-  ;; (add-to-list 'org-capture-templates '("w" "Work Tasks"))
-
-
-
-
-
+  ;; (setq doom-themes-enable-bold t
+  ;;   doom-themes-enable-italic t)
 
   ;; (vline-global-mode 1)
   ;; (set-face-background vline-face "#073642")
@@ -737,35 +757,35 @@ values."
   ;;   )
   ;; (setq calendar-holidays my-holidays)  ;只显示我定制的节假日
 
-  (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark newline-mark)))
+  ;; (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark newline-mark)))
   ;; (setq whitespace-style (quote (face spaces tabs newline space-mark tab-mark)))
-  (setq whitespace-display-mappings '(
-                                       (space-mark 32 [183] [46]) ; normal space
-                                       (space-mark 160 [164] [95])
-                                       (space-mark 2208 [2212] [95])
-                                       (space-mark 2336 [2340] [95])
-                                       (space-mark 3616 [3620] [95])
-                                       (space-mark 3872 [3876] [95])
-                                       ;; (newline-mark 10 [35 10]) ; newlne
-                                       (tab-mark 9 [9655 9] [92 9]) ; tab
-                                      ))
+  ;; (setq whitespace-display-mappings '(
+  ;;                                      (space-mark 32 [183] [46]) ; normal space
+  ;;                                      (space-mark 160 [164] [95])
+  ;;                                      (space-mark 2208 [2212] [95])
+  ;;                                      (space-mark 2336 [2340] [95])
+  ;;                                      (space-mark 3616 [3620] [95])
+  ;;                                      (space-mark 3872 [3876] [95])
+  ;;                                      (newline-mark 10 [35 10]) ; newlne
+  ;;                                      (tab-mark 9 [9655 9] [92 9]) ; tab
+  ;;                                     ))
   ;; (setq display-line-numbers-type 'relative)
 
   (defun my-prog-mode-hook ()
     "active after prog-mode"
     (interactive)
-    (spacemacs/toggle-fill-column-indicator-on)
+    ;; (spacemacs/toggle-fill-column-indicator-on)
     ;; (yas-minor-mode 1)
     ;; (auto-complete-mode 1)
     ;; (column-enforce-mode 1)
     ;; (parinfer-active)
-    (linum-mode -1)
+    ;; (linum-mode -1)
     (abbrev-mode 1)
     ;; (display-line-numbers-mode 'relative)
-    ;; (display-line-numbers-mode 1)
+    (display-line-numbers-mode 1)
     ;; (vline-mode -1)
     ;; (blank-mode t)
-    ;; (global-company-mode)
+    (global-company-mode)
     ;; (whitespace-mode 1)
     ;; (highlight-indent-guides-mode 1)
     ;; (set-face-background vline-face "#c2ebff")
@@ -832,7 +852,7 @@ values."
     (add-to-list 'company-backends '(
                                       company-files
                                       company-capf :with company-dabbrev
-                                      company-tabnine
+                                      ;; company-tabnine
                                       )))
 
   ;; (eval-after-load 'dash '(dash-enable-font-lock))
@@ -919,7 +939,7 @@ values."
   (setq ido-ignore-buffers '("\\` " "^\*grep*" "^\*scratch*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
   (setq iswitchb-buffer-ignore '("\\` " "^\*grep*" "^\*Messages*" "^\*emacs*" "^\*spacemacs*"))
   ;; (setq helm-ff-skip-boring-files t)
-  (setq helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*Messages" "\\*scratch"))
+  ;;;; (setq helm-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*Messages" "\\*scratch"))
 
 
   (setq yas-indent-line 'fixed)
@@ -990,7 +1010,8 @@ values."
 
   (setq-default mode-line-format
     (list
-      " ❐ "
+      ;; " ❐ "
+      " "
       ;; " %1"
       '(:eval (propertize
                 (window-number-mode-line)
@@ -999,15 +1020,16 @@ values."
 
       ;; '(:eval (custom-update-persp-name))
 
-      "%1 "
+      ;; "%1 "
+      " "
       ;; the buffer name; the file name as a tool tip
       '(:eval (propertize "%b " 'face 'font-lock-type-face
                 'help-echo (buffer-file-name)))
 
-      "  "
+      " "
       (propertize "%I" 'face 'font-lock-constant-face) ;; size
 
-      "  "
+      " "
 
       ;; anzu
       ;; anzu--mode-line-format
@@ -1025,9 +1047,9 @@ values."
       ;; minor modes
       ;; minor-mode-alist
       ;; git info
-      "  "
+      " "
       `(vc-mode vc-mode)
-      "  "
+      ;; " "
 
       ;; global-mode-string goes in mode-line-misc-info
       ;; mode-line-misc-info
@@ -1045,18 +1067,18 @@ values."
 
       ;; line and column
       ;; "("
-      (propertize "%06l" 'face 'font-lock-type-face)
+      (propertize "%6l" 'face 'font-lock-type-face)
       "  "
-      (propertize "%04c" 'face 'font-lock-type-face)
+      (propertize "%4C" 'face 'font-lock-type-face)
       ;; ")"
 
-      "  "
+      " "
       '(:eval (buffer-encoding-abbrev))
 
-      "  "
+      " "
       (propertize "%p" 'face 'font-lock-constant-face) ;; % above top
 
-      "  " ;; insert vs overwrite mode, input-method in a tooltip
+      " " ;; insert vs overwrite mode, input-method in a tooltip
       '(:eval (propertize (if overwrite-mode "Ovr" "Ins")
                 'face 'font-lock-preprocessor-face
                 'help-echo (concat "Buffer is in "
@@ -1076,6 +1098,9 @@ values."
                                'face 'font-lock-warning-face
                                'help-echo "Buffer is read-only"))))
 
+      "  "
+      ;; '(:eval (format-time-string "%Y-%m-%d %H:%M" (current-time)))
+      ;; '(:eval (list (nyan-create)))
       ))
 
 
@@ -1085,7 +1110,8 @@ values."
                (let ((buffer-coll (remove nil (mapcar 'buffer-file-name (buffer-list)))))
                  (concat
                    ;; "⟹"
-                   " ❐ "
+                   ;; " ❐ "
+                   " "
                    (number-to-string (+ 1 (position
                                             (buffer-file-name)
                                             buffer-coll)))
@@ -1115,15 +1141,13 @@ This function is called at the very end of Spacemacs initialization."
   ;; If there is more than one, they won't work right.
   '(package-selected-packages '(evil-unimpaired f s dash)))
 
-  (custom-set-faces
-    ;; (face-attribute hl-line-face :background)
-
-    ;; custom-set-faces was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-    ;; Your init file should contain only one such instance.
-    ;; If there is more than one, they won't work right.
-
-    ;; '(default ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :slant normal :weight normal :height 130 :width normal))))
-    )
+  (custom-set-variables '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
+                        '((bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
+                          (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
+                          (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
+                          (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+                          (act2       . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+                          (border     . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+                          )))
 
   )

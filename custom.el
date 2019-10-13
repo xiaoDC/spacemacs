@@ -13,7 +13,7 @@
  '(company-dabbrev-other-buffers nil)
  '(company-show-numbers t)
  '(company-statistics-auto-restore nil)
- '(compilation-message-face 'default)
+ '(compilation-message-face (quote default))
  '(ctags-update-delay-seconds 1024)
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
@@ -23,9 +23,9 @@
  '(erc-port 6666)
  '(evil-want-C-i-jump t)
  '(evil-want-Y-yank-to-eol t)
- '(exec-path-from-shell-arguments '("-l"))
+ '(exec-path-from-shell-arguments (quote ("-l")))
  '(expand-region-contract-fast-key "V")
- '(expand-region-exclude-text-mode-expansions '(html-mode nxml-mode web-mode))
+ '(expand-region-exclude-text-mode-expansions (quote (html-mode nxml-mode web-mode)))
  '(expand-region-reset-fast-key "r")
  '(fci-rule-color "#073642" t)
  '(git-gutter+-added-sign " ")
@@ -34,66 +34,128 @@
  '(git-gutter+-window-width 6)
  '(git-gutter:update-interval 0)
  '(global-command-log-mode nil)
- '(helm-buffer-max-length 56)
- '(helm-move-to-line-cycle-in-source t)
- '(highlight-changes-colors '("#d33682" "#6c71c4"))
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
    (--map
     (solarized-color-blend it "#002b36" 0.25)
-    '("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2")))
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
  '(highlight-symbol-foreground-color "#93a1a1")
  '(highlight-tail-colors
-   '(("#073642" . 0)
+   (quote
+    (("#073642" . 0)
      ("#546E00" . 20)
      ("#00736F" . 30)
      ("#00629D" . 50)
      ("#7B6000" . 60)
      ("#8B2C02" . 70)
      ("#93115C" . 85)
-     ("#073642" . 100)))
+     ("#073642" . 100))))
  '(hl-bg-colors
-   '("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00"))
+   (quote
+    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
  '(hl-fg-colors
-   '("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36"))
- '(hl-paren-colors '("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900") t)
+   (quote
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
+ '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")) t)
  '(ivy-height 18)
  '(lua-documentation-url "http://www.lua.org/manual/5.3/manual.html")
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
  '(nrepl-message-colors
-   '("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4"))
+   (quote
+    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(only-global-abbrevs t)
  '(org-agenda-custom-commands nil)
  '(org-agenda-files
-   '("~/Dropbox/org/tuya-work.org" "~/Dropbox/org/interview.org" "~/org/Learning.org" "~/org/notes.org" "~/org/Learning.org" "~/org/malfunction.org"))
+   (quote
+    ("~/Dropbox/org/tuya-work.org" "~/org/Learning.org" "~/org/notes.org" "~/org/Learning.org" "~/org/malfunction.org")))
  '(org-agenda-ndays 1)
  '(org-agenda-show-all-dates t)
  '(org-agenda-skip-deadline-if-done t)
  '(org-agenda-skip-deadline-prewarning-if-scheduled t)
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-start-on-weekday nil)
- '(org-agenda-text-search-extra-files '(agenda-archives))
+ '(org-agenda-text-search-extra-files (quote (agenda-archives)))
  '(org-deadline-warning-days 14)
- '(org-fast-tag-selection-single-key 'expert)
+ '(org-fast-tag-selection-single-key (quote expert))
  '(org-log-into-drawer t)
  '(org-pomodoro-play-sounds nil)
  '(org-reverse-note-order t)
  '(package-selected-packages
-   '(cider transient treemacs-icons-dired markdown-mode lsp-haskell lsp-mode intero hlint-refactor hindent haskell-snippets dante lcr company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode attrap writeroom-mode visual-fill-column treemacs-projectile treemacs-evil treemacs ht pfuture symbol-overlay prettier-js org-cliplink nodejs-repl magit-svn ivy-yasnippet go-impl go-gen-test go-fill-struct gitignore-templates flycheck-package package-lint flycheck evil-textobj-line evil-goggles doom-modeline shrink-path devdocs dotenv-mode go-mode goto-chg helm helm-core magit yasnippet-snippets ivy-xref ivy-hydra counsel-css counsel company-tabnine clojure-snippets yasnippet clojure-mode ivy which-key ws-butler wrap-region winum window-purpose wgrep web-mode web-beautify visual-regexp-steroids uuidgen use-package unicode-escape typescript-mode toc-org tiny tagedit swiper string-inflection spaceline-all-the-icons solarized-theme smex slim-mode scss-mode sayid sass-mode reveal-in-osx-finder restart-emacs request rainbow-delimiters racket-mode pug-mode popwin persp-mode peep-dired pcre2el password-generator paradox overseer org-plus-contrib org-mime org-bullets open-junk-file neotree nameless move-text mmm-mode markdown-toc macrostep linum-relative link-hint json-navigator json-mode js2-refactor js-doc indent-guide impatient-mode ibuffer-projectile hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indent-guides helm-ag golden-ratio godoctor go-tag go-rename go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-messenger git-link fuzzy font-lock+ flx fill-column-indicator expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-magit evil-indent-plus evil-iedit-state evil-cleverparens evil-anzu emmet-mode elisp-slime-nav editorconfig dumb-jump discover-my-major diminish diff-hl company-web company-tern company-statistics company-go column-enforce-mode clj-refactor cider-eval-sexp-fu centered-cursor-mode calfw-org calfw browse-at-remote bind-map auto-yasnippet auto-highlight-symbol auto-compile all-the-icons-dired alert aggressive-indent adaptive-wrap ace-window ace-link))
+   (quote
+    (doom-themes transient memoize package-lint treemacs-projectile treemacs-evil magit-svn editorconfig magit-popup magit with-editor treemacs yasnippet-snippets lsp-ui lsp-treemacs lsp-haskell ivy-yasnippet ivy-xref ivy-hydra evil-visualstar evil-visual-mark-mode evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-magit evil-indent-plus evil-iedit-state evil-goggles evil-cleverparens evil-anzu doom-modeline counsel-css counsel swiper ivy cider-eval-sexp-fu cider lsp-mode yasnippet async evil cyberpunk-theme flycheck-package org-plus-contrib evil-unimpaired f s dash)))
  '(paradox-github-token t)
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
- '(ring-bell-function 'ignore)
+ '(ring-bell-function (quote ignore))
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(sp-show-pair-from-inside t)
+ '(spacemacs-theme-custom-colors
+   (quote
+    ((bg1 if
+          (eq variant
+              (quote dark))
+          (if
+              (true-color-p)
+              "#222226" "#262626")
+          (if
+              (true-color-p)
+              "#fbf8ef" "#ffffff"))
+     (bg2 if
+          (eq variant
+              (quote dark))
+          (if
+              (true-color-p)
+              "#17181B" "#1c1c1c")
+          (if
+              (true-color-p)
+              "#efeae9" "#e4e4e4"))
+     (comment-bg if
+                 (eq variant
+                     (quote dark))
+                 (if
+                     (true-color-p)
+                     "#23282A" "#262626")
+                 (if
+                     (true-color-p)
+                     "#ecf3ec" "#ffffff"))
+     (highlight if
+                (eq variant
+                    (quote dark))
+                (if
+                    (true-color-p)
+                    "#61526E" "#444444")
+                (if
+                    (true-color-p)
+                    "#d3d3e7" "#d7d7ff"))
+     (act2 if
+           (eq variant
+               (quote dark))
+           (if
+               (true-color-p)
+               "#603D8E" "#444444")
+           (if
+               (true-color-p)
+               "#d3d3e7" "#d7d7ff"))
+     (border if
+             (eq variant
+                 (quote dark))
+             (if
+                 (true-color-p)
+                 "#603D8E" "#444444")
+             (if
+                 (true-color-p)
+                 "#d3d3e7" "#d7d7ff")))))
  '(tags-revert-without-query t)
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")
- '(tramp-syntax 'default nil (tramp))
+ '(tramp-syntax (quote default) nil (tramp))
  '(vc-annotate-background nil)
  '(vc-annotate-background-mode nil)
  '(vc-annotate-color-map
-   '((20 . "#dc322f")
+   (quote
+    ((20 . "#dc322f")
      (40 . "#c9485ddd1797")
      (60 . "#bf7e73b30bcb")
      (80 . "#b58900")
@@ -110,12 +172,13 @@
      (300 . "#288e98cbafe2")
      (320 . "#27c19460bb87")
      (340 . "#26f38ff5c72c")
-     (360 . "#268bd2")))
+     (360 . "#268bd2"))))
  '(vc-annotate-very-old-color nil)
  '(vc-follow-symlinks t)
  '(web-mode-markup-indent-offset 2)
  '(weechat-color-list
-   '(unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83"))
+   (quote
+    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
  '(xterm-color-names
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
  '(xterm-color-names-bright
