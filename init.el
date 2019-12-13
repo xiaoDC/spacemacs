@@ -38,22 +38,21 @@ values."
      ;;        c-c++-default-mode-for-headers 'c++-mode)
      ;; clojure
      (clojure :variables clojure-enable-fancify-symbols nil)
-     elm
+     ;; elm
      emacs-lisp
      ;; chinese
      ;; javascript
-     (rust :variables
-           rust-backend 'lsp
-           )
+     ;; (rust :variables
+     ;;       rust-backend 'lsp)
      (lsp :variables
           ;; lsp-ui-doc-enable nil
           lsp-ui-sideline-enable nil
           )
-     (go :variables
-         go-tab-width 4
+      (go :variables
+        go-tab-width nil
          ;; go-use-gometalinter t
          godoc-at-point-function 'godoc-gogetdoc
-         ;; go-backend 'lsp
+         go-backend 'lsp
          gofmt-command "goimports")
 
      (haskell :variables
@@ -71,9 +70,9 @@ values."
      ;; (shell :variables shell-default-shell 'eshell)
      ;; sql
 
-     typescript
-     ;; (typescript :variables
-     ;;             typescript-backend 'lsp)
+     ;; typescript
+     (typescript :variables
+                 typescript-backend 'lsp)
 
      yaml
      ivy
@@ -119,8 +118,8 @@ values."
      ;;   osx-command-as 'super)
      ;; restclient
      ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
-     docker
-     latex
+     ;; docker
+     ;; latex
      ;; deft
      markdown
      ;; (org :variables org-want-todo-bindings t)
@@ -142,7 +141,7 @@ values."
                                       abyss-theme
                                       cyberpunk-theme
                                       ;; ibuffer-sidebar
-                                      ;; lsp-mode
+                                      lsp-mode
                                       ;; sicp
                                       doom-themes
                                       ;; base16-theme
@@ -332,8 +331,8 @@ values."
    dotspacemacs-themes '(
                          ;; doom-solarized-dark
                          solarized-dark
-                         cyberpunk
                          solarized-light
+                         cyberpunk
                          tsdh-light
                          abyss
                          ;; adwaita
@@ -368,7 +367,7 @@ values."
                                ;; "Iosevka"
                                ;; "Input Mono"
                                ;; "Input Mono Narrow"
-                               ;; "Inconsolata-dz for Powerline"
+                               ;; "Droid Sans Mono Slashed for Powerline"
                                ;; "Inconsolata"
                                ;; "Inconsolata LGC"
                                ;; "League Mono"
@@ -385,16 +384,17 @@ values."
                                ;; "PT Mono"
                                ;; "Roboto Mono for Powerline"
                                ;; "SF Mono"
-                               ;; "Source Code Pro"
                                ;; "Source Code Pro for Powerline"
-                               "Sometype Mono"
+                               "Cousine Nerd Font Mono"
+                               ;; "Inconsolata-dz for Powerline"
+                               ;; "Sometype Mono"
                                ;; "Cascadia Code"
                                ;; "Ubuntu Mono"
                                :size 17
                                :weight normal
                                ;; :weight light
                                :width normal
-                               :powerline-scale 1.0)
+                               :powerline-scale 1.2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -692,8 +692,7 @@ values."
   ;; (setq linum-format "%4d \u2502")
 
   ;; (linum-relative-on)
-  ;; (setq-default line-spacing 1)
-  (setq-default line-spacing 0)
+  (setq-default line-spacing 2)
   (setq calendar-mark-diary-entries-flag t)
   ;; (setq org-agenda-include-diary t)
 
@@ -974,6 +973,7 @@ values."
 
 
   (setq yas-indent-line 'fixed)
+  (menu-bar-mode 0)
 
 
   (custom-set-faces

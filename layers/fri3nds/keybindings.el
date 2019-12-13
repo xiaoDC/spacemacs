@@ -346,38 +346,38 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-note-file ()
   (interactive)
-  (find-file "/Users/fri3nds/org/notes.org"))
+  (find-file "/Users/fri3nd/org/notes.org"))
 
 
 (defun fri3nds/open-snippets ()
   (interactive)
-  (find-file "/Users/fri3nds/Dropbox/Note/README.org"))
+  (find-file "/Users/fri3nd/Dropbox/Note/README.org"))
 
 
 (defun fri3nds/open-tools ()
   (interactive)
-  (find-file "/Users/fri3nds/Dropbox/Note/tool.md"))
+  (find-file "/Users/fri3nd/Dropbox/Note/tool.md"))
 
 
 (defun fri3nds/open-todo-file ()
   (interactive)
-  (find-file "/Users/fri3nds/org/TODO.org"))
+  (find-file "/Users/fri3nd/org/TODO.org"))
 
 
 (defun fri3nds/open-sync-todo-file ()
   (interactive)
-  (find-file "/Users/fri3nds/Dropbox/org/tuya-work.org"))
+  (find-file "/Users/fri3nd/Dropbox/org/tuya-work.org"))
 
 
 
 (defun fri3nds/open-template-file ()
   (interactive)
-  (find-file "/Users/fri3nds/scratch.org"))
+  (find-file "/Users/fri3nd/scratch.org"))
 
 (defun fri3nds/open-clojure-file ()
   (interactive)
-  ;; (find-file "/Users/fri3nds/tools/script/src/script/core.clj"))
-  (find-file "/Users/fri3nds/tools/script/src/script/huskar.clj"))
+  ;; (find-file "/Users/fri3nd/tools/script/src/script/core.clj"))
+  (find-file "/Users/fri3nd/tools/script/src/script/huskar.clj"))
 
 
 (defun fri3nds/showcopy-buffer-filename ()
@@ -391,7 +391,7 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-password-file ()
   (interactive)
-  (find-file "/Users/fri3nds/workspace/.tuya_password.md"))
+  (find-file "/Users/fri3nd/workspace/.tuya_password.md"))
 
 
 (defun fri3nds/neotree-keep-size (fn &rest args)
@@ -461,7 +461,7 @@ to the `killed-buffer-list' when killing the buffer."
   (if (executable-find "prettier")
     ;; (shell-command-to-string "ls -al")
     ;; (message (buffer-file-name))
-    (shell-command-to-string (format "prettier --config /Users/fri3nds/.prettierrc --write %s" (buffer-file-name)))
+    (shell-command-to-string (format "prettier --config /Users/fri3nd/.prettierrc --write %s" (buffer-file-name)))
     ))
 
 ;; (defvar helm-fzf-source
@@ -502,6 +502,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
 (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
 (spacemacs/set-leader-keys "bm" 'spacemacs/switch-to-messages-buffer)
+(spacemacs/set-leader-keys "bn" 'previous-buffer)
 (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
 (spacemacs/set-leader-keys "bq" 'fri3nds/open-template-file)
 (spacemacs/set-leader-keys "bw" 'fri3nds/open-clojure-file)
@@ -534,6 +535,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ff" 'counsel-recentf)
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
+(spacemacs/set-leader-keys "fm" 'format-all-buffer)
 (spacemacs/set-leader-keys "fn" 'fri3nds/now)
 (spacemacs/set-leader-keys "gb" 'magit-blame-addition)
 
@@ -566,6 +568,8 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
 ;; (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
 (spacemacs/set-leader-keys "mm" 'counsel-yank-pop)
+;; (spacemacs/set-leader-keys "mt" 'toggle-menu-bar-mode-from-frame)
+(spacemacs/set-leader-keys "mt" 'spacemacs/toggle-menu-bar-off)
 (spacemacs/set-leader-keys "nn" 'next-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
@@ -580,6 +584,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "sl" 'helm-resume)
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
 ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
+(spacemacs/set-leader-keys "ta" 'markdown-table-align)
 (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
 ;; (spacemacs/set-leader-keys "tl" 'linum-mode)
 (spacemacs/set-leader-keys "tl" 'display-line-numbers-mode)
@@ -646,5 +651,5 @@ to the `killed-buffer-list' when killing the buffer."
 
 ;; (add-to-list 'org-capture-templates
 ;;   '("w" "Work Task" entry
-;;      (file+headline "/Users/fri3nds/Dropbox/org/tuya-work.org" "Work")
+;;      (file+headline "/Users/fri3nd/Dropbox/org/tuya-work.org" "Work")
 ;;      "* TODO %^{任务名}\n%U\n%a\n"))

@@ -87,12 +87,12 @@
 (setq org-default-notes-file "/Users/fri3nds/org/notes.org")
 
 (setq org-agenda-files (list "/Users/fri3nds/Dropbox/org/tuya-work.org"
-                         "/Users/fri3nds/org/Learning.org"
-                         "/Users/fri3nds/Dropbox/org/interview.org"
-                         ;; "/Users/fri3nds/org/notes.org"
-                         ;; "/Users/fri3nds/org/API.org"
-                         ;; "/Users/fri3nds/org/malfunction.org"
-                         ))
+                             "/Users/fri3nds/org/Learning.org"
+                             "/Users/fri3nds/Dropbox/org/interview.org"
+                             ;; "/Users/fri3nds/org/notes.org"
+                             ;; "/Users/fri3nds/org/API.org"
+                             ;; "/Users/fri3nds/org/malfunction.org"
+                             ))
 
 (setq org-html-checkbox-type 'unicode)
 
@@ -114,8 +114,25 @@
 
 ;; 优先级醒目外观
 (setq org-priority-faces '(
-                            (?A . (:background "red" :foreground "white" :weight bold))
-                            (?B . (:background "DarkOrange" :foreground "white" :weight bold))
-                            (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
-                            (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
-                            (?E . (:background "SkyBlue" :foreground "black" :weight bold)) ))
+                           (?A . (:background "red" :foreground "white" :weight bold))
+                           (?B . (:background "DarkOrange" :foreground "white" :weight bold))
+                           (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
+                           (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
+                           (?E . (:background "SkyBlue" :foreground "black" :weight bold)) ))
+
+
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t!)"  "NEXT(n!)" "IDEA(i!)" "|" "DONE(d!)")
+              ;; (sequence "REPEAT(r)"  "WAIT(w!)"  "|"  "PAUSED(p@/!)" "CANCELLED(c@/!)" )
+              ;; (sequence "IDEA(i!)" "MAYBE(y!)" "STAGED(s!)" "WORKING(k!)" "|" "USED(u!/@)")
+              )))
+
+
+
+(setq org-hide-emphasis-markers t)
+
+
+
+(font-lock-add-keywords 'org-mode
+                        '(("^ +\\([-*]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
