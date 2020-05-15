@@ -3,7 +3,6 @@
 ;; It must be stored in your home directory.
 
 ;; 862e81e49aefd6689e9d92a150212ac46ec66e99
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -37,27 +36,31 @@ values."
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode)
      ;; clojure
-     (clojure :variables clojure-enable-fancify-symbols nil)
+     ;; (clojure :variables clojure-enable-fancify-symbols nil)
+     ;; (elm :variables
+     ;;      elm-backend 'lsp)
      ;; elm
      emacs-lisp
      ;; chinese
      ;; javascript
-     ;; (rust :variables
-     ;;       rust-backend 'lsp)
      (lsp :variables
           ;; lsp-ui-doc-enable nil
           lsp-ui-sideline-enable nil
           )
-      (go :variables
-        go-tab-width nil
+     ;; (rust :variables
+     ;;       rust-backend 'lsp-rust)
+     (go :variables
+         go-tab-width nil
          ;; go-use-gometalinter t
          godoc-at-point-function 'godoc-gogetdoc
          go-backend 'lsp
          gofmt-command "goimports")
-
-     (haskell :variables
-              haskell-completion-backend 'lsp)
-     html
+     ;; (haskell :variables
+     ;;          haskell-completion-backend 'lsp
+     ;;          haskell-enable-hindent t
+     ;;          )
+     ;; haskell
+     ;; html
      ;; lua
      ;; nginx
      ;; (python :variables
@@ -74,7 +77,7 @@ values."
      (typescript :variables
                  typescript-backend 'lsp)
 
-     yaml
+     ;; yaml
      ivy
      ;; idris
 
@@ -91,28 +94,30 @@ values."
      ;; (syntax-checking :variables syntax-checking-enable-by-default nil
      ;;                  syntax-checking-enable-tooltips nil)
      ;; (spell-checking :variables spell-checking-enable-by-default nil)
-     (vinegar :variables vinegar-reuse-dired-buffer t)
+     (vinegar :variables vinegar-reuse-dired-buffer t
+              vinegar-dired-hide-details t
+              )
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      layouts-autosave-delay 3000
+      ;; layouts-autosave-delay 60000
       )
 
      (git :variables
-          git-magit-status-fullscreen t
+          ;; git-magit-status-fullscreen t
           magit-push-always-verify nil
-          magit-save-repository-buffers 'dontask
-          magit-revert-buffers 'silent
-          magit-refs-show-commit-count 'all
+          ;; magit-save-repository-buffers 'dontask
+          ;; magit-revert-buffers 'silent
+          ;; magit-refs-show-commit-count 'all
           magit-revision-show-gravatars nil
           )
 
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
 
-     (auto-completion :variables
-                      auto-completion-enable-sort-by-usage t
-                      auto-completion-enable-snippets-in-popup t
-                      ;; :disabled-for org markdown
-                      )
+     ;; (auto-completion :variables
+     ;; auto-completion-enable-sort-by-usage t
+     ;; auto-completion-enable-snippets-in-popup t
+     ;; ;;                  ;; :disabled-for org markdown
+     ;; )
 
      ;; (osx :variables osx-dictionary-dictionary-choice "Simplified Chinese - English"
      ;;   osx-command-as 'super)
@@ -121,7 +126,7 @@ values."
      ;; docker
      ;; latex
      ;; deft
-     markdown
+     ;; markdown
      ;; (org :variables org-want-todo-bindings t)
      (org :variables
           org-want-todo-bindings t
@@ -138,10 +143,11 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      abyss-theme
-                                      cyberpunk-theme
+                                      ;; abyss-theme
+                                      ;; cyberpunk-theme
                                       ;; ibuffer-sidebar
                                       lsp-mode
+                                      ;; lsp-elm
                                       ;; sicp
                                       doom-themes
                                       ;; base16-theme
@@ -196,7 +202,7 @@ values."
                                       ;; org-reveal
                                       ;; js-doc
                                       ;; (lsp-haskell :location (recipe :fetcher github :repo "emacs-lisp/lsp-haskell"))
-                                      json-reformat
+                                      ;; json-reformat
                                       ;; soothe-theme
                                       ;; ample-theme
                                       ;; treemacs
@@ -227,6 +233,7 @@ values."
      spaceline holy-mode skewer-mode
      ;; rainbow-delimiters
      dash
+     dash-functional
      highlight-indentation vi-tilde-fringe eyebrowse
      anaconda
      lispy
@@ -238,7 +245,7 @@ values."
      js-mode
      pangu-spacing
      js2refactor
-     ;; js2-mode
+     js2-mode
      ;; company
      org-timer
      org-pomodoro
@@ -318,9 +325,9 @@ values."
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    ;; dotspacemacs-startup-lists nil
    dotspacemacs-startup-lists '(
-                                 (recents . 40)
-                                 (projects . 20)
-                                 )
+                                (projects . 0)
+                                (recents . 0)
+                                )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -335,10 +342,10 @@ values."
                          cyberpunk
                          tsdh-light
                          abyss
+                         ;; wheatgrass
                          ;; adwaita
-                         wheatgrass
-                         spacemacs-dark
                          ;; spacemacs-light
+                         ;; spacemacs-dark
                          ;; alect-black
                          ;; deeper-blue
                          ;; base16-3024
@@ -351,7 +358,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                ;; "Anonymous Pro"
-                               ;; "Courier New"
+                               "Courier New"
                                ;; "Courier Prime Code"
                                ;; "Code New Roman"
                                ;; "Dank Mono"
@@ -367,6 +374,7 @@ values."
                                ;; "Iosevka"
                                ;; "Input Mono"
                                ;; "Input Mono Narrow"
+                               ;; "FantasqueSansMono Nerd Font Mono"
                                ;; "Droid Sans Mono Slashed for Powerline"
                                ;; "Inconsolata"
                                ;; "Inconsolata LGC"
@@ -385,16 +393,18 @@ values."
                                ;; "Roboto Mono for Powerline"
                                ;; "SF Mono"
                                ;; "Source Code Pro for Powerline"
-                               "Cousine Nerd Font Mono"
+                               ;; "Cousine Nerd Font Mono"
                                ;; "Inconsolata-dz for Powerline"
                                ;; "Sometype Mono"
+                               ;; "JetBrains Mono"
                                ;; "Cascadia Code"
+                               ;; "Cascadia Mono"
                                ;; "Ubuntu Mono"
-                               :size 17
+                               :size 20
                                :weight normal
                                ;; :weight light
                                :width normal
-                               :powerline-scale 1.2)
+                               :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -643,13 +653,21 @@ values."
       (set-char-table-range composition-function-table (car char-regexp)
                             `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
-  ;; (spacemacs/load-theme 'doom-solarized-light t)
+  ;; (spacemacs/load-theme 'solarized-dark-light-high-contrast t)
   ;; (spacemacs/load-theme 'doom-solarized-dark t)
   (setq save-abbrevs nil)
   (setq ivy-use-virtual-buffers t)
 
   (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
   (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+  ;; (require 'lsp-mode)
+  ;; (lsp-register-client
+  ;;  (make-lsp-client :new-connection (lsp-stdio-connection "/usr/local/bin/reason-language-server")
+  ;;                   :major-modes '(reason-mode)
+  ;;                   :notification-handlers (ht ("client/registerCapability" 'ignore))
+  ;;                   :priority 1
+  ;;                   :server-id 'reason-ls))
 
   ;; (setq racer-rust-src-path "/Users/fri3nds/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")
 
@@ -688,11 +706,11 @@ values."
    scroll-preserve-screen-position 't
    )
 
-  ;; (global-linum-mode nil)
-  ;; (setq linum-format "%4d \u2502")
+  ;; (global-linum-mode -1)
+  ;; (setq linum-format "%4d")
 
   ;; (linum-relative-on)
-  (setq-default line-spacing 2)
+  (setq-default line-spacing 1)
   (setq calendar-mark-diary-entries-flag t)
   ;; (setq org-agenda-include-diary t)
 
@@ -748,7 +766,7 @@ values."
   ;; (typescript-mode)
 
   ;; make the fringe stand out from the background
-  (setq solarized-distinct-fringe-background t)
+  ;; (setq solarized-distinct-fringe-background t)
   ;; Don't change the font for some headings and titles
   ;; make the modeline high contrast
   ;; (setq solarized-high-contrast-mode-line t)
@@ -758,17 +776,17 @@ values."
   ;; Use less colors for indicators such as git:gutter, flycheck and similar
 
 
-  (setq solarized-emphasize-indicators t)
+  ;; (setq solarized-emphasize-indicators t)
   ;; Don't change size of org-mode headlines (but keep other size-changes)
-  (setq solarized-use-less-bold t)
+  ;; (setq solarized-use-less-bold t)
   ;; (setq solarized-scale-org-headlines nil)
-  (setq solarized-use-variable-pitch t)
+  ;; (setq solarized-use-variable-pitch t)
   ;; ;; Avoid all font-size changes
-  (setq solarized-height-minus-1 1.0)
-  (setq solarized-height-plus-1 1.0)
-  (setq solarized-height-plus-2 1.0)
-  (setq solarized-height-plus-3 1.0)
-  (setq solarized-height-plus-4 1.0)
+  ;; (setq solarized-height-minus-1 1.0)
+  ;; (setq solarized-height-plus-1 1.0)
+  ;; (setq solarized-height-plus-2 1.0)
+  ;; (setq solarized-height-plus-3 1.0)
+  ;; (setq solarized-height-plus-4 1.0)
   (setq x-underline-at-descent-line t)
 
   ;; (setq doom-themes-enable-bold t
@@ -777,7 +795,7 @@ values."
   ;; (vline-global-mode 1)
   ;; (set-face-background vline-face "#073642")
 
-  (global-display-line-numbers-mode 1)
+  ;; (global-display-line-numbers-mode 1)
   (global-diff-hl-mode 1)
 
   ;; (setq my-holidays
@@ -805,14 +823,14 @@ values."
     "active after prog-mode"
     (interactive)
     ;; (spacemacs/toggle-fill-column-indicator-on)
-    ;; (yas-minor-mode 1)
+    (yas-minor-mode 1)
     ;; (auto-complete-mode 1)
     ;; (column-enforce-mode 1)
     ;; (parinfer-active)
     ;; (linum-mode -1)
     (abbrev-mode 1)
     ;; (display-line-numbers-mode 'relative)
-    (display-line-numbers-mode 1)
+    ;; (display-line-numbers-mode 1)
     ;; (vline-mode -1)
     ;; (blank-mode t)
     (global-company-mode)
@@ -882,6 +900,7 @@ values."
     (add-to-list 'company-backends '(
                                      company-files
                                      company-capf :with company-dabbrev
+                                     ;; company-elm
                                      ;; company-tabnine
                                      )))
 
@@ -910,6 +929,8 @@ values."
   ;; (treemacs-git-mode 'deferred)
 
   (setq treemacs-width 48)
+  (setq treemacs-filewatch-mode t);
+  (setq treemacs-file-event-delay 1000)
 
   (with-eval-after-load "treemacs"
     (define-key treemacs-mode-map (kbd "h") 'treemacs-collapse-parent-node)
@@ -1138,28 +1159,28 @@ values."
 
 
   (setq-default header-line-format
-    '((:eval (propertize "  1 %b | " 'face 'font-lock-type-face
-               'help-echo (buffer-file-name)))
-       ;; " ⟹ "
-       (:eval
-        ;; (when (powerline-selected-window-active)
-          (if (buffer-file-name)
-            (let ((buffer-coll (-filter 'buffer-file-name (-filter #'(lambda (x) (not (eq (buffer-file-name x) (buffer-file-name)))) (buffer-list)))))
-              (mapconcat #'(lambda (x) (format "%s %s" (car x) (cdr x))) (-zip-pair (number-sequence 2 80) (sort (mapcar #'(lambda (x) (format "%s" x)) buffer-coll) #'string-lessp)) " | ")
-              )
-    ;;              ;; (let ((buffer-coll (remove nil (mapcar 'buffer-file-name (buffer-list)))))
-    ;;              ;; (concat
-    ;;              ;;   ;; "⟹"
-    ;;              ;;   ;; " ❐ "
-    ;;              ;;   " "
-    ;;              ;;   (number-to-string (+ 1 (position
-    ;;              ;;                            (buffer-file-name)
-    ;;              ;;                            buffer-coll)))
-    ;;              ;;   "/"
-    ;;              ;;   (number-to-string (list-length buffer-coll))
-    ;;              ;;   " "
-    ;;              ;;   (abbreviate-file-name (buffer-file-name)))
-                "%b"))))
+                '((:eval (propertize "  1 %b | " 'face 'font-lock-type-face
+                                     'help-echo (buffer-file-name)))
+                  ;; " ⟹ "
+                  (:eval
+                   ;; (when (powerline-selected-window-active)
+                   (if (buffer-file-name)
+                       (let ((buffer-coll (-filter 'buffer-file-name (-filter #'(lambda (x) (not (eq (buffer-file-name x) (buffer-file-name)))) (buffer-list)))))
+                         (mapconcat #'(lambda (x) (format "%s %s" (car x) (cdr x))) (-zip-pair (number-sequence 2 80) (sort (mapcar #'(lambda (x) (format "%s" x)) buffer-coll) #'string-lessp)) " | ")
+                         )
+                     ;;              ;; (let ((buffer-coll (remove nil (mapcar 'buffer-file-name (buffer-list)))))
+                     ;;              ;; (concat
+                     ;;              ;;   ;; "⟹"
+                     ;;              ;;   ;; " ❐ "
+                     ;;              ;;   " "
+                     ;;              ;;   (number-to-string (+ 1 (position
+                     ;;              ;;                            (buffer-file-name)
+                     ;;              ;;                            buffer-coll)))
+                     ;;              ;;   "/"
+                     ;;              ;;   (number-to-string (list-length buffer-coll))
+                     ;;              ;;   " "
+                     ;;              ;;   (abbreviate-file-name (buffer-file-name)))
+                     "%b"))))
 
   )
 
@@ -1180,7 +1201,8 @@ This function is called at the very end of Spacemacs initialization."
    '(package-selected-packages '(evil-unimpaired f s dash)))
 
   (custom-set-variables '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
-                          '((bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
+                          '(
+                            ;; (bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
                             (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
                             (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
                             (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))

@@ -33,8 +33,8 @@
   (unless yas-global-mode
     (progn
       (yas-global-mode 1)
-      ;; (setq my-snippet-dir (expand-file-name "~/.emacssnippets/snippets/"))
-      ;; (setq yas-snippet-dirs  my-snippet-dir)
+      (setq my-snippet-dir (expand-file-name "~/.emacssnippets/snippets/"))
+      (setq yas-snippet-dirs  my-snippet-dir)
       (yas-load-directory my-snippet-dir)
       (setq yas-wrap-around-region t)))
   (yas-minor-mode 1))

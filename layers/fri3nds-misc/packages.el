@@ -513,9 +513,9 @@
     (push "TAGS" spacemacs-useless-buffers-regexp)
 
     ;; ;; change evil initial mode state
-    (loop for (mode . state) in
-          '((shell-mode . normal))
-          do (evil-set-initial-state mode state))
+    ;; (loop for (mode . state) in
+    ;;       '((shell-mode . normal))
+    ;;       do (evil-set-initial-state mode state))
 
     ;;mimic "nzz" behaviou in vim
     (defadvice evil-search-next (after advice-for-evil-search-next activate)
