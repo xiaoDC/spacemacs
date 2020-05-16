@@ -97,6 +97,9 @@
   (interactive)
   (spacemacs/load-theme 'solarized-dark t))
 
+(defun fri3nds/treemacs-project-toggle ()
+  (interactive)
+  (shell-command ":> ~/.emacs.d/.cache/treemacs-persist"))
 
 (defadvice next-buffer (after avoid-messages-buffer-in-next-buffer)
   "Advice around `next-buffer' to avoid going into the *Messages* buffer."
@@ -598,6 +601,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
 ;; (spacemacs/set-leader-keys "qq" 'treemacs)
 (spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
+(spacemacs/set-leader-keys "qc" 'fri3nds/treemacs-project-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
 (spacemacs/set-leader-keys "sm" 'split-window-right-and-focus)
 ;; (spacemacs/set-leader-keys "sl" 'ivy-resume)

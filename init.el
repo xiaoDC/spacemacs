@@ -77,7 +77,7 @@ values."
      (typescript :variables
                  typescript-backend 'lsp)
 
-     yaml
+     ;; yaml
      ivy
      ;; idris
 
@@ -99,15 +99,15 @@ values."
               )
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      ;; layouts-autosave-delay 6000
+      ;; layouts-autosave-delay 60000
       )
 
      (git :variables
-          git-magit-status-fullscreen t
+          ;; git-magit-status-fullscreen t
           magit-push-always-verify nil
-          magit-save-repository-buffers 'dontask
-          magit-revert-buffers 'silent
-          magit-refs-show-commit-count 'all
+          ;; magit-save-repository-buffers 'dontask
+          ;; magit-revert-buffers 'silent
+          ;; magit-refs-show-commit-count 'all
           magit-revision-show-gravatars nil
           )
 
@@ -143,8 +143,8 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      abyss-theme
-                                      cyberpunk-theme
+                                      ;; abyss-theme
+                                      ;; cyberpunk-theme
                                       ;; ibuffer-sidebar
                                       lsp-mode
                                       ;; lsp-elm
@@ -202,7 +202,7 @@ values."
                                       ;; org-reveal
                                       ;; js-doc
                                       ;; (lsp-haskell :location (recipe :fetcher github :repo "emacs-lisp/lsp-haskell"))
-                                      json-reformat
+                                      ;; json-reformat
                                       ;; soothe-theme
                                       ;; ample-theme
                                       ;; treemacs
@@ -245,7 +245,7 @@ values."
      js-mode
      pangu-spacing
      js2refactor
-     ;; js2-mode
+     js2-mode
      ;; company
      org-timer
      org-pomodoro
@@ -342,10 +342,10 @@ values."
                          cyberpunk
                          tsdh-light
                          abyss
+                         ;; wheatgrass
                          ;; adwaita
-                         wheatgrass
-                         spacemacs-dark
                          ;; spacemacs-light
+                         ;; spacemacs-dark
                          ;; alect-black
                          ;; deeper-blue
                          ;; base16-3024
@@ -398,6 +398,7 @@ values."
                                ;; "JetBrains Mono"
                                ;; "Cascadia Code"
                                ;; "Space Mono"
+                               ;; "Cascadia Mono"
                                ;; "Ubuntu Mono"
                                :size 20
                                :weight normal
@@ -765,7 +766,7 @@ values."
   ;; (typescript-mode)
 
   ;; make the fringe stand out from the background
-  (setq solarized-distinct-fringe-background t)
+  ;; (setq solarized-distinct-fringe-background t)
   ;; Don't change the font for some headings and titles
   ;; make the modeline high contrast
   ;; (setq solarized-high-contrast-mode-line t)
@@ -775,17 +776,17 @@ values."
   ;; Use less colors for indicators such as git:gutter, flycheck and similar
 
 
-  (setq solarized-emphasize-indicators t)
+  ;; (setq solarized-emphasize-indicators t)
   ;; Don't change size of org-mode headlines (but keep other size-changes)
-  (setq solarized-use-less-bold t)
+  ;; (setq solarized-use-less-bold t)
   ;; (setq solarized-scale-org-headlines nil)
-  (setq solarized-use-variable-pitch t)
+  ;; (setq solarized-use-variable-pitch t)
   ;; ;; Avoid all font-size changes
-  (setq solarized-height-minus-1 1.0)
-  (setq solarized-height-plus-1 1.0)
-  (setq solarized-height-plus-2 1.0)
-  (setq solarized-height-plus-3 1.0)
-  (setq solarized-height-plus-4 1.0)
+  ;; (setq solarized-height-minus-1 1.0)
+  ;; (setq solarized-height-plus-1 1.0)
+  ;; (setq solarized-height-plus-2 1.0)
+  ;; (setq solarized-height-plus-3 1.0)
+  ;; (setq solarized-height-plus-4 1.0)
   (setq x-underline-at-descent-line t)
 
   ;; (setq doom-themes-enable-bold t
@@ -899,7 +900,7 @@ values."
     (add-to-list 'company-backends '(
                                      company-files
                                      company-capf :with company-dabbrev
-                                     company-elm
+                                     ;; company-elm
                                      ;; company-tabnine
                                      )))
 
@@ -928,6 +929,8 @@ values."
   ;; (treemacs-git-mode 'deferred)
 
   (setq treemacs-width 48)
+  (setq treemacs-filewatch-mode t);
+  (setq treemacs-file-event-delay 1000)
 
   (with-eval-after-load "treemacs"
     (define-key treemacs-mode-map (kbd "h") 'treemacs-collapse-parent-node)
@@ -1199,7 +1202,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (custom-set-variables '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
                           '(
-                             ;; (bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
+                            ;; (bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
                             (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
                             (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
                             (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
