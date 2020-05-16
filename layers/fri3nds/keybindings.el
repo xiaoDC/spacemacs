@@ -88,14 +88,24 @@
   (mapc 'kill-buffer (buffer-list)))
 
 
+(defun fri3nds-change-theme ()
+  (interactive)
+  (spacemacs/load-theme 'solarized-gruvbox-dark t))
+
+
+(defun fri3nds-reset-theme ()
+  (interactive)
+  (spacemacs/load-theme 'solarized-dark t))
+
+
 (defadvice next-buffer (after avoid-messages-buffer-in-next-buffer)
   "Advice around `next-buffer' to avoid going into the *Messages* buffer."
   (when (or
-          (string= "*Messages*" (buffer-name))
-          (string= "*Help*" (buffer-name))
-          (string= "*Compile-Log*" (buffer-name))
-          (string= "*spacemacs*" (buffer-name))
-          (string= "*ibuffer*" (buffer-name)))
+         (string= "*Messages*" (buffer-name))
+         (string= "*Help*" (buffer-name))
+         (string= "*Compile-Log*" (buffer-name))
+         (string= "*spacemacs*" (buffer-name))
+         (string= "*ibuffer*" (buffer-name)))
     (next-buffer)))
 
 ;; activate the advice
@@ -108,7 +118,7 @@ If the universal prefix argument is used then will the windows too."
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
   (when (equal '(4) arg) (delete-other-windows))
   (message (format "Killing all buffers except -- \"%s\" "
-             (buffer-name))))
+                   (buffer-name))))
 
 
 (defun revert-all-buffers ()
@@ -127,16 +137,16 @@ If the universal prefix argument is used then will the windows too."
 (defun just-get-buffer-file-the-name ()
   (interactive)
   (let ((bf (or (buffer-file-name) (substring
-                                     list-buffers-directory
-                                     0
-                                     (last-index-of "/" list-buffers-directory)))))
+                                    list-buffers-directory
+                                    0
+                                    (last-index-of "/" list-buffers-directory)))))
     (message bf)
     (if bf
-      ;; (copy-string-to-clipboard (file-name-sans-extension
-      ;;                             (substring bf
-      ;;                               (+ 1 (last-index-of "/" bf)))))
-      (copy-string-to-clipboard (substring bf
-                                  (+ 1 (last-index-of "/" bf))))
+        ;; (copy-string-to-clipboard (file-name-sans-extension
+        ;;                             (substring bf
+        ;;                               (+ 1 (last-index-of "/" bf)))))
+        (copy-string-to-clipboard (substring bf
+                                             (+ 1 (last-index-of "/" bf))))
       (message "buffer-file-name not exist"))))
 
 
@@ -144,7 +154,7 @@ If the universal prefix argument is used then will the windows too."
 (defun fri3nds/projectile-root-copy-path ()
   (interactive)
   (let ((allbf (fri3nds/showcopy-buffer-filename))
-         (rebf (spacemacs/projectile-copy-file-path)))
+        (rebf (spacemacs/projectile-copy-file-path)))
     (copy-string-to-clipboard (replace-regexp-in-string rebf "" allbf))))
 
 
@@ -184,34 +194,34 @@ If the universal prefix argument is used then will the windows too."
   (interactive)
   (require 'hierarchy)
   (let ((files (split-string
-                 (shell-command-to-string "git ls-files -z")
-                 (string 0) t))
-         (hierarchy (hierarchy-new)))
+                (shell-command-to-string "git ls-files -z")
+                (string 0) t))
+        (hierarchy (hierarchy-new)))
     ;; Fill the hierarchy
     (hierarchy-add-trees
-      hierarchy
-      ;; Set . as the root since tree-widget.el requires only one root
-      (mapcar (lambda (f) (concat "./" f)) files)
-      (lambda (f)
-        "Return parent directory of F."
-        (if (directory-name-p f)
-          (file-name-directory (directory-file-name f))
-          (file-name-directory f))))
+     hierarchy
+     ;; Set . as the root since tree-widget.el requires only one root
+     (mapcar (lambda (f) (concat "./" f)) files)
+     (lambda (f)
+       "Return parent directory of F."
+       (if (directory-name-p f)
+           (file-name-directory (directory-file-name f))
+         (file-name-directory f))))
     ;; Draw the hierarchy
     (switch-to-buffer
-      (hierarchy-tree-display
-        hierarchy
-        (lambda (f _)
-          "Insert basename of F."
-          (insert
-            (if (directory-name-p f)
-              (file-name-nondirectory (directory-file-name f))
-              (file-name-nondirectory f))))))
+     (hierarchy-tree-display
+      hierarchy
+      (lambda (f _)
+        "Insert basename of F."
+        (insert
+         (if (directory-name-p f)
+             (file-name-nondirectory (directory-file-name f))
+           (file-name-nondirectory f))))))
     ;; Unfold
     (goto-char (point-min))
     (while (progn (widget-button-press (point))
-             (widget-forward 1)
-             (/= (point) (point-min))))))
+                  (widget-forward 1)
+                  (/= (point) (point-min))))))
 
 
 
@@ -219,17 +229,17 @@ If the universal prefix argument is used then will the windows too."
 (defun spacemacs/ivy-persp-switch-project (arg)
   (interactive "P")
   (ivy-read "Switch to Project Perspective: "
-    (if (projectile-project-p)
-      (cons (abbreviate-file-name (projectile-project-root))
-        (projectile-relevant-known-projects))
-      projectile-known-projects)
-    :action (lambda (project)
-              (let ((persp-reset-windows-on-nil-window-conf t))
-                (persp-switch project)
-                (let ((projectile-completion-system 'ivy)
-                        (old-default-directory default-directory))
-                  (projectile-switch-project-by-name project)
-                  (setq default-directory old-default-directory))))))
+            (if (projectile-project-p)
+                (cons (abbreviate-file-name (projectile-project-root))
+                      (projectile-relevant-known-projects))
+              projectile-known-projects)
+            :action (lambda (project)
+                      (let ((persp-reset-windows-on-nil-window-conf t))
+                        (persp-switch project)
+                        (let ((projectile-completion-system 'ivy)
+                              (old-default-directory default-directory))
+                          (projectile-switch-project-by-name project)
+                          (setq default-directory old-default-directory))))))
 
 
 ;; (load-theme 'sanityinc-tomorrow-night t)
@@ -242,7 +252,7 @@ If the universal prefix argument is used then will the windows too."
   (interactive)
   (let ((path (projectile-project-root)))
     (if (null path)
-      (neotree-find)
+        (neotree-find)
       (neotree-show))))
 
 
@@ -251,12 +261,12 @@ If the universal prefix argument is used then will the windows too."
   "Toggle and add the current project to treemacs if not already added."
   (interactive)
   (let ((path (projectile-project-root))
-         (name (projectile-project-name)))
+        (name (projectile-project-name)))
 
     (if (null path)
-      (neotree-find)
+        (neotree-find)
       (if (eq (treemacs-current-visibility) 'visible)
-        (treemacs-find-file)))))
+          (treemacs-find-file)))))
 
 
 ;; http://wenshanren.org/?p=327
@@ -264,13 +274,13 @@ If the universal prefix argument is used then will the windows too."
 (defun org-insert-src-block (src-code-type)
   "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
   (interactive
-    (let ((src-code-types
-            '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
-                "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
-                "octave" "oz" "R" "sass" "screen" "sql" "awk"
-                "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-                "scheme" "sqlite")))
-      (list (ido-completing-read "Source code type: " src-code-types))))
+   (let ((src-code-types
+          '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
+            "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
+            "octave" "oz" "R" "sass" "screen" "sql" "awk"
+            "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
+            "scheme" "sqlite")))
+     (list (ido-completing-read "Source code type: " src-code-types))))
   (progn
     (newline-and-indent)
     (insert (format "#+BEGIN_SRC %s\n" src-code-type))
@@ -283,17 +293,17 @@ If the universal prefix argument is used then will the windows too."
 (defun toggle-string-case (str)
   (let ((upper-str (upcase str)))
     (if (string= upper-str str)
-      (downcase str)
+        (downcase str)
       upper-str)))
 
 
 (defun upper-first-char-of-word-at-point ()
   (interactive)
   (let ((str (thing-at-point 'word))
-          (bounds (bounds-of-thing-at-point 'word)))
+        (bounds (bounds-of-thing-at-point 'word)))
     (when (and str (> (length str) 0))
       (let ((first-char (substring str nil 1))
-              (rest-str (substring str 1)))
+            (rest-str (substring str 1)))
         (delete-region (car bounds) (cdr bounds))
         (insert (concat (toggle-string-case first-char) rest-str))))))
 
@@ -301,8 +311,8 @@ If the universal prefix argument is used then will the windows too."
 
 (defun last-index-of (regex str &optional ignore-case)
   (let ((start 0)
-          (case-fold-search ignore-case)
-          idx)
+        (case-fold-search ignore-case)
+        idx)
     (while (string-match regex str start)
       (setq idx (match-beginning 0))
       (setq start (match-end 0)))
@@ -322,10 +332,10 @@ If the universal prefix argument is used then will the windows too."
 (defun my-region-or-word ()
   "Return word in region or word at point."
   (if (use-region-p)
-    (buffer-substring-no-properties (region-beginning)
-      (region-end))
+      (buffer-substring-no-properties (region-beginning)
+                                      (region-end))
     (thing-at-point (if use-chinese-word-segmentation
-                      'chinese-or-other-word
+                        'chinese-or-other-word
                       'word) t)))
 
 (defun my-prompt-input ()
@@ -333,9 +343,9 @@ If the universal prefix argument is used then will the windows too."
   (let ((current-word (my-region-or-word)))
     (message current-word)
     (read-string (format "Word (%s): "
-                    (or current-word ""))
-      nil nil
-      current-word)))
+                         (or current-word ""))
+                 nil nil
+                 current-word)))
 
 (defun search-google-symbol ()
   "google搜索当前选中或者停留的字符"
@@ -346,38 +356,38 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-note-file ()
   (interactive)
-  (find-file "/Users/fri3nds/org/notes.org"))
+  (find-file "~/org/notes.org"))
 
 
 (defun fri3nds/open-snippets ()
   (interactive)
-  (find-file "/Users/fri3nds/Dropbox/Note/README.org"))
+  (find-file "~/Dropbox/Note/README.org"))
 
 
 (defun fri3nds/open-tools ()
   (interactive)
-  (find-file "/Users/fri3nds/Dropbox/Note/tool.md"))
+  (find-file "~/Dropbox/Note/tool.md"))
 
 
 (defun fri3nds/open-todo-file ()
   (interactive)
-  (find-file "/Users/fri3nds/org/TODO.org"))
+  (find-file "~/org/TODO.org"))
 
 
 (defun fri3nds/open-sync-todo-file ()
   (interactive)
-  (find-file "/Users/fri3nds/Dropbox/org/tuya-work.org"))
+  (find-file "~/Dropbox/org/tuya-work.org"))
 
 
 
 (defun fri3nds/open-template-file ()
   (interactive)
-  (find-file "/Users/fri3nds/scratch.org"))
+  (find-file "~/scratch.org"))
 
 (defun fri3nds/open-clojure-file ()
   (interactive)
-  ;; (find-file "/Users/fri3nds/tools/script/src/script/core.clj"))
-  (find-file "/Users/fri3nds/tools/script/src/script/huskar.clj"))
+  ;; (find-file "/Users/fri3nd/tools/script/src/script/core.clj"))
+  (find-file "~/tools/script/src/script/huskar.clj"))
 
 
 (defun fri3nds/showcopy-buffer-filename ()
@@ -386,12 +396,12 @@ If the universal prefix argument is used then will the windows too."
   ;; list-buffers-directory is the variable set in dired buffers
   (let ((file-name (or (buffer-file-name) list-buffers-directory)))
     (if file-name
-      (message (kill-new file-name))
+        (message (kill-new file-name))
       (error "Buffer not visiting a file"))))
 
 (defun fri3nds/open-password-file ()
   (interactive)
-  (find-file "/Users/fri3nds/workspace/.tuya_password.md"))
+  (find-file "~/workspace/.tuya_password.md"))
 
 
 (defun fri3nds/neotree-keep-size (fn &rest args)
@@ -423,17 +433,17 @@ e.g. Sunday, September 17, 2000."
   (interactive "P")
   (require 'projectile)
   (let ((bufs (buffer-list))
-         (buffers (projectile-project-buffers))
-         res (list))
+        (buffers (projectile-project-buffers))
+        res (list))
 
     (dolist (a bufs)
       (if (not (member a buffers))
-        (setq res (cons a res))))
+          (setq res (cons a res))))
 
     (dolist (a res)
       (kill-buffer a)
       (message (format "buffer filename -- \"%s\" is killed"
-                 (buffer-name a))))))
+                       (buffer-name a))))))
 
 
 (defvar spacemacs--killed-buffer-list nil
@@ -459,9 +469,9 @@ to the `killed-buffer-list' when killing the buffer."
 (defun fri3nds/format-js-file ()
   (interactive)
   (if (executable-find "prettier")
-    ;; (shell-command-to-string "ls -al")
-    ;; (message (buffer-file-name))
-    (shell-command-to-string (format "prettier --config /Users/fri3nds/.prettierrc --write %s" (buffer-file-name)))
+      ;; (shell-command-to-string "ls -al")
+      ;; (message (buffer-file-name))
+      (shell-command-to-string (format "prettier --config /Users/fri3nd/.prettierrc --write %s" (buffer-file-name)))
     ))
 
 ;; (defvar helm-fzf-source
@@ -490,7 +500,8 @@ to the `killed-buffer-list' when killing the buffer."
 
 
 (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
-(spacemacs/set-leader-keys "as" 'evil-avy-goto-char)
+;; (spacemacs/set-leader-keys "as" 'evil-avy-goto-char)
+
 ;; (spacemacs/set-leader-keys "ag" 'helm-ag)
 (spacemacs/set-leader-keys "ag" 'counsel-ag)
 
@@ -502,6 +513,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
 (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
 (spacemacs/set-leader-keys "bm" 'spacemacs/switch-to-messages-buffer)
+(spacemacs/set-leader-keys "bn" 'previous-buffer)
 (spacemacs/set-leader-keys "bo" 'kill-other-buffers)
 (spacemacs/set-leader-keys "bq" 'fri3nds/open-template-file)
 (spacemacs/set-leader-keys "bw" 'fri3nds/open-clojure-file)
@@ -534,6 +546,8 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ff" 'counsel-recentf)
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
+(spacemacs/set-leader-keys "fm" 'format-all-buffer)
+(spacemacs/set-leader-keys "dm" 'format-all-buffer)
 (spacemacs/set-leader-keys "fn" 'fri3nds/now)
 (spacemacs/set-leader-keys "gb" 'magit-blame-addition)
 
@@ -542,47 +556,61 @@ to the `killed-buffer-list' when killing the buffer."
 
 (spacemacs/set-leader-keys "ja" 'fri3nds/open-todo-file)
 (spacemacs/set-leader-keys "jd" 'fri3nds/open-sync-todo-file)
-(spacemacs/set-leader-keys "jh" 'ibuffer)
+(spacemacs/set-leader-keys "hh" 'ibuffer)
 ;; (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
 ;; (spacemacs/set-leader-keys "jj" 'awesome-tab-ace-jump)
 (spacemacs/set-leader-keys "jk" 'awesome-tab-ace-jump)
-(spacemacs/set-leader-keys "jj" 'ivy-switch-buffer)
+(spacemacs/set-leader-keys "jj" 'previous-buffer)
+;; (spacemacs/set-leader-keys "jj" 'ivy-switch-buffer)
 (spacemacs/set-leader-keys "jq" 'fri3nds/open-note-file)
 (spacemacs/set-leader-keys "js" 'fri3nds/open-snippets)
 (spacemacs/set-leader-keys "jt" 'fri3nds/open-tools)
 (spacemacs/set-leader-keys "jz" 'fri3nds/open-password-file)
 
-(spacemacs/set-leader-keys "kk" 'projectile-find-file)
+;; (spacemacs/set-leader-keys "kk" 'projectile-find-file)
+(spacemacs/set-leader-keys "kk" 'next-buffer)
 (spacemacs/set-leader-keys "ka" 'text-scale-increase)
 (spacemacs/set-leader-keys "kd" 'text-scale-decrease)
 (spacemacs/set-leader-keys "ko" 'fri3nds/kill-all-other-project-buffers)
 
 ;; (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
+(spacemacs/set-leader-keys "ga" 'org-table-align)
 (spacemacs/set-leader-keys "gg" 'spacemacs/search-project-ag-region-or-symbol)
-(spacemacs/set-leader-keys "hh" 'previous-buffer)
+;; (spacemacs/set-leader-keys "hh" 'previous-buffer)
 (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
 
-(spacemacs/set-leader-keys "ii" 'evil-avy-goto-char-in-line)
+;; (spacemacs/set-leader-keys "ii" 'evil-avy-goto-char-in-line)
+(spacemacs/set-leader-keys "ii" 'projectile-find-file)
 ;; (spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
 ;; (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
+(spacemacs/set-leader-keys "ma" 'markdown-table-align)
 (spacemacs/set-leader-keys "mm" 'counsel-yank-pop)
-(spacemacs/set-leader-keys "nn" 'next-buffer)
+;; (spacemacs/set-leader-keys "mt" 'toggle-menu-bar-mode-from-frame)
+(spacemacs/set-leader-keys "mt" 'spacemacs/toggle-menu-bar-off)
+(spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
+;; (spacemacs/set-leader-keys "nn" 'next-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
 (spacemacs/set-leader-keys "oc" 'org-capture)
+(spacemacs/set-leader-keys "oa" 'org-agenda-list)
 (spacemacs/set-leader-keys "oo" 'projectile-switch-project)
 ;; (spacemacs/set-leader-keys "ft" 'fri3nds-neotree-toggle)
 ;; (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
 ;; (spacemacs/set-leader-keys "qq" 'treemacs)
 (spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
-(spacemacs/set-leader-keys "sl" 'ivy-resume)
+(spacemacs/set-leader-keys "sm" 'split-window-right-and-focus)
+;; (spacemacs/set-leader-keys "sl" 'ivy-resume)
 ;; (spacemacs/set-leader-keys "sl" 'helm-resume)
+(spacemacs/set-leader-keys "sl" 'display-line-numbers-mode)
+(spacemacs/set-leader-keys "ta" 'fri3nds-change-theme)
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
+(spacemacs/set-leader-keys "tt" 'fri3nds-reset-theme)
 ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
-(spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
+;; (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
+;; (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
 ;; (spacemacs/set-leader-keys "tl" 'linum-mode)
-(spacemacs/set-leader-keys "tl" 'display-line-numbers-mode)
+;; (spacemacs/set-leader-keys "tl" 'display-line-numbers-mode)
 (spacemacs/set-leader-keys "ty" 'fri3nds/load-yasnippet)
 
 ;; (spacemacs/set-leader-keys "uu" 'evilnc-comment-or-uncomment-lines)
@@ -593,7 +621,11 @@ to the `killed-buffer-list' when killing the buffer."
 
 (spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
 (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
-(spacemacs/set-leader-keys "zz" 'ibuffer-sidebar-toggle-sidebar)
+(spacemacs/set-leader-keys "zz" 'evil-avy-goto-char)
+(spacemacs/set-leader-keys "on" 'org-forward-heading-same-level)
+(spacemacs/set-leader-keys "ob" 'org-backward-heading-same-level)
+(spacemacs/set-leader-keys "ou" 'outline-up-heading)
+;; (spacemacs/set-leader-keys "zz" 'ibuffer-sidebar-toggle-sidebar)
 ;; (spacemacs/set-leader-keys "zz" 'fzf)
 
 
@@ -621,6 +653,8 @@ to the `killed-buffer-list' when killing the buffer."
 (global-set-key (kbd "s-j") 'avy-goto-char)
 (global-set-key (kbd "s-u") 'upper-first-char-of-word-at-point)
 
+(global-set-key (kbd "<f8>") 'dired-jump)
+(global-set-key (kbd "<f9>") 'ibuffer)
 (global-set-key (kbd "<S-up>") 'shrink-window)
 (global-set-key (kbd "<S-down>") 'enlarge-window)
 (global-set-key (kbd "<S-left>") 'shrink-window-horizontally)
@@ -628,23 +662,23 @@ to the `killed-buffer-list' when killing the buffer."
 
 
 (setq org-capture-templates
-  ;; '(("t" "Todo" entry (file+headline "~/org/TODO.org" "TUYA WORK")
-  '(("t" "Todo" entry (file "~/Dropbox/org/tuya-work.org")
-      "* TODO %?\n %U\n %i\n %a\n")
-     ;; "* TODO %^{任务名}\n%U\n%a\n")
-     ("i" "Idea" entry (file+headline "~/org/notes.org" "Ideas")
-       "* %? \n %U")
-     ("e" "Tweak" entry (file+headline "~/org/notes.org" "Tweaks")
-       "* %? \n %U")
-     ;; ("l" "Learn" entry (file+headline "~/org/Learning.org" "Learn")
+      ;; '(("t" "Todo" entry (file+headline "~/org/TODO.org" "TUYA WORK")
+      '(("t" "Todo" entry (file "~/Dropbox/org/tuya-work.org")
+         "* TODO %?\n %U\n %i\n %a\n")
+        ;; "* TODO %^{任务名}\n%U\n%a\n")
+        ("i" "Idea" entry (file+headline "~/org/notes.org" "Ideas")
+         "* %? \n %U")
+        ("e" "Tweak" entry (file+headline "~/org/notes.org" "Tweaks")
+         "* %? \n %U")
+        ;; ("l" "Learn" entry (file+headline "~/org/Learning.org" "Learn")
 
-     ("l" "Learn" entry (file "~/org/Learning.org")
-       "* %? \n")
+        ("l" "Learn" entry (file "~/org/Learning.org")
+         "* %? \n")
 
-     ("w" "Work note" entry (file+headline "~/Dropbox/org/tuya-work.org" "Work")
-       "* %? \n")))
+        ("w" "Work note" entry (file+headline "~/Dropbox/org/tuya-work.org" "Work")
+         "* %? \n")))
 
 ;; (add-to-list 'org-capture-templates
 ;;   '("w" "Work Task" entry
-;;      (file+headline "/Users/fri3nds/Dropbox/org/tuya-work.org" "Work")
+;;      (file+headline "/Users/fri3nd/Dropbox/org/tuya-work.org" "Work")
 ;;      "* TODO %^{任务名}\n%U\n%a\n"))
