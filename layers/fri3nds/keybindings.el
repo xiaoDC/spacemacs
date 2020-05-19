@@ -653,8 +653,8 @@ to the `killed-buffer-list' when killing the buffer."
 
 (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
 
-(global-set-key (kbd "s-i") 'string-inflection-toggle)
-(global-set-key (kbd "s-j") 'avy-goto-char)
+(global-set-key (kbd "s-y") 'string-inflection-toggle)
+(global-set-key (kbd "s-c") 'avy-goto-char)
 (global-set-key (kbd "s-u") 'upper-first-char-of-word-at-point)
 
 (global-set-key (kbd "<f8>") 'dired-jump)

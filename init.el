@@ -77,7 +77,7 @@ values."
      (typescript :variables
                  typescript-backend 'lsp)
 
-     ;; yaml
+     yaml
      ivy
      ;; idris
 
@@ -358,7 +358,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                ;; "Anonymous Pro"
-                               "Courier New"
+                               ;; "Courier New"
                                ;; "Courier Prime Code"
                                ;; "Code New Roman"
                                ;; "Dank Mono"
@@ -394,13 +394,13 @@ values."
                                ;; "Source Code Pro for Powerline"
                                ;; "Cousine Nerd Font Mono"
                                ;; "Inconsolata-dz for Powerline"
-                               ;; "Sometype Mono"
+                               "Sometype Mono"
                                ;; "JetBrains Mono"
                                ;; "Cascadia Code"
                                ;; "Space Mono"
                                ;; "Cascadia Mono"
                                ;; "Ubuntu Mono"
-                               :size 20
+                               :size 19
                                :weight normal
                                ;; :weight light
                                :width normal
