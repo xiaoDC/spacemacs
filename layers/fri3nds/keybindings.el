@@ -404,7 +404,7 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-password-file ()
   (interactive)
-  (find-file "~/workspace/.tuya_password.md"))
+  (find-file "~/workspace/.tuya_password.md.cpt"))
 
 
 (defun fri3nds/neotree-keep-size (fn &rest args)

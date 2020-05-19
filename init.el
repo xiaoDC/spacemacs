@@ -99,7 +99,7 @@ values."
               )
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      ;; layouts-autosave-delay 60000
+      layouts-autosave-delay 600000
       )
 
      (git :variables
@@ -617,6 +617,12 @@ values."
   ;;      (and (string-prefix-p "magit" name)
   ;;           (not (file-name-extension name)))
   ;;      )))
+
+  (setq auto-mode-alist
+        (append '(("\\.cpt$" . sensitive-mode)) auto-mode-alist))
+  (add-hook 'sensitive-mode (lambda () (auto-save-mode nil)))
+  (setq load-path (cons "~/.spacemacs.d/ccrypt" load-path))
+  (require 'ps-ccrypt "ps-ccrypt.el")
 
 
   ;; (require 'aweshell)
