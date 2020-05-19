@@ -35,7 +35,7 @@ values."
    '(
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode)
-     ;; clojure
+     clojure
      ;; (clojure :variables clojure-enable-fancify-symbols nil)
      ;; (elm :variables
      ;;      elm-backend 'lsp)
@@ -77,7 +77,7 @@ values."
      (typescript :variables
                  typescript-backend 'lsp)
 
-     ;; yaml
+     yaml
      ivy
      ;; idris
 
@@ -99,7 +99,7 @@ values."
               )
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      ;; layouts-autosave-delay 60000
+      layouts-autosave-delay 600000
       )
 
      (git :variables
@@ -358,7 +358,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                ;; "Anonymous Pro"
-                               "Courier New"
+                               ;; "Courier New"
                                ;; "Courier Prime Code"
                                ;; "Code New Roman"
                                ;; "Dank Mono"
@@ -395,12 +395,12 @@ values."
                                ;; "Source Code Pro for Powerline"
                                ;; "Cousine Nerd Font Mono"
                                ;; "Inconsolata-dz for Powerline"
-                               ;; "Sometype Mono"
+                               "Sometype Mono"
                                ;; "JetBrains Mono"
                                ;; "Cascadia Code"
                                ;; "Cascadia Mono"
                                ;; "Ubuntu Mono"
-                               :size 20
+                               :size 19
                                :weight normal
                                ;; :weight light
                                :width normal
@@ -617,6 +617,12 @@ values."
   ;;      (and (string-prefix-p "magit" name)
   ;;           (not (file-name-extension name)))
   ;;      )))
+
+  (setq auto-mode-alist
+        (append '(("\\.cpt$" . sensitive-mode)) auto-mode-alist))
+  (add-hook 'sensitive-mode (lambda () (auto-save-mode nil)))
+  (setq load-path (cons "~/.spacemacs.d/ccrypt" load-path))
+  (require 'ps-ccrypt "ps-ccrypt.el")
 
 
   ;; (require 'aweshell)
