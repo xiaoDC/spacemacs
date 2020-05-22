@@ -52,7 +52,7 @@ values."
      (go :variables
          go-tab-width nil
          ;; go-use-gometalinter t
-         godoc-at-point-function 'godoc-gogetdoc
+         ;; godoc-at-point-function 'godoc-gogetdoc
          go-backend 'lsp
          gofmt-command "goimports")
      ;; (haskell :variables
@@ -95,8 +95,7 @@ values."
      ;;                  syntax-checking-enable-tooltips nil)
      ;; (spell-checking :variables spell-checking-enable-by-default nil)
      (vinegar :variables vinegar-reuse-dired-buffer t
-              vinegar-dired-hide-details t
-              )
+              vinegar-dired-hide-details t)
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
       layouts-autosave-delay 600000
@@ -216,22 +215,28 @@ values."
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
    '(magit-gh-pulls
-     magit-gitflow org-projectile evil-mc realgud
+     magit-gitflow
+     org-projectile
+     evil-mc
+     realgud
      ghub
+     multiple-cursors
+     git-messenger
+     graphviz-dot-mode
      helm-github-stars
-     evil-args evil-ediff evil-exchange evil-unimpaired
-
+     evil-args
+     evil-ediff
+     evil-exchange
+     evil-unimpaired
      evil-tuto
      evil-matchit
      evil-lion
      ghub
      git-timemachine
-
      clojure-cheatsheet
-
      volatile-highlights smartparens
      spaceline holy-mode skewer-mode
-     ;; rainbow-delimiters
+     rainbow-delimiters
      dash
      dash-functional
      highlight-indentation vi-tilde-fringe eyebrowse
@@ -290,7 +295,7 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 100
+   dotspacemacs-elpa-timeout 200
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -358,7 +363,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                ;; "Anonymous Pro"
-                               ;; "Courier New"
+                               "Courier New"
                                ;; "Courier Prime Code"
                                ;; "Code New Roman"
                                ;; "Dank Mono"
@@ -394,13 +399,13 @@ values."
                                ;; "Source Code Pro for Powerline"
                                ;; "Cousine Nerd Font Mono"
                                ;; "Inconsolata-dz for Powerline"
-                               "Sometype Mono"
+                               ;; "Sometype Mono"
                                ;; "JetBrains Mono"
                                ;; "Cascadia Code"
                                ;; "Space Mono"
                                ;; "Cascadia Mono"
                                ;; "Ubuntu Mono"
-                               :size 19
+                               :size 20
                                :weight normal
                                ;; :weight light
                                :width normal
@@ -1000,8 +1005,6 @@ values."
 
 
   (setq yas-indent-line 'fixed)
-  (menu-bar-mode 0)
-
 
   (custom-set-faces
    ;;   (set-face-background 'git-gutter+-modified "yellow") ;; background color

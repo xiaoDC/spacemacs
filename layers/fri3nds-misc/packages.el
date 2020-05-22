@@ -4,8 +4,8 @@
         ;; helm
         ;; helm-ag
         projectile
-        prodigy
-        multiple-cursors
+        ;; prodigy
+        ;; multiple-cursors
         visual-regexp
         visual-regexp-steroids
         command-log
@@ -14,7 +14,7 @@
         discover-my-major
         ace-window
         avy
-        4clojure
+        ;; 4clojure
         persp-mode
         tiny
         ;; smartparens
@@ -22,7 +22,7 @@
         markdown-mode
         swiper
         magit
-        git-messenger
+        ;; git-messenger
         wrap-region
         browse-at-remote
         ))
@@ -421,18 +421,16 @@
       )))
 
 
-(defun fri3nds-misc/init-4clojure ()
-  (use-package 4clojure
-    :init
-    (progn
-      (spacemacs/declare-prefix "o4" "4clojure")
-      (spacemacs/set-leader-keys "o4q" '4clojure-open-question)
-      (spacemacs/set-leader-keys "o4n" '4clojure-next-question)
-      (spacemacs/set-leader-keys "o4p" '4clojure-previous-question)
-      (spacemacs/set-leader-keys "o4c" '4clojure-check-answers)
-      )))
-
-
+;; (defun fri3nds-misc/init-4clojure ()
+;;   (use-package 4clojure
+;;     :init
+;;     (progn
+;;       (spacemacs/declare-prefix "o4" "4clojure")
+;;       (spacemacs/set-leader-keys "o4q" '4clojure-open-question)
+;;       (spacemacs/set-leader-keys "o4n" '4clojure-next-question)
+;;       (spacemacs/set-leader-keys "o4p" '4clojure-previous-question)
+;;       (spacemacs/set-leader-keys "o4c" '4clojure-check-answers)
+;;       )))
 
 
 (defun fri3nds-misc/post-init-avy ()
@@ -625,77 +623,77 @@
       (define-key global-map (kbd "C-c r") 'vr/replace)
       (define-key global-map (kbd "C-c q") 'vr/query-replace))))
 
-(defun fri3nds-misc/init-multiple-cursors ()
-  (use-package multiple-cursors
-    :init
-    (progn
+;; (defun fri3nds-misc/init-multiple-cursors ()
+;;   (use-package multiple-cursors
+;;     :init
+;;     (progn
 
-      (bind-key* "C-s-l" 'mc/edit-lines)
-      (bind-key* "C-s-f" 'mc/mark-all-dwim)
-      (bind-key* "C-s-." 'mc/mark-next-like-this)
-      (bind-key* "C-s-," 'mc/mark-previous-like-this)
-      (bind-key* "s->" 'mc/unmark-next-like-this)
-      (bind-key* "s-<" 'mc/unmark-previous-like-this)
-      (bind-key* "C-c C-s-." 'mc/mark-all-like-this)
+;;       (bind-key* "C-s-l" 'mc/edit-lines)
+;;       (bind-key* "C-s-f" 'mc/mark-all-dwim)
+;;       (bind-key* "C-s-." 'mc/mark-next-like-this)
+;;       (bind-key* "C-s-," 'mc/mark-previous-like-this)
+;;       (bind-key* "s->" 'mc/unmark-next-like-this)
+;;       (bind-key* "s-<" 'mc/unmark-previous-like-this)
+;;       (bind-key* "C-c C-s-." 'mc/mark-all-like-this)
 
-      ;; http://endlessparentheses.com/multiple-cursors-keybinds.html?source=rss
-      (define-prefix-command 'endless/mc-map)
-      ;; C-x m is usually `compose-mail'. Bind it to something
-      ;; else if you use this command.
-      (define-key ctl-x-map "m" 'endless/mc-map)
-;;; Really really nice!
-      (define-key endless/mc-map "i" #'mc/insert-numbers)
-      (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
-      (define-key endless/mc-map "a" #'mc/mark-all-like-this)
+;;       ;; http://endlessparentheses.com/multiple-cursors-keybinds.html?source=rss
+;;       (define-prefix-command 'endless/mc-map)
+;;       ;; C-x m is usually `compose-mail'. Bind it to something
+;;       ;; else if you use this command.
+;;       (define-key ctl-x-map "m" 'endless/mc-map)
+;; ;;; Really really nice!
+;;       (define-key endless/mc-map "i" #'mc/insert-numbers)
+;;       (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
+;;       (define-key endless/mc-map "a" #'mc/mark-all-like-this)
 
-;;; Occasionally useful
-      (define-key endless/mc-map "d" #'mc/mark-all-symbols-like-this-in-defun)
-      (define-key endless/mc-map "s" #'mc/sort-regions)
-      (define-key endless/mc-map "l" #'mc/edit-lines)
-      (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
-      (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
-      )
-    :config
-    (setq mc/cmds-to-run-once
-          '(
-            counsel-M-x
-            fri3nds/my-mc-mark-next-like-this))
-    (setq mc/cmds-to-run-for-all
-          '(
-            electric-newline-and-maybe-indent
-            hungry-delete-backward
-            spacemacs/backward-kill-word-or-region
-            spacemacs/smart-move-beginning-of-line
-            evil-substitute
-            lispy-move-beginning-of-line
-            lispy-move-end-of-line
-            lispy-space
-            lispy-delete-backward
-            evil-exit-visual-state
-            evil-backward-char
-            evil-delete-char
-            evil-escape-emacs-state
-            evil-escape-insert-state
-            mwim-beginning-of-code-or-line
-            mwim-end-of-line-or-code
-            evil-exit-emacs-state
-            evil-previous-visual-line
-            evil-next-visual-line
-            evil-forward-char
-            evil-insert
-            evil-next-line
-            evil-normal-state
-            evil-previous-line
-            evil-append
-            evil-append-line
-            forward-sentence
-            kill-sentence
-            org-self-insert-command
-            sp-backward-delete-char
-            sp-delete-char
-            sp-remove-active-pair-overlay
-            orgtbl-hijacker-command-109))
-    ))
+;; ;;; Occasionally useful
+;;       (define-key endless/mc-map "d" #'mc/mark-all-symbols-like-this-in-defun)
+;;       (define-key endless/mc-map "s" #'mc/sort-regions)
+;;       (define-key endless/mc-map "l" #'mc/edit-lines)
+;;       (define-key endless/mc-map "\C-a" #'mc/edit-beginnings-of-lines)
+;;       (define-key endless/mc-map "\C-e" #'mc/edit-ends-of-lines)
+;;       )
+;;     :config
+;;     (setq mc/cmds-to-run-once
+;;           '(
+;;             counsel-M-x
+;;             fri3nds/my-mc-mark-next-like-this))
+;;     (setq mc/cmds-to-run-for-all
+;;           '(
+;;             electric-newline-and-maybe-indent
+;;             hungry-delete-backward
+;;             spacemacs/backward-kill-word-or-region
+;;             spacemacs/smart-move-beginning-of-line
+;;             evil-substitute
+;;             lispy-move-beginning-of-line
+;;             lispy-move-end-of-line
+;;             lispy-space
+;;             lispy-delete-backward
+;;             evil-exit-visual-state
+;;             evil-backward-char
+;;             evil-delete-char
+;;             evil-escape-emacs-state
+;;             evil-escape-insert-state
+;;             mwim-beginning-of-code-or-line
+;;             mwim-end-of-line-or-code
+;;             evil-exit-emacs-state
+;;             evil-previous-visual-line
+;;             evil-next-visual-line
+;;             evil-forward-char
+;;             evil-insert
+;;             evil-next-line
+;;             evil-normal-state
+;;             evil-previous-line
+;;             evil-append
+;;             evil-append-line
+;;             forward-sentence
+;;             kill-sentence
+;;             org-self-insert-command
+;;             sp-backward-delete-char
+;;             sp-delete-char
+;;             sp-remove-active-pair-overlay
+;;             orgtbl-hijacker-command-109))
+;;     ))
 
 (defun fri3nds-misc/post-init-persp-mode ()
   (setq persp-kill-foreign-buffer-action 'kill)
@@ -784,73 +782,73 @@
 
 
 
-(defun fri3nds-misc/post-init-prodigy ()
-  (progn
-    (prodigy-define-tag
-      :name 'jekyll
-      :env '(("LANG" "en_US.UTF-8")
-             ("LC_ALL" "en_US.UTF-8")))
-    ;; define service
-    (prodigy-define-service
-      :name "Preview cocos2d-x web"
-      :command "python"
-      :args '("-m" "SimpleHTTPServer" "6001")
-      :cwd "~/cocos2d-x/web"
-      :tags '(work)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
+;; (defun fri3nds-misc/post-init-prodigy ()
+;;   (progn
+;;     (prodigy-define-tag
+;;       :name 'jekyll
+;;       :env '(("LANG" "en_US.UTF-8")
+;;              ("LC_ALL" "en_US.UTF-8")))
+;;     ;; define service
+;;     (prodigy-define-service
+;;       :name "Preview cocos2d-x web"
+;;       :command "python"
+;;       :args '("-m" "SimpleHTTPServer" "6001")
+;;       :cwd "~/cocos2d-x/web"
+;;       :tags '(work)
+;;       :kill-signal 'sigkill
+;;       :kill-process-buffer-on-stop t)
 
-    (prodigy-define-service
-      :name "Preview creator engine"
-      :command "python"
-      :args '("-m" "SimpleHTTPServer" "6004")
-      :cwd "~/Github/fireball/engine"
-      :tags '(work)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
+;;     (prodigy-define-service
+;;       :name "Preview creator engine"
+;;       :command "python"
+;;       :args '("-m" "SimpleHTTPServer" "6004")
+;;       :cwd "~/Github/fireball/engine"
+;;       :tags '(work)
+;;       :kill-signal 'sigkill
+;;       :kill-process-buffer-on-stop t)
 
-    (prodigy-define-service
-      :name "Hexo Server"
-      :command "hexo"
-      :args '("server")
-      :cwd blog-admin-dir
-      :tags '(hexo server)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
+;;     (prodigy-define-service
+;;       :name "Hexo Server"
+;;       :command "hexo"
+;;       :args '("server")
+;;       :cwd blog-admin-dir
+;;       :tags '(hexo server)
+;;       :kill-signal 'sigkill
+;;       :kill-process-buffer-on-stop t)
 
-    (prodigy-define-service
-      :name "Hexo Deploy"
-      :command "hexo"
-      :args '("deploy" "--generate")
-      :cwd blog-admin-dir
-      :tags '(hexo deploy)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
+;;     (prodigy-define-service
+;;       :name "Hexo Deploy"
+;;       :command "hexo"
+;;       :args '("deploy" "--generate")
+;;       :cwd blog-admin-dir
+;;       :tags '(hexo deploy)
+;;       :kill-signal 'sigkill
+;;       :kill-process-buffer-on-stop t)
 
-    (prodigy-define-service
-      :name "Debug Fireball"
-      :command "npm"
-      :args '("start" "--" "--nologin" "/Users/guanghui/Github/example-cases")
-      :cwd "~/Github/fireball/"
-      :tags '(work)
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
+;;     (prodigy-define-service
+;;       :name "Debug Fireball"
+;;       :command "npm"
+;;       :args '("start" "--" "--nologin" "/Users/guanghui/Github/example-cases")
+;;       :cwd "~/Github/fireball/"
+;;       :tags '(work)
+;;       :kill-signal 'sigkill
+;;       :kill-process-buffer-on-stop t)
 
-    (prodigy-define-service
-      :name "Org wiki preview"
-      :command "python"
-      :args '("-m" "SimpleHTTPServer" "8088")
-      :cwd "~/org-notes/public_html"
-      :tags '(org-mode)
-      :init (lambda () (browse-url "http://localhost:8088"))
-      :kill-signal 'sigkill
-      :kill-process-buffer-on-stop t)
+;;     (prodigy-define-service
+;;       :name "Org wiki preview"
+;;       :command "python"
+;;       :args '("-m" "SimpleHTTPServer" "8088")
+;;       :cwd "~/org-notes/public_html"
+;;       :tags '(org-mode)
+;;       :init (lambda () (browse-url "http://localhost:8088"))
+;;       :kill-signal 'sigkill
+;;       :kill-process-buffer-on-stop t)
 
-    ;; add watch for prodigy-view-mode buffer change event
-    (add-hook 'prodigy-view-mode-hook
-              #'(lambda() (set (make-local-variable 'after-change-functions) #'refresh-chrome-current-tab)))
+;;     ;; add watch for prodigy-view-mode buffer change event
+;;     (add-hook 'prodigy-view-mode-hook
+;;               #'(lambda() (set (make-local-variable 'after-change-functions) #'refresh-chrome-current-tab)))
 
-    ))
+;;     ))
 
 (defun fri3nds-misc/init-moz-controller ()
   (use-package moz-controller
@@ -895,6 +893,7 @@
     (progn
       (keyfreq-mode t)
       (keyfreq-autosave-mode 1))))
+
 
 (defun fri3nds-misc/post-init-swiper ()
   "Initialize my package"
@@ -957,7 +956,7 @@
         (setq magit-completing-read-function 'magit-builtin-completing-read)
 
         (magit-define-popup-switch 'magit-push-popup ?u
-          "Set upstream" "--set-upstream")
+                                   "Set upstream" "--set-upstream")
         ))
 
     ;; prefer two way ediff
@@ -972,12 +971,12 @@
 
     (setq magit-process-popup-time 10)))
 
-(defun fri3nds-misc/post-init-git-messenger ()
-  (use-package git-messenger
-    :defer t
-    :config
-    (progn
-      (define-key git-messenger-map (kbd "f") 'zilong/github-browse-commit))))
+;; (defun fri3nds-misc/post-init-git-messenger ()
+;;   (use-package git-messenger
+;;     :defer t
+;;     :config
+;;     (progn
+;;       (define-key git-messenger-map (kbd "f") 'zilong/github-browse-commit))))
 
 (defun fri3nds-misc/post-init-markdown-mode ()
   (progn

@@ -52,20 +52,20 @@
 ;;     :config (spacemacs|hide-lighter beacon-mode)))
 
 
-(defun fri3nds-ui/post-init-hl-anything ()
-  (progn
-    (defun my-inhibit-globalized-hl-highlight-mode ()
-      "Counter-act a globalized hl-highlight-mode."
-      (set (make-local-variable 'hl-highlight-mode) nil))
+;; (defun fri3nds-ui/post-init-hl-anything ()
+;;   (progn
+;;     (defun my-inhibit-globalized-hl-highlight-mode ()
+;;       "Counter-act a globalized hl-highlight-mode."
+;;       (set (make-local-variable 'hl-highlight-mode) nil))
 
-    (add-hook 'org-agenda-mode-hook 'my-inhibit-globalized-hl-highlight-mode)
-    (hl-highlight-mode -1)
-    (spacemacs|add-toggle toggle-hl-anything
-      :status hl-highlight-mode
-      :on (hl-highlight-mode)
-      :off (hl-highlight-mode -1)
-      :documentation "Toggle highlight anything mode."
-      :evil-leader "ths")))
+;;     (add-hook 'org-agenda-mode-hook 'my-inhibit-globalized-hl-highlight-mode)
+;;     (hl-highlight-mode -1)
+;;     (spacemacs|add-toggle toggle-hl-anything
+;;       :status hl-highlight-mode
+;;       :on (hl-highlight-mode)
+;;       :off (hl-highlight-mode -1)
+;;       :documentation "Toggle highlight anything mode."
+;;       :evil-leader "ths")))
 
 
 (defun fri3nds-ui/post-init-whitespace ()

@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2014-2016 fri3nds
 ;;
-;; Author: fri3nds <guanghui8827@gmail.com>
+;; Author: fri3nds <chenglong01020@gmail.com>
 ;; URL: https://github.com/fri3nds/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
@@ -34,26 +34,26 @@
         company
         (eldoc :location built-in)
         dumb-jump
-        graphviz-dot-mode
+        ;; graphviz-dot-mode
         ;; editorconfig
         ))
 
 
-(defun fri3nds-programming/init-editorconfig ()
-  (use-package editorconfig
-    :init
-    (progn
-      (defun conditional-enable-editorconfig ()
-        (if (and (fri3nds/git-project-root)
-                 (locate-dominating-file default-directory ".editorconfig"))
-            (editorconfig-apply)))
-      (add-hook 'prog-mode-hook 'conditional-enable-editorconfig))))
+;; (defun fri3nds-programming/init-editorconfig ()
+;;   (use-package editorconfig
+;;     :init
+;;     (progn
+;;       (defun conditional-enable-editorconfig ()
+;;         (if (and (fri3nds/git-project-root)
+;;                  (locate-dominating-file default-directory ".editorconfig"))
+;;             (editorconfig-apply)))
+;;       (add-hook 'prog-mode-hook 'conditional-enable-editorconfig))))
 
 
-(defun fri3nds-programming/post-init-graphviz-dot-mode ()
-  (with-eval-after-load 'graphviz-dot-mode
-      (require 'company-keywords)
-      (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)))
+;; (defun fri3nds-programming/post-init-graphviz-dot-mode ()
+;;   (with-eval-after-load 'graphviz-dot-mode
+;;       (require 'company-keywords)
+;;       (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)))
 
 
 (defun fri3nds-programming/post-init-dumb-jump ()
@@ -66,7 +66,7 @@
 
 
 (defun fri3nds-programming/post-init-emacs-lisp ()
-    (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
+  (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
 
 
 (defun fri3nds-programming/post-init-python ()
@@ -81,12 +81,12 @@
     (set-face-background 'secondary-selection "gray")
     (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
     (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
-                                                                      org-mode-hook
-                                                                      markdown-mode-hook))
+                                                                           org-mode-hook
+                                                                           markdown-mode-hook))
 
     (spacemacs/add-to-hooks 'fri3nds/load-yasnippet '(prog-mode-hook
-                                                            markdown-mode-hook
-                                                            org-mode-hook))))
+                                                      markdown-mode-hook
+                                                      org-mode-hook))))
 
 
 (defun fri3nds-programming/init-lispy ()
