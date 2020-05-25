@@ -215,25 +215,28 @@ values."
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
    '(magit-gh-pulls
-     magit-gitflow org-projectile evil-mc realgud
+     magit-gitflow
+     org-projectile
+     evil-mc
+     realgud
      ghub
      multiple-cursors
      git-messenger
      graphviz-dot-mode
      helm-github-stars
-     evil-args evil-ediff evil-exchange evil-unimpaired
-
+     evil-args
+     evil-ediff
+     evil-exchange
+     evil-unimpaired
      evil-tuto
      evil-matchit
      evil-lion
      ghub
      git-timemachine
-
      clojure-cheatsheet
-
      volatile-highlights smartparens
      spaceline holy-mode skewer-mode
-     ;; rainbow-delimiters
+     rainbow-delimiters
      dash
      dash-functional
      highlight-indentation vi-tilde-fringe eyebrowse
@@ -292,7 +295,7 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 100
+   dotspacemacs-elpa-timeout 200
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
