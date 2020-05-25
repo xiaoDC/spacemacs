@@ -14,32 +14,32 @@
   '(
     (dired-mode :location built-in)
     (profiler :location built-in)
-    (recentf :location built-in)
+    ;; (recentf :location built-in)
     )
 )
 
-(defun fri3nds-better-defaults/post-init-recentf ()
-  (progn
-    (setq recentf-exclude
-          '("COMMIT_MSG"
-            "COMMIT_EDITMSG"
-            "github.*txt$"
-            "/tmp/"
-            "/ssh:"
-            "/sudo:"
-            "/TAGS$"
-            "/GTAGS$"
-            "/GRAGS$"
-            "/GPATH$"
-            "\\.mkv$"
-            "\\.mp[34]$"
-            "\\.avi$"
-            "\\.pdf$"
-            "\\.sub$"
-            "\\.srt$"
-            "\\.ass$"
-            ".*png$"))
-    (setq recentf-max-saved-items 2048)))
+;; (defun fri3nds-better-defaults/post-init-recentf ()
+;;   (progn
+;;     (setq recentf-exclude
+;;           '("COMMIT_MSG"
+;;             "COMMIT_EDITMSG"
+;;             "github.*txt$"
+;;             "/tmp/"
+;;             "/ssh:"
+;;             "/sudo:"
+;;             "/TAGS$"
+;;             "/GTAGS$"
+;;             "/GRAGS$"
+;;             "/GPATH$"
+;;             "\\.mkv$"
+;;             "\\.mp[34]$"
+;;             "\\.avi$"
+;;             "\\.pdf$"
+;;             "\\.sub$"
+;;             "\\.srt$"
+;;             "\\.ass$"
+;;             ".*png$"))
+;;     (setq recentf-max-saved-items 2048)))
 
 (defun fri3nds-better-defaults/init-dired-mode ()
   (use-package dired-mode

@@ -176,6 +176,26 @@ If the universal prefix argument is used then will the windows too."
     (dotimes (i (cl-parse-integer sym)) (insert (format "%d. %d\n" (1+ i) (1+ i))))))
 
 
+(defun fri3nds/copy-current-line-position ()
+  "Copy current line in file to clipboard as '</path/to/file>:<line-number>'"
+  (interactive)
+  (let ((path-with-line-number
+         (concat (buffer-file-name) ":" (number-to-string (line-number-at-pos)))))
+    (kill-new path-with-line-number)
+    (message (concat path-with-line-number " copied to clipboard"))))
+
+
+(defun fri3nds/copy-current-line ()
+  "Copy current line in file to clipboard "
+  (interactive)
+  (interactive)
+  (save-excursion
+    (back-to-indentation)
+    (kill-ring-save
+     (point)
+     (line-end-position)))
+  (message "1 line copied"))
+
 ;; (defun fri3nds/delete-line-before ()
 ;;   (interactive)
 ;;   (kill-line 0))
@@ -533,6 +553,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
 (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
 (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
+(spacemacs/set-leader-keys "ci" 'fri3nds/copy-current-line)
 
 (spacemacs/set-leader-keys "dd" 'dired-jump)
 (spacemacs/set-leader-keys "df" 'magit-diff-buffer-file)
@@ -549,6 +570,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ff" 'counsel-recentf)
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
+(spacemacs/set-leader-keys "fl" 'fri3nds/copy-current-line-position)
 (spacemacs/set-leader-keys "fm" 'format-all-buffer)
 (spacemacs/set-leader-keys "dm" 'format-all-buffer)
 (spacemacs/set-leader-keys "fn" 'fri3nds/now)
@@ -635,7 +657,7 @@ to the `killed-buffer-list' when killing the buffer."
 
 
 
-(global-set-key (kbd "s-y") 'redo)
+;; (global-set-key (kbd "s-y") 'redo)
 
 (define-key evil-normal-state-map (kbd "L") 'move-end-of-line)
 (define-key evil-visual-state-map (kbd "L") 'move-end-of-line)
@@ -653,8 +675,8 @@ to the `killed-buffer-list' when killing the buffer."
 
 (define-key evil-normal-state-map (kbd "zM") 'evil-open-folds)
 
-(global-set-key (kbd "s-i") 'string-inflection-toggle)
-(global-set-key (kbd "s-j") 'avy-goto-char)
+(global-set-key (kbd "s-y") 'string-inflection-toggle)
+(global-set-key (kbd "s-c") 'avy-goto-char)
 (global-set-key (kbd "s-u") 'upper-first-char-of-word-at-point)
 
 (global-set-key (kbd "<f8>") 'dired-jump)
