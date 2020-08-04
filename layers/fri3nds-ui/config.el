@@ -20,10 +20,15 @@
 
 ;; more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
+;; (setq frame-title-format
+;;       '(""
+;;          (:eval (if (buffer-file-name)
+;;                   (abbreviate-file-name (buffer-file-name)) "%b"))))
+
 (setq frame-title-format
-      '(""
-         (:eval (if (buffer-file-name)
-                  (abbreviate-file-name (buffer-file-name)) "%b"))))
+      '("λ  ⟹  fri3nd"))
+;; '("天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。寒来暑往，秋收冬藏。闰余成岁，律吕调阳。云腾致雨，露结为霜。 ( f => f(f) )( coding )"))
+;; '("形而上者谓之道，形而下者谓之器，君子不器      ( f => f(f) )( coding )"))
 
 (define-fringe-bitmap 'right-curly-arrow
   [#b00000000
@@ -50,14 +55,14 @@
 (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
   "Workaround sgml-mode and follow airbnb component style."
   (let* ((cur-line (buffer-substring-no-properties
-                     (line-beginning-position)
-                     (line-end-position))))
+                    (line-beginning-position)
+                    (line-end-position))))
     (if (string-match "^\\( +\\)\/?> *$" cur-line)
-      (let* ((empty-spaces (match-string 1 cur-line)))
-        (replace-regexp empty-spaces
-          (make-string (- (length empty-spaces) sgml-basic-offset) 32)
-          nil
-          (line-beginning-position) (line-end-position))))))
+        (let* ((empty-spaces (match-string 1 cur-line)))
+          (replace-regexp empty-spaces
+                          (make-string (- (length empty-spaces) sgml-basic-offset) 32)
+                          nil
+                          (line-beginning-position) (line-end-position))))))
 
 
 

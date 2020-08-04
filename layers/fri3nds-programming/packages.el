@@ -1,6 +1,6 @@
 ;;; packages.el --- fri3nds Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 fri3nds
+;; Copyright (c) 2014-2020 fri3nds
 ;;
 ;; Author: fri3nds <chenglong01020@gmail.com>
 ;; URL: https://github.com/fri3nds/spacemacs-private
@@ -34,6 +34,8 @@
         company
         (eldoc :location built-in)
         dumb-jump
+        ;; treemacs
+        ;; lsp-metals
         ;; graphviz-dot-mode
         ;; editorconfig
         ))
@@ -139,3 +141,15 @@
       ;; (with-eval-after-load 'company
       ;;   (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
       )))
+
+
+;; (defun fri3nds-programming/post-init-treemacs ()
+;;   (use-package lsp-treemacs
+;;     :defer t
+;;     :commands lsp-treemacs-errors-list
+;;     :config
+;;     ;; (lsp-metals-treeview-enable t)
+;;     (setq lsp-metals-treeview-show-when-views-received t)))
+
+;; (defun fri3nds-programming/post-init-lsp-metals ()
+;;   (use-package lsp-metals))

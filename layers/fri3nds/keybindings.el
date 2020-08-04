@@ -10,7 +10,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 ;; (define-key global-map (kbd "<f9>") 'org-capture)
 
-(global-set-key (kbd "C-.") 'company-files)
+;; (global-set-key (kbd "C-.") 'company-files)
 
 
 
@@ -31,9 +31,9 @@
 
 ;; (bind-key* "M-s o" 'occur-dwim)
 (bind-key* "C-=" 'er/expand-region)
-(bind-key* "M--" 'fri3nds/goto-match-paren)
-(bind-key* "C-c k" 'which-key-show-top-level)
-(bind-key* "s-y" 'aya-expand)
+;; (bind-key* "M--" 'fri3nds/goto-match-paren)
+;; (bind-key* "C-c k" 'which-key-show-top-level)
+;; (bind-key* "s-y" 'aya-expand)
 ;; (bind-key* "C-l" 'recenter)
 
 
@@ -88,18 +88,53 @@
   (mapc 'kill-buffer (buffer-list)))
 
 
+;; (defun fri3nds/org-screenshot ()
+;;   "Take a screenshot into a time stamped unique-named file in the same directory as the org-buffer and insert a link to this file."
+;;   (interactive)
+;;                                         ;(org-display-inline-images)
+;;   (let ((bf (or (buffer-file-name) (substring
+;;                                     list-buffers-directory
+;;                                     0
+;;                                     (last-index-of "/" list-buffers-directory)))))
+;;     (setq filename
+;;           (concat
+;;            (make-temp-name
+;;             (concat "~/Pictures/Screenshots/"
+;;                     (substring bf
+;;                                (+ 1 (last-index-of "/" bf)))
+;;                     "_imgs_"
+;;                     (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+
+;;     (unless (file-exists-p (file-name-directory filename))
+;;       (message "111111111111")
+;;       (make-directory (file-name-directory filename)))
+;;                                         ; take screenshot
+
+;;     (if (eq system-type 'darwin)
+;;         (call-process "screencapture" nil nil nil "-i" filename))
+;;     (if (eq system-type 'gnu/linux)
+;;         (call-process "import" nil nil nil filename))
+;;                                         ; insert into file if correctly taken
+;;     (if (file-exists-p filename)
+;;         (insert (concat "[[./" filename "]]"))
+;;       )
+;;     )
+;;   )
+
+
 (defun fri3nds-change-theme ()
   (interactive)
-  (spacemacs/load-theme 'solarized-gruvbox-dark t))
+  (spacemacs/load-theme 'solarized-gruvbox-light t))
+;; (spacemacs/load-theme 'solarized-light))
+
+(defun fri3nds-change-theme-manoj ()
+  (interactive)
+  (spacemacs/load-theme 'spacemacs-light))
 
 
 (defun fri3nds-reset-theme ()
   (interactive)
-  (spacemacs/load-theme 'solarized-dark t))
-
-(defun fri3nds/treemacs-project-toggle ()
-  (interactive)
-  (shell-command ":> ~/.emacs.d/.cache/treemacs-persist"))
+  (spacemacs/load-theme 'solarized-dark))
 
 (defadvice next-buffer (after avoid-messages-buffer-in-next-buffer)
   "Advice around `next-buffer' to avoid going into the *Messages* buffer."
@@ -409,8 +444,8 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-clojure-file ()
   (interactive)
-  ;; (find-file "/Users/fri3nd/tools/script/src/script/core.clj"))
-  (find-file "/Users/fri3nd/tools/script/src/script/huskar.clj"))
+  (find-file "/Users/fri3nd/tools/script/src/script/core.clj"))
+  ;; (find-file "/Users/fri3nd/tools/script/src/script/huskar.clj"))
 
 
 (defun fri3nds/showcopy-buffer-filename ()
@@ -421,6 +456,7 @@ If the universal prefix argument is used then will the windows too."
     (if file-name
         (message (kill-new file-name))
       (error "Buffer not visiting a file"))))
+
 
 (defun fri3nds/open-password-file ()
   (interactive)
@@ -522,16 +558,17 @@ to the `killed-buffer-list' when killing the buffer."
 ;; 						         :buffer "*helm-fzf*")))))
 
 
-(spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
-;; (spacemacs/set-leader-keys "as" 'evil-avy-goto-char)
+;; (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
+(spacemacs/set-leader-keys "sa" 'evil-avy-goto-line)
+(spacemacs/set-leader-keys "aa" 'swiper)
 
 ;; (spacemacs/set-leader-keys "ag" 'helm-ag)
 (spacemacs/set-leader-keys "ag" 'counsel-ag)
 
 
 (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
-;; (spacemacs/set-leader-keys "bb" 'helm-find-files)
-(spacemacs/set-leader-keys "bb" 'counsel-find-file)
+(spacemacs/set-leader-keys "bb" 'ivy-switch-buffer)
+;; (spacemacs/set-leader-keys "bb" 'counsel-find-file)
 (spacemacs/set-leader-keys "bc" 'erase-buffer)
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
 (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
@@ -612,8 +649,9 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "mm" 'counsel-yank-pop)
 ;; (spacemacs/set-leader-keys "mt" 'toggle-menu-bar-mode-from-frame)
 (spacemacs/set-leader-keys "mt" 'spacemacs/toggle-menu-bar-off)
-(spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
+;; (spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
 ;; (spacemacs/set-leader-keys "nn" 'next-buffer)
+(spacemacs/set-leader-keys "nn" 'counsel-find-file)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
 (spacemacs/set-leader-keys "oc" 'org-capture)
@@ -623,13 +661,14 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
 ;; (spacemacs/set-leader-keys "qq" 'treemacs)
 (spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
-(spacemacs/set-leader-keys "qc" 'fri3nds/treemacs-project-toggle)
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
+(spacemacs/set-leader-keys "ss" 'save-buffer)
 (spacemacs/set-leader-keys "sm" 'split-window-right-and-focus)
 ;; (spacemacs/set-leader-keys "sl" 'ivy-resume)
 ;; (spacemacs/set-leader-keys "sl" 'helm-resume)
 (spacemacs/set-leader-keys "sl" 'display-line-numbers-mode)
 (spacemacs/set-leader-keys "ta" 'fri3nds-change-theme)
+(spacemacs/set-leader-keys "tm" 'fri3nds-change-theme-manoj)
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
 (spacemacs/set-leader-keys "tt" 'fri3nds-reset-theme)
 ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
