@@ -444,8 +444,8 @@ If the universal prefix argument is used then will the windows too."
 
 (defun fri3nds/open-clojure-file ()
   (interactive)
-  (find-file "/Users/fri3nd/tools/script/src/script/core.clj"))
-  ;; (find-file "/Users/fri3nd/tools/script/src/script/huskar.clj"))
+  ;; (find-file "/Users/fri3nd/tools/script/src/script/core.clj"))
+  (find-file "/Users/fri3nd/tools/script/src/script/huskar.clj"))
 
 
 (defun fri3nds/showcopy-buffer-filename ()
@@ -567,8 +567,7 @@ to the `killed-buffer-list' when killing the buffer."
 
 
 (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
-(spacemacs/set-leader-keys "bb" 'ivy-switch-buffer)
-;; (spacemacs/set-leader-keys "bb" 'counsel-find-file)
+(spacemacs/set-leader-keys "bb" 'counsel-find-file)
 (spacemacs/set-leader-keys "bc" 'erase-buffer)
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
 (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
@@ -651,7 +650,8 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "mt" 'spacemacs/toggle-menu-bar-off)
 ;; (spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
 ;; (spacemacs/set-leader-keys "nn" 'next-buffer)
-(spacemacs/set-leader-keys "nn" 'counsel-find-file)
+;; (spacemacs/set-leader-keys "nn" 'counsel-find-file)
+(spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
 (spacemacs/set-leader-keys "oc" 'org-capture)

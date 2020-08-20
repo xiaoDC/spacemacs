@@ -66,6 +66,9 @@ values."
      (haskell :variables
               haskell-completion-backend nil
               haskell-enable-hindent t)
+
+     ;; (elixir :variables elixir-backend 'alchemist)
+     ;; (elixir :variables elixir-backend 'lsp)
      ;; purescript
      ;; haskell
      ;; html
@@ -103,7 +106,7 @@ values."
               vinegar-dired-hide-details t)
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      layouts-autosave-delay 60000
+      layouts-autosave-delay 600
       )
 
      (git :variables
@@ -164,7 +167,7 @@ values."
                                       ;; color-theme-sanityinc-solarized
                                       diff-hl
                                       ;; prettier-js
-                                      ;; company-tabnine
+                                      company-tabnine
                                       ;; company-sql
                                       ;; dash
                                       ;; dash-functional
@@ -217,6 +220,7 @@ values."
                                       ;; cnfonts
                                       ;; window-purpose
                                       whitespace
+                                      eglot
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -227,6 +231,7 @@ values."
      evil-mc
      realgud
      ghub
+     alchemist
      multiple-cursors
      git-messenger
      graphviz-dot-mode
@@ -398,7 +403,6 @@ values."
                                ;; "DroidSansMono Nerd Font"
                                ;; "Inconsolata"
                                ;; "Inconsolata LGC"
-                               ;; "League Mono"
                                ;; "Menlo"
                                ;; "Meslo LG S for Powerline"
                                ;; "Monoid"
@@ -423,7 +427,7 @@ values."
                                ;; "Sarasa mono SC"
                                :size 21
                                :weight normal
-                               :height 480
+                               :height 600
                                ;; :weight light
                                :width normal
                                :powerline-scale 1.0)
@@ -583,12 +587,14 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-  (setq configuration-layer--elpa-archives
+  (setq configuration-layer-elpa-archives
         '(
           ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "https://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
           ))
+  ;; (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
+  ;;                                           ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   ;; (setq tramp-mode nil)
@@ -824,7 +830,7 @@ values."
   ;; (set-face-background vline-face "#073642")
 
   ;; (global-display-line-numbers-mode 1)
-  (global-diff-hl-mode 1)
+  ;; (global-diff-hl-mode 1)
 
   ;; (setq my-holidays
   ;;   ;;纪念日

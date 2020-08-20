@@ -32,12 +32,14 @@
         (emacs-lisp :location built-in)
         ;; clojure-mode
         company
+        company-tabnine
         (eldoc :location built-in)
         dumb-jump
         ;; treemacs
         ;; lsp-metals
         ;; graphviz-dot-mode
         ;; editorconfig
+        ;; lsp-mode
         ))
 
 
@@ -56,6 +58,19 @@
 ;;   (with-eval-after-load 'graphviz-dot-mode
 ;;       (require 'company-keywords)
 ;;       (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)))
+
+(defun fri3nds-programming/init-company-tabnine ()
+  (use-package company-tabnine
+    :ensure t
+    :defer t
+    :init
+    :config))
+
+;;; 配置company-tabnine作为company的后端
+(defun tabnine/post-init-company-tabnine()
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends #'company-tabnine))
+  )
 
 
 (defun fri3nds-programming/post-init-dumb-jump ()
