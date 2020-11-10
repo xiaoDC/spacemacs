@@ -39,7 +39,7 @@
         ;; lsp-metals
         ;; graphviz-dot-mode
         ;; editorconfig
-        ;; lsp-mode
+        lsp-mode
         ))
 
 
@@ -168,3 +168,19 @@
 
 ;; (defun fri3nds-programming/post-init-lsp-metals ()
 ;;   (use-package lsp-metals))
+
+(defun fri3nds-programming/post-init-lsp-mode ()
+  (use-package lsp-mode
+    :ensure t
+    :commands (lsp lsp-deferred)
+    :hook (go-mode . lsp-deferred))
+
+  ;;   (use-package lsp-mode
+  ;;     (progn
+  ;;       (setq lsp-auto-guess-root nil
+  ;;             lsp-ui-doc-enable nil
+  ;;             lsp-ui-sideline-enable nil
+  ;;             )
+
+  ;;       ))
+  )

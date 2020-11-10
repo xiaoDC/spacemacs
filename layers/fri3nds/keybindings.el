@@ -718,6 +718,7 @@ to the `killed-buffer-list' when killing the buffer."
 (global-set-key (kbd "s-c") 'avy-goto-char)
 (global-set-key (kbd "s-u") 'upper-first-char-of-word-at-point)
 
+(global-set-key (kbd "<f4>") 'spacemacs/new-empty-buffer)
 (global-set-key (kbd "<f8>") 'dired-jump)
 (global-set-key (kbd "<f9>") 'ibuffer)
 (global-set-key (kbd "<S-up>") 'shrink-window)

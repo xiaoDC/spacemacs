@@ -38,7 +38,7 @@ values."
      ;; clojure
      (scala :variables scala-backend 'scala-metals
             scala-indent:use-javadoc-style t
-            scala-enable-eldoc t
+            ;; scala-enable-eldoc t
             scala-auto-insert-asterisk-in-comments t
             scala-use-unicode-arrows nil)
 
@@ -49,19 +49,24 @@ values."
      emacs-lisp
      ;; chinese
      ;; javascript
+     mu4e
      (lsp :variables
           lsp-ui-doc-enable nil
           lsp-ui-sideline-enable nil
           )
      (rust :variables
            rust-backend 'racer
-           lsp-rust-server 'rust-analyzer)
+           lsp-rust-server 'rust-analyzer
+           )
      (go :variables
-         go-tab-width nil
-         go-use-gometalinter nil
+         go-tab-width 4
+         ;; go-use-gometalinter nil
          ;; godoc-at-point-function 'godoc-gogetdoc
+         ;; go-use-golangci-lint t
          go-backend 'lsp
-         gofmt-command "goimports")
+         ;; gofmt-command "goimports"
+         )
+     (vue :variables vue-backend 'lsp)
 
      (haskell :variables
               haskell-completion-backend nil
@@ -106,7 +111,7 @@ values."
               vinegar-dired-hide-details t)
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      layouts-autosave-delay 600
+      layouts-autosave-delay 1000
       )
 
      (git :variables
@@ -187,7 +192,6 @@ values."
                                       reveal-in-osx-finder
                                       format-all
                                       format-sql
-
                                       ;; flower
                                       ;; spacemacs-dark
                                       ;; spacemacs-light
@@ -202,7 +206,6 @@ values."
                                       ;; hierarchy
                                       string-inflection
                                       ;; cal-china-x
-                                      ;; git-gutter
                                       ;; git-gutter+
                                       ;; neotree
                                       ;; rainbow-delimiters
@@ -220,7 +223,7 @@ values."
                                       ;; cnfonts
                                       ;; window-purpose
                                       whitespace
-                                      eglot
+                                      ;; eglot
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -280,7 +283,7 @@ values."
      ac-ispell ace-jump-mode auto-complete auto-dictionary
      clang-format define-word google-translate disaster epic
      fancy-battery org-present orgit orglue
-     ;; spacemacs-theme
+     spacemacs-theme
      helm
      helm-flyspell flyspell-correct-helm clean-aindent-mode
      helm-c-yasnippet ace-jump-helm-line helm-make
@@ -312,12 +315,12 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 100
+   dotspacemacs-elpa-timeout 200
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
-   dotspacemacs-check-for-update t
+   dotspacemacs-check-for-update nil
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
    ;; to `emacs-version'.
@@ -361,10 +364,10 @@ values."
                          ;; doom-solarized-dark
                          solarized-dark
                          solarized-light
-                         spacemacs-light
-                         cyberpunk
-                         tsdh-light
-                         abyss
+                         ;; spacemacs-light
+                         ;; cyberpunk
+                         ;; tsdh-light
+                         ;; abyss
                          ;; wheatgrass
                          ;; adwaita
                          ;; spacemacs-dark
@@ -382,23 +385,14 @@ values."
                                ;; "Anonymous Pro"
                                ;; "Source Code Pro"
                                "Courier New"
-                               ;; "Courier Prime Code"
                                ;; "Code New Roman"
-                               ;; "Dank Mono"
                                ;; "DejaVu Sans Mono"
                                ;; "Droid Sans Mono"
                                ;; "Fantasque Sans Mono"
                                ;; "FandolKai"
                                ;; "Fira Code"
                                ;; "Fira Mono"
-                               ;; "Go Mono"
-                               ;; "Hack"
-                               ;; "Hasklig"
-                               ;; "Iosevka"
-                               ;; "Input Mono"
-                               ;; "Input Mono Narrow"
                                ;; "FantasqueSansMono Nerd Font Mono"
-                               ;; "Fantasque Sans Mono"
                                ;; "Droid Sans Mono Slashed for Powerline"
                                ;; "DroidSansMono Nerd Font"
                                ;; "Inconsolata"
@@ -410,9 +404,6 @@ values."
                                ;; "monospace"
                                ;; "Noto Mono"
                                ;; "Office Code Pro"
-                               ;; "Operator Mono"
-                               ;; "Pica10 BT"
-                               ;; "PragmataPro"
                                ;; "PT Mono"
                                ;; "Roboto Mono for Powerline"
                                ;; "SF Mono"
@@ -423,11 +414,10 @@ values."
                                ;; "JetBrains Mono"
                                ;; "Cascadia Code"
                                ;; "Cascadia Mono"
-                               ;; "Ubuntu Mono"
                                ;; "Sarasa mono SC"
-                               :size 21
+                               :size 20
                                :weight normal
-                               :height 600
+                               :height 480
                                ;; :weight light
                                :width normal
                                :powerline-scale 1.0)
@@ -476,7 +466,7 @@ values."
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
-   dotspacemacs-large-file-size 1
+   dotspacemacs-large-file-size 2
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -502,7 +492,7 @@ values."
    dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.2
+   dotspacemacs-which-key-delay 0.3
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -517,7 +507,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -593,6 +583,7 @@ values."
           ("org-cn"   . "https://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
           ))
+
   ;; (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
   ;;                                           ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
 
@@ -610,9 +601,6 @@ values."
   ;; (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
 
-  ;; (add-to-list 'load-path "~/.emacs.d/elpa/develop/doom-themes-20190904.2252")
-  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/develop/doom-themes-20190904.2252")
-
   ;; // 直接进入 scratch buffer
   ;; (defun spacemacs-buffer/goto-buffer ()
   ;;   (interactive))
@@ -621,29 +609,26 @@ values."
 (defun dotspacemacs/user-config ()
   ;; (add-to-list 'load-path (expand-file-name "/Users/fri3nds/.spacemacs.d/aweshell"))
 
+  ;; mu4e send mail
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-starttls-credentials
+        '(("smtp.partner.outlook.cn" 587 nil nil))
+        smtpmail-default-smtp-server "smtp.partner.outlook.cn"
+        smtpmail-smtp-server "smtp.partner.outlook.cn"
+        smtpmail-smtp-service 587
+        smtpmail-debug-info t)
 
-  ;; (setq awesome-tab-style 'alternate)
-  ;; (setq awesome-tab-style 'box)
-  ;; (setq awesome-tab-style 'slant)
-  ;; (awesome-tab-mode t)
+  (setq mu4e-maildir "~/.mail"
+        mu4e-trash-folder "/Trash"
+        mu4e-refile-folder "/Archive"
+        mu4e-get-mail-command "offlineimap"
+        ;; mu4e-get-mail-command "mbsync -a"
+        mu4e-update-interval 600
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
 
-  ;; (defun awesome-tab-buffer-groups ()
-  ;;   (list "fri3nd"))
-
-  ;; (defun awesome-tab-hide-tab (x)
-  ;;   (let ((name (format "%s" x)))
-  ;;     (or
-  ;;      (string-prefix-p "*epc" name)
-  ;;      (string-prefix-p "*Messages" name)
-  ;;      (string-prefix-p "*helm" name)
-  ;;      (string-prefix-p "*Compile-Log*" name)
-  ;;      (string-prefix-p "*lsp" name)
-  ;;      (string-prefix-p "*ts-ls" name)
-  ;;      (string-prefix-p "*gopls" name)
-  ;;      (string-prefix-p "*rls" name)
-  ;;      (and (string-prefix-p "magit" name)
-  ;;           (not (file-name-extension name)))
-  ;;      )))
+  (setq lsp-diagnostic-package :none)
 
   (setq auto-mode-alist
         (append '(("\\.cpt$" . sensitive-mode)) auto-mode-alist))
@@ -654,39 +639,49 @@ values."
   ;; (setq evil-insert-state-cursor '(bar "medium sea green"))
 
   ;; (require 'aweshell)
-  (when (window-system)
-    (set-frame-font "Fira Code"))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; (when (window-system)
+  ;;   (set-frame-font "Fira Code"))
 
-  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-                 (36 . ".\\(?:>\\)")
-                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-                 (48 . ".\\(?:x[a-zA-Z]\\)")
-                 (58 . ".\\(?:::\\|[:=]\\)")
-                 (59 . ".\\(?:;;\\|;\\)")
-                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-                 (91 . ".\\(?:]\\)")
-                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-                 (94 . ".\\(?:=\\)")
-                 (119 . ".\\(?:ww\\)")
-                 (123 . ".\\(?:-\\)")
-                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-                 ;; (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-                 )
-               ))
-    (dolist (char-regexp alist)
-      (set-char-table-range composition-function-table (car char-regexp)
-                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
+  ;; (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+  ;;                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+  ;;                (36 . ".\\(?:>\\)")
+  ;;                (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+  ;;                (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+  ;;                (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+  ;;                (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+  ;;                (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+  ;;                (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+  ;;                (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+  ;;                (48 . ".\\(?:x[a-zA-Z]\\)")
+  ;;                (58 . ".\\(?:::\\|[:=]\\)")
+  ;;                (59 . ".\\(?:;;\\|;\\)")
+  ;;                (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+  ;;                (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+  ;;                (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+  ;;                (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+  ;;                (91 . ".\\(?:]\\)")
+  ;;                (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+  ;;                (94 . ".\\(?:=\\)")
+  ;;                (119 . ".\\(?:ww\\)")
+  ;;                (123 . ".\\(?:-\\)")
+  ;;                (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+  ;;                ;; (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+  ;;                )
+  ;;              ))
+  ;;   (dolist (char-regexp alist)
+  ;;     (set-char-table-range composition-function-table (car char-regexp)
+  ;;                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; (spacemacs/load-theme 'solarized-dark-light-high-contrast t)
   ;; (spacemacs/load-theme 'doom-solarized-dark t)
   (setq save-abbrevs nil)
@@ -733,7 +728,7 @@ values."
   ;;;;     (setq auto-composition-mode nil)))
 
   ;; force horizontal split window
-  (setq split-width-threshold 300)
+  (setq split-width-threshold 200)
   (setq
    scroll-conservatively 101
    scroll-margin 5
@@ -793,8 +788,7 @@ values."
   ;; https://emacs-china.org/t/topic/4627
   (setq yas-snippet-dirs
         '(
-          "~/.emacssnippets/snippets/"
-          "~/.emacs.d/layers/+completion/auto-completion/local/snippets"))
+          "~/.emacssnippets/snippets/"))
 
 
   ;; (typescript-mode)
@@ -858,6 +852,7 @@ values."
     (interactive)
     ;; (spacemacs/toggle-fill-column-indicator-on)
     (yas-minor-mode 1)
+    (eldoc-mode -1)
     ;; (auto-complete-mode 1)
     ;; (column-enforce-mode 1)
     ;; (parinfer-active)
