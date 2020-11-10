@@ -1,6 +1,6 @@
 ;;; packages.el --- fri3nds Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2014-2016 fri3nds
+;; Copyright (c) 2014-2020 fri3nds
 ;;
 ;; Author: fri3nds <chenglong01020@gmail.com>
 ;; URL: https://github.com/fri3nds/spacemacs-private

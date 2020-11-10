@@ -44,8 +44,8 @@ values."
      ;; chinese
      ;; javascript
      (lsp :variables
-          ;; lsp-ui-doc-enable nil
-          lsp-ui-sideline-enable nil
+          lsp-ui-doc-enable nil
+          lsp-ui-sideline-enable t
           )
      ;; (rust :variables
      ;;       rust-backend 'lsp-rust)
@@ -55,10 +55,10 @@ values."
          ;; godoc-at-point-function 'godoc-gogetdoc
          go-backend 'lsp
          gofmt-command "goimports")
-     ;; (haskell :variables
-     ;;          haskell-completion-backend 'lsp
-     ;;          haskell-enable-hindent t
-     ;;          )
+     (haskell :variables
+              haskell-completion-backend 'lsp
+              haskell-enable-hindent t
+              )
      ;; haskell
      ;; html
      ;; lua
@@ -75,7 +75,8 @@ values."
 
      ;; typescript
      (typescript :variables
-                 typescript-backend 'lsp)
+                 typescript-backend 'lsp
+                 typescript-lsp-linter nil)
 
      yaml
      ivy
@@ -122,7 +123,7 @@ values."
      ;;   osx-command-as 'super)
      ;; restclient
      ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
-     ;; docker
+     docker
      ;; latex
      ;; deft
      ;; markdown
@@ -217,6 +218,7 @@ values."
    '(magit-gh-pulls
      magit-gitflow
      org-projectile
+     dap-mode
      evil-mc
      realgud
      ghub
@@ -242,12 +244,14 @@ values."
      highlight-indentation vi-tilde-fringe eyebrowse
      anaconda
      lispy
+     flycheck
      flycheck-gometalinter
+     flycheck-pos-tip
      ;; org-bullets
      org-repo-todo
      org-download
-     flycheck
      js-mode
+     dap-mode
      pangu-spacing
      js2refactor
      js2-mode
@@ -362,8 +366,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "Anonymous Pro"
+                               ;; "Source Code Pro"
                                "Courier New"
+                               ;; "Anonymous Pro"
                                ;; "Courier Prime Code"
                                ;; "Code New Roman"
                                ;; "Dank Mono"
@@ -409,6 +414,7 @@ values."
                                :weight normal
                                ;; :weight light
                                :width normal
+                               :height 480
                                :powerline-scale 1.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -571,11 +577,10 @@ values."
         '(
           ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "https://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
-          ))
+          ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
-  ;; (setq tramp-mode nil)
+  (setq tramp-mode nil)
   ;; (setq tramp-ssh-controlmaster-options
   ;;       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
@@ -669,8 +674,8 @@ values."
   (setq save-abbrevs nil)
   (setq ivy-use-virtual-buffers t)
 
-  (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-  (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  ;; (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+  ;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
   ;; (require 'lsp-mode)
   ;; (lsp-register-client
@@ -721,7 +726,7 @@ values."
   ;; (setq linum-format "%4d")
 
   ;; (linum-relative-on)
-  (setq-default line-spacing 1)
+  ;; (setq-default line-spacing 1)
   (setq calendar-mark-diary-entries-flag t)
   ;; (setq org-agenda-include-diary t)
 
@@ -798,7 +803,7 @@ values."
   ;; (setq solarized-height-plus-2 1.0)
   ;; (setq solarized-height-plus-3 1.0)
   ;; (setq solarized-height-plus-4 1.0)
-  (setq x-underline-at-descent-line t)
+  ;; (setq x-underline-at-descent-line t)
 
   ;; (setq doom-themes-enable-bold t
   ;;   doom-themes-enable-italic t)
@@ -841,7 +846,7 @@ values."
     ;; (linum-mode 1)
     (abbrev-mode 1)
     ;; (display-line-numbers-mode 'relative)
-    ;; (display-line-numbers-mode 1)
+    (display-line-numbers-mode -1)
     ;; (vline-mode -1)
     ;; (blank-mode t)
     (global-company-mode)
@@ -886,8 +891,8 @@ values."
 
   (setq company-backends-typescript-mode '(
                                            company-yasnippet
-                                           (company-dabbrev-code company-gtags company-etags company-keywords)
                                            company-files
+                                           (company-dabbrev-code company-gtags company-etags company-keywords)
                                            company-dabbrev
                                            ))
   ;; (setq company-backends-typescript-mode (cdr company-backends-typescript-mode))
@@ -1010,7 +1015,7 @@ values."
    ;;   (set-face-background 'git-gutter+-modified "yellow") ;; background color
    ;;   (set-face-foreground 'git-gutter+-added "green")
    ;; (set-face-foreground 'git-gutter+-deleted "DarkRed")
-   (set-face-background 'highlight "#EEAD0E")
+   ;; (set-face-background 'highlight "#EEAD0E")
    )
 
   ;; (custom-set-variables
@@ -1165,31 +1170,34 @@ values."
                  ;; '(:eval (list (nyan-create)))
                  ))
 
-
-
   (setq-default header-line-format
-                '((:eval (propertize "  1 %b | " 'face 'font-lock-type-face
-                                     'help-echo (buffer-file-name)))
-                  ;; " ⟹ "
-                  (:eval
-                   ;; (when (powerline-selected-window-active)
-                   (if (buffer-file-name)
-                       (let ((buffer-coll (-filter 'buffer-file-name (-filter #'(lambda (x) (not (eq (buffer-file-name x) (buffer-file-name)))) (buffer-list)))))
-                         (mapconcat #'(lambda (x) (format "%s %s" (car x) (cdr x))) (-zip-pair (number-sequence 2 80) (sort (mapcar #'(lambda (x) (format "%s" x)) buffer-coll) #'string-lessp)) " | ")
-                         )
-                     ;;              ;; (let ((buffer-coll (remove nil (mapcar 'buffer-file-name (buffer-list)))))
-                     ;;              ;; (concat
-                     ;;              ;;   ;; "⟹"
-                     ;;              ;;   ;; " ❐ "
-                     ;;              ;;   " "
-                     ;;              ;;   (number-to-string (+ 1 (position
-                     ;;              ;;                            (buffer-file-name)
-                     ;;              ;;                            buffer-coll)))
-                     ;;              ;;   "/"
-                     ;;              ;;   (number-to-string (list-length buffer-coll))
-                     ;;              ;;   " "
-                     ;;              ;;   (abbreviate-file-name (buffer-file-name)))
-                     "%b"))))
+                '(" "
+                  (:eval (propertize (if (buffer-file-name)
+                                         (abbreviate-file-name (buffer-file-name)) "%b") 'face 'font-lock-type-face))))
+
+  ;; (setq-default header-line-format
+  ;;               '((:eval (propertize "  1 %b | " 'face 'font-lock-type-face
+  ;;                                    'help-echo (buffer-file-name)))
+  ;;                 ;; " ⟹ "
+  ;;                 (:eval
+  ;;                  ;; (when (powerline-selected-window-active)
+  ;;                  (if (buffer-file-name)
+  ;;                      (let ((buffer-coll (-filter 'buffer-file-name (-filter #'(lambda (x) (not (eq (buffer-file-name x) (buffer-file-name)))) (buffer-list)))))
+  ;;                        (mapconcat #'(lambda (x) (format "%s %s" (car x) (cdr x))) (-zip-pair (number-sequence 2 80) (sort (mapcar #'(lambda (x) (format "%s" x)) buffer-coll) #'string-lessp)) " | ")
+  ;;                        )
+  ;;                    ;;              ;; (let ((buffer-coll (remove nil (mapcar 'buffer-file-name (buffer-list)))))
+  ;;                    ;;              ;; (concat
+  ;;                    ;;              ;;   ;; "⟹"
+  ;;                    ;;              ;;   ;; " ❐ "
+  ;;                    ;;              ;;   " "
+  ;;                    ;;              ;;   (number-to-string (+ 1 (position
+  ;;                    ;;              ;;                            (buffer-file-name)
+  ;;                    ;;              ;;                            buffer-coll)))
+  ;;                    ;;              ;;   "/"
+  ;;                    ;;              ;;   (number-to-string (list-length buffer-coll))
+  ;;                    ;;              ;;   " "
+  ;;                    ;;              ;;   (abbreviate-file-name (buffer-file-name)))
+  ;;                    "%b"))))
 
   )
 
@@ -1211,7 +1219,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (custom-set-variables '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
                           '(
-                            ;; (bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
+                            (bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
                             (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
                             (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
                             (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))

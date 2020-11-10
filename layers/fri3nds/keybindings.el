@@ -10,7 +10,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 ;; (define-key global-map (kbd "<f9>") 'org-capture)
 
-(global-set-key (kbd "C-.") 'company-files)
+;; (global-set-key (kbd "C-.") 'company-files)
 
 
 
@@ -31,9 +31,9 @@
 
 ;; (bind-key* "M-s o" 'occur-dwim)
 (bind-key* "C-=" 'er/expand-region)
-(bind-key* "M--" 'fri3nds/goto-match-paren)
-(bind-key* "C-c k" 'which-key-show-top-level)
-(bind-key* "s-y" 'aya-expand)
+;; (bind-key* "M--" 'fri3nds/goto-match-paren)
+;; (bind-key* "C-c k" 'which-key-show-top-level)
+;; (bind-key* "s-y" 'aya-expand)
 ;; (bind-key* "C-l" 'recenter)
 
 
@@ -90,7 +90,8 @@
 
 (defun fri3nds-change-theme ()
   (interactive)
-  (spacemacs/load-theme 'solarized-gruvbox-dark t))
+  (spacemacs/load-theme 'solarized-gruvbox-light t))
+;; (spacemacs/load-theme 'solarized-gruvbox-dark t))
 
 
 (defun fri3nds-reset-theme ()
@@ -522,7 +523,8 @@ to the `killed-buffer-list' when killing the buffer."
 ;; 						         :buffer "*helm-fzf*")))))
 
 
-(spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
+(spacemacs/set-leader-keys "sa" 'evil-avy-goto-line)
+(spacemacs/set-leader-keys "aa" 'swiper)
 ;; (spacemacs/set-leader-keys "as" 'evil-avy-goto-char)
 
 ;; (spacemacs/set-leader-keys "ag" 'helm-ag)
@@ -531,7 +533,7 @@ to the `killed-buffer-list' when killing the buffer."
 
 (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
 ;; (spacemacs/set-leader-keys "bb" 'helm-find-files)
-(spacemacs/set-leader-keys "bb" 'counsel-find-file)
+(spacemacs/set-leader-keys "bb" 'ivy-switch-buffer)
 (spacemacs/set-leader-keys "bc" 'erase-buffer)
 (spacemacs/set-leader-keys "be" 'spacemacs/new-empty-buffer)
 (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
@@ -612,7 +614,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "mm" 'counsel-yank-pop)
 ;; (spacemacs/set-leader-keys "mt" 'toggle-menu-bar-mode-from-frame)
 (spacemacs/set-leader-keys "mt" 'spacemacs/toggle-menu-bar-off)
-(spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
+(spacemacs/set-leader-keys "nn" 'counsel-find-file)
 ;; (spacemacs/set-leader-keys "nn" 'next-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
@@ -629,6 +631,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "sl" 'ivy-resume)
 ;; (spacemacs/set-leader-keys "sl" 'helm-resume)
 (spacemacs/set-leader-keys "sl" 'display-line-numbers-mode)
+(spacemacs/set-leader-keys "ss" 'save-buffer)
 (spacemacs/set-leader-keys "ta" 'fri3nds-change-theme)
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
 (spacemacs/set-leader-keys "tt" 'fri3nds-reset-theme)
