@@ -9,21 +9,38 @@
 
 (defconst fri3nds-calendar-packages
   '(
-     calfw
-     ;; org-gcal
-     calfw-org
-     alert
-     ;; ishikk
-     ))
+    calfw
+    ;; calfw-cal
+    ;; calfw-ical
+    ;; org-gcal
+    calfw-org
+    alert
+    ;; ishikk
+    ))
 
 (defun fri3nds-calendar/init-calfw ()
   "Initialize calfw and add key-bindings"
   (use-package calfw))
 
+;; (defun fri3nds-calendar/init-calfw-cal ()
+;;   "Initialize calfw and add key-bindings"
+;;   (use-package calfw-cal))
+
+
+;; (defun fri3nds-calendar/init-calfw-ical ()
+;;   "Initialize calfw and add key-bindings"
+;;   (use-package calfw-ical))
 
 ;; (defun fri3nds-calendar/init-org-gcal ()
 ;;   "Initialize org-gcal"
-;;   (use-package org-gcal)
+;;   (use-package org-gcal
+;;     :ensure t
+;;     :config
+;;     (
+;;      setq org-gcal-client-id "oauth 2.0 client ID"
+;;      org-gcal-client-secret "client secret"
+;;      org-gcal-file-alist '(("chenglong01020@gmail.com" .  "/Users/fri3nd/org/notes.org"))
+;;      ))
 ;;   )
 
 (defun fri3nds-calendar/init-alert ()

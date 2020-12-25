@@ -26,9 +26,9 @@
 ;;                   (abbreviate-file-name (buffer-file-name)) "%b"))))
 
 (setq frame-title-format
-      '("λ ⟹ fri3nd"))
-;; '("天地不仁以万物为刍狗   ( f => f(f) )( coding )"))
-
+      '("λ  ⟹  fri3nd"))
+;; '("天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。寒来暑往，秋收冬藏。闰余成岁，律吕调阳。云腾致雨，露结为霜。 ( f => f(f) )( coding )"))
+;; '("形而上者谓之道，形而下者谓之器，君子不器      ( f => f(f) )( coding )"))
 
 (define-fringe-bitmap 'right-curly-arrow
   [#b00000000

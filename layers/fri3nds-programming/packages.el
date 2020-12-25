@@ -32,10 +32,14 @@
         (emacs-lisp :location built-in)
         ;; clojure-mode
         company
+        company-tabnine
         (eldoc :location built-in)
         dumb-jump
+        ;; treemacs
+        ;; lsp-metals
         ;; graphviz-dot-mode
         ;; editorconfig
+        lsp-mode
         ))
 
 
@@ -54,6 +58,19 @@
 ;;   (with-eval-after-load 'graphviz-dot-mode
 ;;       (require 'company-keywords)
 ;;       (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)))
+
+(defun fri3nds-programming/init-company-tabnine ()
+  (use-package company-tabnine
+    :ensure t
+    :defer t
+    :init
+    :config))
+
+;;; 配置company-tabnine作为company的后端
+(defun tabnine/post-init-company-tabnine()
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends #'company-tabnine))
+  )
 
 
 (defun fri3nds-programming/post-init-dumb-jump ()
@@ -139,3 +156,31 @@
       ;; (with-eval-after-load 'company
       ;;   (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
       )))
+
+
+;; (defun fri3nds-programming/post-init-treemacs ()
+;;   (use-package lsp-treemacs
+;;     :defer t
+;;     :commands lsp-treemacs-errors-list
+;;     :config
+;;     ;; (lsp-metals-treeview-enable t)
+;;     (setq lsp-metals-treeview-show-when-views-received t)))
+
+;; (defun fri3nds-programming/post-init-lsp-metals ()
+;;   (use-package lsp-metals))
+
+(defun fri3nds-programming/post-init-lsp-mode ()
+  (use-package lsp-mode
+    :ensure t
+    :commands (lsp lsp-deferred)
+    :hook (go-mode . lsp-deferred))
+
+  ;;   (use-package lsp-mode
+  ;;     (progn
+  ;;       (setq lsp-auto-guess-root nil
+  ;;             lsp-ui-doc-enable nil
+  ;;             lsp-ui-sideline-enable nil
+  ;;             )
+
+  ;;       ))
+  )

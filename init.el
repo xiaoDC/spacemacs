@@ -35,30 +35,49 @@ values."
    '(
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode)
-     ;; clojure
-     (clojure :variables clojure-enable-fancify-symbols nil)
+     ;; (scala :variables scala-backend 'scala-metals
+     ;;        scala-indent:use-javadoc-style t
+     ;;        ;; scala-enable-eldoc t
+     ;;        scala-auto-insert-asterisk-in-comments t
+     ;;        scala-use-unicode-arrows nil)
+
+     ;; (clojure :variables clojure-enable-fancify-symbols nil)
      ;; (elm :variables
      ;;      elm-backend 'lsp)
      ;; elm
      emacs-lisp
      ;; chinese
      ;; javascript
+     mu4e
      (lsp :variables
+          lsp-lens-enable nil
           lsp-ui-doc-enable nil
-          lsp-ui-sideline-enable t
+          lsp-ui-sideline-enable nil
+          lsp-modeline-diagnostics-enable nil
+          ;; lsp-imenu-show-container-name nil
+          ;; lsp-headerline-breadcrumb-enable nil
           )
-     ;; (rust :variables
-     ;;       rust-backend 'lsp-rust)
+     (rust :variables
+           rust-backend 'racer
+           lsp-rust-server 'rust-analyzer
+           )
      (go :variables
-         go-tab-width nil
-         ;; go-use-gometalinter t
+         go-tab-width 4
+         ;; go-use-gometalinter nil
          ;; godoc-at-point-function 'godoc-gogetdoc
+         ;; go-use-golangci-lint t
          go-backend 'lsp
-         gofmt-command "goimports")
+         ;; gofmt-command "goimports"
+         )
+     (vue :variables vue-backend 'lsp)
+
      (haskell :variables
-              haskell-completion-backend 'lsp
-              haskell-enable-hindent t
-              )
+              haskell-completion-backend nil
+              haskell-enable-hindent t)
+
+     ;; (elixir :variables elixir-backend 'alchemist)
+     ;; (elixir :variables elixir-backend 'lsp)
+     ;; purescript
      ;; haskell
      ;; html
      ;; lua
@@ -68,15 +87,13 @@ values."
      ;; racket
      ;; react
      ;; (ruby :variables ruby-version-manager 'chruby)
-     ;; ruby-on-rails
      ;; rust
      ;; (shell :variables shell-default-shell 'eshell)
      ;; sql
 
-     ;; typescript
      (typescript :variables
                  typescript-backend 'lsp
-                 typescript-lsp-linter nil)
+                 typescript-lsp-linter t)
 
      yaml
      ivy
@@ -89,8 +106,6 @@ values."
      ;; better-defaults
      ;; ranger
      ;; (colors :variables colors-enable-nyan-cat-progress-bar t)
-     ;; prodigy
-     ;; search-engine
      ;; graphviz
      ;; (syntax-checking :variables syntax-checking-enable-by-default nil
      ;;                  syntax-checking-enable-tooltips nil)
@@ -99,15 +114,15 @@ values."
               vinegar-dired-hide-details t)
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      layouts-autosave-delay 600000
+      layouts-autosave-delay 1000
       )
 
      (git :variables
-          ;; git-magit-status-fullscreen t
+          git-magit-status-fullscreen t
           magit-push-always-verify nil
           ;; magit-save-repository-buffers 'dontask
-          ;; magit-revert-buffers 'silent
-          ;; magit-refs-show-commit-count 'all
+          magit-revert-buffers 'silent
+          magit-refs-show-commit-count 'all
           magit-revision-show-gravatars nil
           )
 
@@ -124,12 +139,12 @@ values."
      ;; restclient
      ;; (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
      docker
-     ;; latex
+     latex
      ;; deft
      ;; markdown
      ;; (org :variables org-want-todo-bindings t)
      (org :variables
-          org-want-todo-bindings t
+          org-want-todo-bindings nil
           ;; org-enable-reveal-js-support t
           )
 
@@ -146,7 +161,9 @@ values."
                                       ;; abyss-theme
                                       ;; cyberpunk-theme
                                       ;; ibuffer-sidebar
+                                      ;; rainbow-fart
                                       lsp-mode
+                                      ;; lsp-metals
                                       ;; lsp-elm
                                       ;; sicp
                                       doom-themes
@@ -158,7 +175,7 @@ values."
                                       ;; color-theme-sanityinc-solarized
                                       diff-hl
                                       ;; prettier-js
-                                      ;; company-tabnine
+                                      company-tabnine
                                       ;; company-sql
                                       ;; dash
                                       ;; dash-functional
@@ -178,7 +195,6 @@ values."
                                       reveal-in-osx-finder
                                       format-all
                                       format-sql
-
                                       ;; flower
                                       ;; spacemacs-dark
                                       ;; spacemacs-light
@@ -193,7 +209,6 @@ values."
                                       ;; hierarchy
                                       string-inflection
                                       ;; cal-china-x
-                                      ;; git-gutter
                                       ;; git-gutter+
                                       ;; neotree
                                       ;; rainbow-delimiters
@@ -211,6 +226,7 @@ values."
                                       ;; cnfonts
                                       ;; window-purpose
                                       whitespace
+                                      ;; eglot
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -222,6 +238,7 @@ values."
      evil-mc
      realgud
      ghub
+     alchemist
      multiple-cursors
      git-messenger
      graphviz-dot-mode
@@ -246,10 +263,14 @@ values."
      lispy
      flycheck
      flycheck-gometalinter
+     flycheck-elsa
+     ;; flycheck-package
      flycheck-pos-tip
+
      ;; org-bullets
      org-repo-todo
      org-download
+     dap-mode
      js-mode
      dap-mode
      pangu-spacing
@@ -267,7 +288,7 @@ values."
      ac-ispell ace-jump-mode auto-complete auto-dictionary
      clang-format define-word google-translate disaster epic
      fancy-battery org-present orgit orglue
-     ;; spacemacs-theme
+     spacemacs-theme
      helm
      helm-flyspell flyspell-correct-helm clean-aindent-mode
      helm-c-yasnippet ace-jump-helm-line helm-make
@@ -299,7 +320,7 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 200
+   dotspacemacs-elpa-timeout 600
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -348,46 +369,37 @@ values."
                          ;; doom-solarized-dark
                          solarized-dark
                          solarized-light
-                         cyberpunk
-                         tsdh-light
-                         abyss
+                         ;; spacemacs-light
+                         ;; cyberpunk
+                         ;; tsdh-light
+                         ;; abyss
                          ;; wheatgrass
                          ;; adwaita
-                         ;; spacemacs-light
                          ;; spacemacs-dark
                          ;; alect-black
                          ;; deeper-blue
                          ;; base16-3024
                          ;; base16-atelier-estuary
-                         ;; base16-atelier-plateau
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
+                               ;; "Anonymous Pro"
                                ;; "Source Code Pro"
                                "Courier New"
-                               ;; "Anonymous Pro"
-                               ;; "Courier Prime Code"
                                ;; "Code New Roman"
-                               ;; "Dank Mono"
                                ;; "DejaVu Sans Mono"
                                ;; "Droid Sans Mono"
                                ;; "Fantasque Sans Mono"
                                ;; "FandolKai"
                                ;; "Fira Code"
                                ;; "Fira Mono"
-                               ;; "Go Mono"
-                               ;; "Hack"
-                               ;; "Hasklig"
-                               ;; "Iosevka"
-                               ;; "Input Mono"
-                               ;; "Input Mono Narrow"
-                               ;; "Droid Sans Mono Slashed for Powerline"
+                               ;; "FantasqueSansMono Nerd Font Mono"
+                               ;; "DroidSansMono Nerd Font"
                                ;; "Inconsolata"
                                ;; "Inconsolata LGC"
-                               ;; "League Mono"
                                ;; "Menlo"
                                ;; "Meslo LG S for Powerline"
                                ;; "Monoid"
@@ -395,12 +407,10 @@ values."
                                ;; "monospace"
                                ;; "Noto Mono"
                                ;; "Office Code Pro"
-                               ;; "Operator Mono"
-                               ;; "Pica10 BT"
-                               ;; "PragmataPro"
                                ;; "PT Mono"
                                ;; "Roboto Mono for Powerline"
                                ;; "SF Mono"
+                               ;; "Fantasque Sans Mono"
                                ;; "Source Code Pro for Powerline"
                                ;; "Cousine Nerd Font Mono"
                                ;; "Inconsolata-dz for Powerline"
@@ -409,11 +419,10 @@ values."
                                ;; "Cascadia Code"
                                ;; "Space Mono"
                                ;; "Cascadia Mono"
-                               ;; "Ubuntu Mono"
+                               ;; "Sarasa mono SC"
                                :size 20
-                               :weight normal
-                               ;; :weight light
-                               :width normal
+                               ;; :weight normal
+                               :weight light
                                :height 480
                                :powerline-scale 1.0)
    ;; The leader key
@@ -502,7 +511,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -516,11 +525,11 @@ values."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 96
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 90
+   dotspacemacs-inactive-transparency 96
    ;; If non nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
    ;; If non nil show the color guide hint for transient state keys. (default t)
@@ -530,8 +539,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   ;; dotspacemacs-smooth-scrolling t
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
@@ -573,11 +581,14 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-  (setq configuration-layer--elpa-archives
+  (setq configuration-layer-elpa-archives
         '(
           ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "https://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+
+  ;; (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
+  ;;                                           ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
   (setq tramp-mode nil)
@@ -593,9 +604,6 @@ values."
   ;; (setq exec-path-from-shell-arguments '("-l"))
   (setq purpose-mode nil)
 
-  ;; (add-to-list 'load-path "~/.emacs.d/elpa/develop/doom-themes-20190904.2252")
-  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/develop/doom-themes-20190904.2252")
-
   ;; // 直接进入 scratch buffer
   ;; (defun spacemacs-buffer/goto-buffer ()
   ;;   (interactive))
@@ -604,29 +612,32 @@ values."
 (defun dotspacemacs/user-config ()
   ;; (add-to-list 'load-path (expand-file-name "/Users/fri3nds/.spacemacs.d/aweshell"))
 
+  ;; 长行优化 begin
+  (setq-default bidi-paragraph-direction 'left-to-right)
+  (setq bidi-inhibit-bpa t)
+  (global-so-long-mode 1)
+  ;; 长行优化 end
 
-  ;; (setq awesome-tab-style 'alternate)
-  ;; (setq awesome-tab-style 'box)
-  ;; (setq awesome-tab-style 'slant)
-  ;; (awesome-tab-mode t)
+  ;; mu4e send mail
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-starttls-credentials
+        '(("smtp.partner.outlook.cn" 587 nil nil))
+        smtpmail-default-smtp-server "smtp.partner.outlook.cn"
+        smtpmail-smtp-server "smtp.partner.outlook.cn"
+        smtpmail-smtp-service 587
+        smtpmail-debug-info t)
 
-  ;; (defun awesome-tab-buffer-groups ()
-  ;;   (list "fri3nd"))
+  (setq mu4e-maildir "~/.mail"
+        mu4e-trash-folder "/Trash"
+        mu4e-refile-folder "/Archive"
+        mu4e-get-mail-command "offlineimap"
+        ;; mu4e-get-mail-command "mbsync -a"
+        mu4e-update-interval 600
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
 
-  ;; (defun awesome-tab-hide-tab (x)
-  ;;   (let ((name (format "%s" x)))
-  ;;     (or
-  ;;      (string-prefix-p "*epc" name)
-  ;;      (string-prefix-p "*Messages" name)
-  ;;      (string-prefix-p "*helm" name)
-  ;;      (string-prefix-p "*Compile-Log*" name)
-  ;;      (string-prefix-p "*lsp" name)
-  ;;      (string-prefix-p "*ts-ls" name)
-  ;;      (string-prefix-p "*gopls" name)
-  ;;      (string-prefix-p "*rls" name)
-  ;;      (and (string-prefix-p "magit" name)
-  ;;           (not (file-name-extension name)))
-  ;;      )))
+  (setq lsp-diagnostic-package :none)
 
   (setq auto-mode-alist
         (append '(("\\.cpt$" . sensitive-mode)) auto-mode-alist))
@@ -634,41 +645,52 @@ values."
   (setq load-path (cons "~/.spacemacs.d/ccrypt" load-path))
   (require 'ps-ccrypt "ps-ccrypt.el")
 
+  ;; (setq evil-insert-state-cursor '(bar "medium sea green"))
 
   ;; (require 'aweshell)
-  (when (window-system)
-    (set-frame-font "Fira Code"))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; (when (window-system)
+  ;;   (set-frame-font "Fira Code"))
 
-  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-                 (36 . ".\\(?:>\\)")
-                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-                 (48 . ".\\(?:x[a-zA-Z]\\)")
-                 (58 . ".\\(?:::\\|[:=]\\)")
-                 (59 . ".\\(?:;;\\|;\\)")
-                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-                 (91 . ".\\(?:]\\)")
-                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-                 (94 . ".\\(?:=\\)")
-                 (119 . ".\\(?:ww\\)")
-                 (123 . ".\\(?:-\\)")
-                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-                 ;; (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-                 )
-               ))
-    (dolist (char-regexp alist)
-      (set-char-table-range composition-function-table (car char-regexp)
-                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
+  ;; (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+  ;;                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+  ;;                (36 . ".\\(?:>\\)")
+  ;;                (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+  ;;                (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+  ;;                (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+  ;;                (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+  ;;                (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+  ;;                (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+  ;;                (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+  ;;                (48 . ".\\(?:x[a-zA-Z]\\)")
+  ;;                (58 . ".\\(?:::\\|[:=]\\)")
+  ;;                (59 . ".\\(?:;;\\|;\\)")
+  ;;                (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+  ;;                (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+  ;;                (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+  ;;                (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+  ;;                (91 . ".\\(?:]\\)")
+  ;;                (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+  ;;                (94 . ".\\(?:=\\)")
+  ;;                (119 . ".\\(?:ww\\)")
+  ;;                (123 . ".\\(?:-\\)")
+  ;;                (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+  ;;                ;; (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+  ;;                )
+  ;;              ))
+  ;;   (dolist (char-regexp alist)
+  ;;     (set-char-table-range composition-function-table (car char-regexp)
+  ;;                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; (spacemacs/load-theme 'solarized-dark-light-high-contrast t)
   ;; (spacemacs/load-theme 'doom-solarized-dark t)
   (setq save-abbrevs nil)
@@ -715,18 +737,18 @@ values."
   ;;;;     (setq auto-composition-mode nil)))
 
   ;; force horizontal split window
-  (setq split-width-threshold 300)
+  (setq split-width-threshold 200)
   (setq
-   scroll-conservatively 101
-   scroll-margin 5
+   scroll-conservatively 1000
+   scroll-margin 3
    scroll-preserve-screen-position 't
    )
 
-  ;; (global-linum-mode -1)
+  ;; (global-linum-mode 1)
   ;; (setq linum-format "%4d")
 
   ;; (linum-relative-on)
-  ;; (setq-default line-spacing 1)
+  (setq-default line-spacing 2)
   (setq calendar-mark-diary-entries-flag t)
   ;; (setq org-agenda-include-diary t)
 
@@ -744,7 +766,7 @@ values."
 
   ;; (spacemacs|add-company-backends :modes text-mode)
   ;; (add-hook 'after-init-hook 'global-company-mode)
-
+  (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold (* 10 1024 1024))))
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
   (global-hungry-delete-mode t)
@@ -775,8 +797,7 @@ values."
   ;; https://emacs-china.org/t/topic/4627
   (setq yas-snippet-dirs
         '(
-          "~/.emacssnippets/snippets/"
-          "~/.emacs.d/layers/+completion/auto-completion/local/snippets"))
+          "~/.emacssnippets/snippets/"))
 
 
   ;; (typescript-mode)
@@ -812,7 +833,7 @@ values."
   ;; (set-face-background vline-face "#073642")
 
   ;; (global-display-line-numbers-mode 1)
-  (global-diff-hl-mode 1)
+  ;; (global-diff-hl-mode 1)
 
   ;; (setq my-holidays
   ;;   ;;纪念日
@@ -840,13 +861,14 @@ values."
     (interactive)
     ;; (spacemacs/toggle-fill-column-indicator-on)
     (yas-minor-mode 1)
+    (eldoc-mode -1)
     ;; (auto-complete-mode 1)
     ;; (column-enforce-mode 1)
     ;; (parinfer-active)
     ;; (linum-mode 1)
     (abbrev-mode 1)
     ;; (display-line-numbers-mode 'relative)
-    (display-line-numbers-mode -1)
+    ;; (display-line-numbers-mode 1)
     ;; (vline-mode -1)
     ;; (blank-mode t)
     (global-company-mode)
@@ -923,28 +945,28 @@ values."
   ;; (eval-after-load 'dash '(dash-enable-font-lock))
   ;; (setq helm-dash-docsets-path "/Users/fri3nds/Library/Application Support/Dash/Versioned DocSets")
 
-  (setq company-dabbrev-code-everywhere t)
-  (setq company-dabbrev-code-modes t)
-  (setq company-dabbrev-code-other-buffers 'all)
-  (setq company-dabbrev-ignore-buffers "\\`\\'")
-  (setq company-idle-delay 0)
+  ;; (setq company-dabbrev-code-everywhere t)
+  ;; (setq company-dabbrev-code-modes t)
+  ;; (setq company-dabbrev-code-other-buffers 'all)
+  ;; (setq company-dabbrev-ignore-buffers "\\`\\'")
+  ;; (setq company-idle-delay 0)
 
-  (with-eval-after-load 'neotree
-    (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
-    (define-key neotree-mode-map (kbd "o") 'spacemacs/neotree-expand-or-open)
-    (define-key neotree-mode-map (kbd "y") 'neotree-copy-node)
-    (define-key neotree-mode-map (kbd "r") 'neotree-change-root)
-    (setq-default neo-show-updir-line t)
+  ;; (with-eval-after-load 'neotree
+  ;;   (define-key neotree-mode-map (kbd "h") 'spacemacs/neotree-collapse)
+  ;;   (define-key neotree-mode-map (kbd "o") 'spacemacs/neotree-expand-or-open)
+  ;;   (define-key neotree-mode-map (kbd "y") 'neotree-copy-node)
+  ;;   (define-key neotree-mode-map (kbd "r") 'neotree-change-root)
+  ;;   (setq-default neo-show-updir-line t)
 
-    (setq neo-window-width 48)
-    (setq neo-window-fixed-size nil)
-    (setq neo-show-hidden-files nil)
-    ;; (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
-    )
+  ;;   (setq neo-window-width 48)
+  ;;   (setq neo-window-fixed-size nil)
+  ;;   (setq neo-show-hidden-files nil)
+  ;;   ;; (setq-default neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.DS_Store$" "^node_modules" "babel_cache"))
+  ;;   )
 
   ;; (treemacs-git-mode 'deferred)
 
-  (setq treemacs-width 48)
+  (setq treemacs-width 36)
   (setq treemacs-filewatch-mode t);
   (setq treemacs-file-event-delay 1000)
 
@@ -1017,6 +1039,7 @@ values."
    ;; (set-face-foreground 'git-gutter+-deleted "DarkRed")
    ;; (set-face-background 'highlight "#EEAD0E")
    )
+
 
   ;; (custom-set-variables
   ;;   ;; 设置 git-gutter
@@ -1216,15 +1239,11 @@ This function is called at the very end of Spacemacs initialization."
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(package-selected-packages '(evil-unimpaired f s dash)))
-
-  (custom-set-variables '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
-                          '(
-                            (bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
-                            (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
-                            (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
-                            (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
-                            (act2       . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
-                            (border     . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
-                            )))
-
-  )
+  '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
+    '((bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
+      (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
+      (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
+      (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+      (act2       . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+      (border     . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+      )))

@@ -12,8 +12,8 @@
  '(company-show-numbers t)
  '(company-statistics-auto-restore nil)
  '(compilation-message-face 'default)
+ '(ctags-update-delay-seconds 1024)
  '(erc-nick "fri3nd")
- '(erc-port 6666)
  '(evil-want-C-i-jump t)
  '(evil-want-Y-yank-to-eol t)
  '(exec-path-from-shell-arguments '("-l"))
@@ -26,7 +26,7 @@
  '(git-gutter+-window-width 6)
  '(git-gutter:update-interval 0)
  '(global-command-log-mode nil)
- '(ivy-height 18)
+ '(ivy-height 20)
  '(lua-documentation-url "http://www.lua.org/manual/5.3/manual.html")
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
@@ -46,9 +46,10 @@
  '(org-pomodoro-play-sounds nil)
  '(org-reverse-note-order t)
  '(package-selected-packages
-   '(anzu visual-fill-column visual-regexp spaceline persp-mode swiper clojure-mode parseclj transient json-mode json-snatcher json-reformat projectile multiple-cursors goto-chg package-lint smartparens ivy packed haskell-mode go-mode flycheck powerline undo-tree async yasnippet iedit with-editor treemacs dash js2-mode language-id company all-the-icons evil bind-key magit-svn magit-section lsp-ui lsp-treemacs lsp-ivy lsp-haskell lsp-mode markdown-mode dumb-jump magit hydra yasnippet-snippets yaml-mode ws-butler writeroom-mode wrap-region winum window-purpose which-key wgrep web-beautify visual-regexp-steroids uuidgen use-package typescript-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tiny symbol-overlay string-inflection spaceline-all-the-icons solarized-theme smex reveal-in-osx-finder restart-emacs request prettier-js posframe popwin peep-dired pcre2el password-generator paradox overseer org-plus-contrib org-mime org-cliplink org-bullets open-junk-file nodejs-repl nameless move-text macrostep lv link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-hydra intero indent-guide ibuffer-projectile hybrid-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indent-guides haskell-snippets golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-link git-commit fuzzy format-sql format-all font-lock+ flycheck-package flycheck-elsa flx expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-magit evil-indent-plus evil-iedit-state evil-goggles evil-cleverparens evil-anzu emr elisp-slime-nav editorconfig dotenv-mode doom-themes dockerfile-mode docker discover-my-major diminish diff-hl devdocs dash-functional dante cyberpunk-theme counsel company-go company-ghci company-ghc company-cabal column-enforce-mode cmm-mode clojure-snippets cider-eval-sexp-fu cider centered-cursor-mode calfw-org calfw browse-at-remote bind-map auto-yasnippet auto-highlight-symbol auto-compile attrap alert aggressive-indent ace-link abyss-theme))
+   '(lsp-latex company-reftex company-auctex auctex-latexmk auctex visual-fill-column imenu-list visual-regexp spaceline all-the-icons memoize powerline pos-tip persp-mode treemacs pfuture ht hierarchy multiple-cursors js2-mode simple-httpd htmlize parent-mode haml-mode with-editor smartparens anzu clang-format paredit list-utils popup transient tablist json-mode docker-tramp json-snatcher json-reformat makey lcr haskell-mode counsel swiper ivy web-completion-data unicode-escape names go-mode company spinner parseclj a markdown-mode rust-mode yasnippet flycheck f s pkg-info dash epl alert log4e gntp ace-window avy hydra lv evil goto-chg bind-key async solarized-theme magit-svn magit-section lsp-ui lsp-treemacs lsp-origami lsp-ivy lsp-haskell lsp-mode format-sql format-all editorconfig doom-themes cider-eval-sexp-fu cider auto-yasnippet auto-highlight-symbol auto-compile packed iedit projectile magit package-lint org-plus-contrib yasnippet-snippets yaml-mode ws-butler writeroom-mode wrap-region winum window-purpose which-key wgrep web-mode web-beautify visual-regexp-steroids uuidgen use-package undo-tree typescript-mode treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tiny tagedit symbol-overlay string-inflection spaceline-all-the-icons smex slim-mode sesman scss-mode sass-mode ron-mode reveal-in-osx-finder restart-emacs request racer queue pug-mode prettier-js posframe popwin peep-dired pcre2el password-generator parseedn paradox overseer origami org-superstar org-rich-yank org-mime org-cliplink open-junk-file nodejs-repl nameless mu4e-maildirs-extension mu4e-alert move-text macrostep link-hint language-id json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-hydra ivy-avy indent-guide impatient-mode ibuffer-projectile hybrid-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indent-guides haskell-snippets golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-link git-commit fuzzy font-lock+ flycheck-package flx expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-magit evil-indent-plus evil-iedit-state evil-goggles evil-cleverparens evil-anzu eval-sexp-fu emr emmet-mode elisp-slime-nav dumb-jump dotenv-mode dockerfile-mode docker discover-my-major diminish diff-hl devdocs dash-functional dante counsel-css company-web company-tabnine company-go company-cabal column-enforce-mode cmm-mode clojure-snippets clojure-mode centered-cursor-mode cargo calfw-org calfw browse-at-remote bind-map attrap aggressive-indent ace-link))
  '(paradox-github-token t)
  '(ring-bell-function 'ignore)
+ '(send-mail-function 'mailclient-send-it)
  '(sp-show-pair-from-inside t)
  '(tags-revert-without-query t)
  '(tramp-syntax 'default nil (tramp))
@@ -62,6 +63,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Courier New" :foundry "nil" :slant normal :weight normal :height 400 :width normal)))))
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
