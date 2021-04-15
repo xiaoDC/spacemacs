@@ -53,23 +53,27 @@ values."
           lsp-lens-enable nil
           lsp-ui-doc-enable nil
           lsp-ui-sideline-enable nil
+          lsp-enable-imenu t
+          lsp-keep-workspace-alive nil
           lsp-modeline-diagnostics-enable nil
-          ;; lsp-imenu-show-container-name nil
-          ;; lsp-headerline-breadcrumb-enable nil
+          lsp-imenu-show-container-name nil
+          lsp-headerline-breadcrumb-enable nil
           )
      (rust :variables
-           rust-backend 'racer
+           ;; rust-backend 'racer
            lsp-rust-server 'rust-analyzer
            )
      (go :variables
          go-tab-width 4
          ;; go-use-gometalinter nil
-         ;; godoc-at-point-function 'godoc-gogetdoc
+         godoc-at-point-function 'godoc-gogetdoc
          ;; go-use-golangci-lint t
          go-backend 'lsp
-         ;; gofmt-command "goimports"
+         gofmt-command "goimports"
+         ;; gofmt-command "gofmt"
+         go-format-before-save nil
          )
-     (vue :variables vue-backend 'lsp)
+     ;; (vue :variables vue-backend 'lsp)
 
      (haskell :variables
               haskell-completion-backend nil
@@ -114,7 +118,7 @@ values."
               vinegar-dired-hide-details t)
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      layouts-autosave-delay 1000
+      layouts-autosave-delay 2000
       )
 
      (git :variables
@@ -195,6 +199,7 @@ values."
                                       reveal-in-osx-finder
                                       format-all
                                       format-sql
+
                                       ;; flower
                                       ;; spacemacs-dark
                                       ;; spacemacs-light
@@ -225,6 +230,7 @@ values."
                                       ;; treemacs-projectile
                                       ;; cnfonts
                                       ;; window-purpose
+                                      valign
                                       whitespace
                                       ;; eglot
                                       )
@@ -320,7 +326,8 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 600
+   ;; dotspacemacs-elpa-timeout 600
+   dotspacemacs-elpa-timeout 1000
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -388,7 +395,8 @@ values."
    dotspacemacs-default-font '(
                                ;; "Anonymous Pro"
                                ;; "Source Code Pro"
-                               "Courier New"
+                               ;; "Courier New"
+                               ;; "Comic Mono"
                                ;; "Code New Roman"
                                ;; "DejaVu Sans Mono"
                                ;; "Droid Sans Mono"
@@ -416,15 +424,16 @@ values."
                                ;; "Inconsolata-dz for Powerline"
                                ;; "Sometype Mono"
                                ;; "JetBrains Mono"
-                               ;; "Cascadia Code"
                                ;; "Space Mono"
                                ;; "Cascadia Mono"
-                               ;; "Sarasa mono SC"
-                               :size 20
-                               ;; :weight normal
-                               :weight light
-                               :height 480
-                               :powerline-scale 1.0)
+                               ;; "Sarasa Mono Slab HC"
+                               "Sarasa Mono Slab CL"
+                               ;; "Sarasa Mono K"
+                               :size 19
+                               :weight normal
+                               ;; :weight light
+                               :height 200
+                               :powerline-scale 2.0)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -477,7 +486,7 @@ values."
    ;; (default 'cache)
    dotspacemacs-auto-save-file-location 'cache
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
-   dotspacemacs-max-rollback-slots 5
+   dotspacemacs-max-rollback-slots 3
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
    dotspacemacs-helm-resize nil
    ;; if non nil, the helm header is hidden when there is only one source.
@@ -496,7 +505,7 @@ values."
    dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.2
+   dotspacemacs-which-key-delay 0.24
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -525,11 +534,12 @@ values."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 96
+   dotspacemacs-active-transparency 100
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 96
+   ;; dotspacemacs-inactive-transparency 96
+   dotspacemacs-inactive-transparency 78
    ;; If non nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
    ;; If non nil show the color guide hint for transient state keys. (default t)
@@ -581,11 +591,18 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-  (setq configuration-layer-elpa-archives
-        '(
-          ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
-          ("org-cn"   . "https://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+  ;; (setq configuration-layer-elpa-archives
+  ;;       '(
+  ;;         ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+  ;;         ("org-cn"   . "https://elpa.emacs-china.org/org/")
+  ;;         ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+
+
+  ;; (setq configuration-layer-elpa-archives
+  ;;       '(
+  ;;         ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+  ;;         ("org" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+  ;;         ("gnu"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
   ;; (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
   ;;                                           ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
@@ -611,6 +628,8 @@ values."
 
 (defun dotspacemacs/user-config ()
   ;; (add-to-list 'load-path (expand-file-name "/Users/fri3nds/.spacemacs.d/aweshell"))
+  ;; imenu-list-update
+  (setq package-user-dir (expand-file-name ".emacs.d/clean" "~/"))
 
   ;; 长行优化 begin
   (setq-default bidi-paragraph-direction 'left-to-right)
@@ -654,38 +673,38 @@ values."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (when (window-system)
-  ;;   (set-frame-font "Fira Code"))
+  (when (window-system)
+    (set-frame-font "Fira Code"))
 
-  ;; (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-  ;;                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-  ;;                (36 . ".\\(?:>\\)")
-  ;;                (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-  ;;                (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-  ;;                (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-  ;;                (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-  ;;                (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-  ;;                (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-  ;;                (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-  ;;                (48 . ".\\(?:x[a-zA-Z]\\)")
-  ;;                (58 . ".\\(?:::\\|[:=]\\)")
-  ;;                (59 . ".\\(?:;;\\|;\\)")
-  ;;                (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-  ;;                (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-  ;;                (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-  ;;                (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-  ;;                (91 . ".\\(?:]\\)")
-  ;;                (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-  ;;                (94 . ".\\(?:=\\)")
-  ;;                (119 . ".\\(?:ww\\)")
-  ;;                (123 . ".\\(?:-\\)")
-  ;;                (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-  ;;                ;; (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-  ;;                )
-  ;;              ))
-  ;;   (dolist (char-regexp alist)
-  ;;     (set-char-table-range composition-function-table (car char-regexp)
-  ;;                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                 (36 . ".\\(?:>\\)")
+                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                 (48 . ".\\(?:x[a-zA-Z]\\)")
+                 (58 . ".\\(?:::\\|[:=]\\)")
+                 (59 . ".\\(?:;;\\|;\\)")
+                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                 (91 . ".\\(?:]\\)")
+                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                 (94 . ".\\(?:=\\)")
+                 (119 . ".\\(?:ww\\)")
+                 (123 . ".\\(?:-\\)")
+                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                 ;; (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                 )
+               ))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -707,7 +726,7 @@ values."
   ;;                   :priority 1
   ;;                   :server-id 'reason-ls))
 
-  ;; (setq racer-rust-src-path "/Users/fri3nds/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")
+  (setq racer-rust-src-path "/Users/fri3nds/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")
 
   ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
@@ -737,10 +756,10 @@ values."
   ;;;;     (setq auto-composition-mode nil)))
 
   ;; force horizontal split window
-  (setq split-width-threshold 200)
+  (setq split-width-threshold 240)
   (setq
    scroll-conservatively 1000
-   scroll-margin 3
+   scroll-margin 4
    scroll-preserve-screen-position 't
    )
 
@@ -748,7 +767,7 @@ values."
   ;; (setq linum-format "%4d")
 
   ;; (linum-relative-on)
-  (setq-default line-spacing 2)
+  (setq-default line-spacing 0)
   (setq calendar-mark-diary-entries-flag t)
   ;; (setq org-agenda-include-diary t)
 
@@ -868,7 +887,7 @@ values."
     ;; (linum-mode 1)
     (abbrev-mode 1)
     ;; (display-line-numbers-mode 'relative)
-    ;; (display-line-numbers-mode 1)
+    (display-line-numbers-mode -1)
     ;; (vline-mode -1)
     ;; (blank-mode t)
     (global-company-mode)
@@ -903,6 +922,7 @@ values."
   ;; (global-set-key (kbd "<escape>")      'keyboard-quit)
 
   (add-hook 'text-mode-hook 'my-prog-mode-hook)
+  ;; (add-hook 'org-mode-hook #'valign-mode)
 
 
   (setq neo-theme 'icons)
@@ -1163,7 +1183,7 @@ values."
                  ;; ")"
 
                  " "
-                 '(:eval (buffer-encoding-abbrev))
+                 ;; '(:eval (buffer-encoding-abbrev))
 
                  " "
                  (propertize "%p" 'face 'font-lock-constant-face) ;; % above top

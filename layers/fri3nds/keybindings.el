@@ -560,6 +560,7 @@ to the `killed-buffer-list' when killing the buffer."
 
 ;; (spacemacs/set-leader-keys "aa" 'evil-avy-goto-line)
 (spacemacs/set-leader-keys "sa" 'evil-avy-goto-line)
+;; (spacemacs/set-leader-keys "aa" 'spacemacs/treemacs-project-toggle)
 (spacemacs/set-leader-keys "aa" 'swiper)
 
 ;; (spacemacs/set-leader-keys "ag" 'helm-ag)
@@ -585,7 +586,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "bi" 'spacemacs/projectile-copy-file-path)
 (spacemacs/set-leader-keys "bt" 'fri3nds/projectile-root-copy-path)
 
-(spacemacs/set-leader-keys "cc" 'fri3nds/treemacs-find-file)
+;; (spacemacs/set-leader-keys "cc" 'fri3nds/treemacs-find-file)
 ;; (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
 (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
 (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
@@ -645,6 +646,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
 ;; (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
 (spacemacs/set-leader-keys "ma" 'markdown-table-align)
+(spacemacs/set-leader-keys "mu" 'lsp-ui-imenu)
 (spacemacs/set-leader-keys "mm" 'counsel-yank-pop)
 ;; (spacemacs/set-leader-keys "mt" 'toggle-menu-bar-mode-from-frame)
 (spacemacs/set-leader-keys "mt" 'spacemacs/toggle-menu-bar-off)
@@ -654,13 +656,16 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
 (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
-(spacemacs/set-leader-keys "oc" 'org-capture)
 (spacemacs/set-leader-keys "oa" 'org-agenda-list)
 (spacemacs/set-leader-keys "oo" 'projectile-switch-project)
+(spacemacs/set-leader-keys "os" 'outline-show-all)
+(spacemacs/set-leader-keys "oc" 'org-overview)
+(spacemacs/set-leader-keys "otn" 'org-table-create-with-table.el)
 ;; (spacemacs/set-leader-keys "ft" 'fri3nds-neotree-toggle)
 ;; (spacemacs/set-leader-keys "qq" 'fri3nds-neotree-toggle)
 ;; (spacemacs/set-leader-keys "qq" 'treemacs)
 (spacemacs/set-leader-keys "qq" 'spacemacs/treemacs-project-toggle)
+
 (spacemacs/set-leader-keys "si" 'org-insert-src-block)
 (spacemacs/set-leader-keys "ss" 'save-buffer)
 (spacemacs/set-leader-keys "sm" 'split-window-right-and-focus)

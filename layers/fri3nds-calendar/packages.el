@@ -14,7 +14,7 @@
     ;; calfw-ical
     ;; org-gcal
     calfw-org
-    alert
+    ;; alert
     ;; ishikk
     ))
 
@@ -43,10 +43,10 @@
 ;;      ))
 ;;   )
 
-(defun fri3nds-calendar/init-alert ()
-  "Initialize alert"
-  (use-package alert)
-  )
+;; (defun fri3nds-calendar/init-alert ()
+;;   "Initialize alert"
+;;   (use-package alert)
+;;   )
 
 
 (defun fri3nds-calendar/init-calfw-org ()

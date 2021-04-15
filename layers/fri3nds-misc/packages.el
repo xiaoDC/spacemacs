@@ -8,17 +8,17 @@
         ;; multiple-cursors
         visual-regexp
         visual-regexp-steroids
-        command-log
+        ;; command-log
         evil
-        fcitx
-        discover-my-major
+        ;; fcitx
+        ;; discover-my-major
         ace-window
         avy
         ;; 4clojure
-        persp-mode
-        tiny
+        ;; persp-mode
+        ;; tiny
         ;; smartparens
-        peep-dired
+        ;; peep-dired
         markdown-mode
         swiper
         magit
@@ -341,14 +341,14 @@
 ;;;;         (kbd "q") 'quit-window))))
 
 
-(defun fri3nds-misc/init-peep-dired ()
-  ;;preview files in dired
-  (use-package peep-dired
-    :defer t
-    :commands (peep-dired-next-file
-               peep-dired-prev-file)
-    :bind (:map dired-mode-map
-                ("P" . peep-dired))))
+;; (defun fri3nds-misc/init-peep-dired ()
+;;   ;;preview files in dired
+;;   (use-package peep-dired
+;;     :defer t
+;;     :commands (peep-dired-next-file
+;;                peep-dired-prev-file)
+;;     :bind (:map dired-mode-map
+;;                 ("P" . peep-dired))))
 
 
 (defun fri3nds-misc/post-init-smartparens ()
@@ -367,11 +367,11 @@
         (kbd "(>") 'sp-backward-barf-sexp
         (kbd "(<") 'sp-backward-slurp-sexp))))
 
-(defun fri3nds-misc/init-tiny ()
-  (use-package tiny
-    :defer t
-    :init
-    (spacemacs/set-leader-keys "oe" 'tiny-expand)))
+;; (defun fri3nds-misc/init-tiny ()
+;;   (use-package tiny
+;;     :defer t
+;;     :init
+;;     (spacemacs/set-leader-keys "oe" 'tiny-expand)))
 
 ;;;; (defun fri3nds-misc/post-init-helm ()
 ;;;;   (with-eval-after-load 'helm
@@ -395,30 +395,30 @@
 
 
 
-(defun fri3nds-misc/post-init-fcitx ()
-  (fcitx-aggressive-setup))
+;; (defun fri3nds-misc/post-init-fcitx ()
+;;   (fcitx-aggressive-setup))
 
-(defun fri3nds-misc/post-init-command-log ()
-  (with-eval-after-load 'global-command-log-mode
-    (setq clm/log-command-exceptions* (append clm/log-command-exceptions*
-                                              '(evil-next-visual-line
-                                                evil-previous-visual-line)))))
+;; (defun fri3nds-misc/post-init-command-log ()
+;;   (with-eval-after-load 'global-command-log-mode
+;;     (setq clm/log-command-exceptions* (append clm/log-command-exceptions*
+;;                                               '(evil-next-visual-line
+;;                                                 evil-previous-visual-line)))))
 
 
 
-(defun fri3nds-misc/init-litable ()
-  (use-package litable
-    :init
-    :defer t))
+;; (defun fri3nds-misc/init-litable ()
+;;   (use-package litable
+;;     :init
+;;     :defer t))
 
-(defun fri3nds-misc/init-osx-dictionary ()
-  (use-package osx-dictionary
-    :init
-    (progn
-      (evilified-state-evilify osx-dictionary-mode osx-dictionary-mode-map)
-      (setq osx-dictionary-use-chinese-text-segmentation t)
-      (global-set-key (kbd "C-c d") 'osx-dictionary-search-pointer)
-      )))
+;; (defun fri3nds-misc/init-osx-dictionary ()
+;;   (use-package osx-dictionary
+;;     :init
+;;     (progn
+;;       (evilified-state-evilify osx-dictionary-mode osx-dictionary-mode-map)
+;;       (setq osx-dictionary-use-chinese-text-segmentation t)
+;;       (global-set-key (kbd "C-c d") 'osx-dictionary-search-pointer)
+;;       )))
 
 
 ;; (defun fri3nds-misc/init-4clojure ()
@@ -441,64 +441,64 @@
 (defun fri3nds-misc/post-init-ace-window ()
   (global-set-key (kbd "C-x C-o") #'ace-window))
 
-(defun fri3nds-misc/init-discover-my-major ()
-  (use-package discover-my-major
-    :defer t
-    :init
-    (progn
-      (spacemacs/set-leader-keys (kbd "mhm") 'discover-my-major)
-      (evilified-state-evilify makey-key-mode makey-key-mode-get-key-map)
-      )))
+;; (defun fri3nds-misc/init-discover-my-major ()
+;;   (use-package discover-my-major
+;;     :defer t
+;;     :init
+;;     (progn
+;;       (spacemacs/set-leader-keys (kbd "mhm") 'discover-my-major)
+;;       (evilified-state-evilify makey-key-mode makey-key-mode-get-key-map)
+;;       )))
 
 
-(defun fri3nds-misc/post-init-elfeed ()
-  (use-package elfeed
-    :init
-    (global-set-key (kbd "C-x w") 'elfeed)
-    :defer t
-    :config
-    (progn
+;; (defun fri3nds-misc/post-init-elfeed ()
+;;   (use-package elfeed
+;;     :init
+;;     (global-set-key (kbd "C-x w") 'elfeed)
+;;     :defer t
+;;     :config
+;;     (progn
 
-      (setq elfeed-feeds
-            '("http://nullprogram.com/feed/"
-              "http://z.caudate.me/rss/"
-              "http://irreal.org/blog/?feed=rss2"
-              "http://feeds.feedburner.com/LostInTheTriangles"
-              "http://tonybai.com/feed/"
-              "http://planet.emacsen.org/atom.xml"
-              "http://feeds.feedburner.com/emacsblog"
-              "http://blog.binchen.org/rss.xml"
-              "http://oremacs.com/atom.xml"
-              "http://blog.gemserk.com/feed/"
-              "http://www.masteringemacs.org/feed/"
-              "http://t-machine.org/index.php/feed/"
-              "http://gameenginebook.blogspot.com/feeds/posts/default"
-              "http://feeds.feedburner.com/ruanyifeng"
-              "http://coolshell.cn/feed"
-              "http://blog.devtang.com/atom.xml"
-              "http://emacsist.com/rss"
-              "http://puntoblogspot.blogspot.com/feeds/2507074905876002529/comments/default"
-              "http://angelic-sedition.github.io/atom.xml"))
+;;       (setq elfeed-feeds
+;;             '("http://nullprogram.com/feed/"
+;;               "http://z.caudate.me/rss/"
+;;               "http://irreal.org/blog/?feed=rss2"
+;;               "http://feeds.feedburner.com/LostInTheTriangles"
+;;               "http://tonybai.com/feed/"
+;;               "http://planet.emacsen.org/atom.xml"
+;;               "http://feeds.feedburner.com/emacsblog"
+;;               "http://blog.binchen.org/rss.xml"
+;;               "http://oremacs.com/atom.xml"
+;;               "http://blog.gemserk.com/feed/"
+;;               "http://www.masteringemacs.org/feed/"
+;;               "http://t-machine.org/index.php/feed/"
+;;               "http://gameenginebook.blogspot.com/feeds/posts/default"
+;;               "http://feeds.feedburner.com/ruanyifeng"
+;;               "http://coolshell.cn/feed"
+;;               "http://blog.devtang.com/atom.xml"
+;;               "http://emacsist.com/rss"
+;;               "http://puntoblogspot.blogspot.com/feeds/2507074905876002529/comments/default"
+;;               "http://angelic-sedition.github.io/atom.xml"))
 
-      ;; (evilify elfeed-search-mode elfeed-search-mode-map)
-      (evilified-state-evilify-map elfeed-search-mode-map
-        :mode elfeed-search-mode
-        :bindings
-        "G" 'elfeed-update
-        "g" 'elfeed-search-update--force)
+;;       ;; (evilify elfeed-search-mode elfeed-search-mode-map)
+;;       (evilified-state-evilify-map elfeed-search-mode-map
+;;         :mode elfeed-search-mode
+;;         :bindings
+;;         "G" 'elfeed-update
+;;         "g" 'elfeed-search-update--force)
 
-      (defun zilong/elfeed-mark-all-as-read ()
-        (interactive)
-        (mark-whole-buffer)
-        (elfeed-search-untag-all-unread))
+;;       (defun zilong/elfeed-mark-all-as-read ()
+;;         (interactive)
+;;         (mark-whole-buffer)
+;;         (elfeed-search-untag-all-unread))
 
-      (define-key elfeed-search-mode-map (kbd "R") 'zilong/elfeed-mark-all-as-read)
+;;       (define-key elfeed-search-mode-map (kbd "R") 'zilong/elfeed-mark-all-as-read)
 
-      (defadvice elfeed-show-yank (after elfeed-show-yank-to-kill-ring activate compile)
-        "Insert the yanked text from x-selection to kill ring"
-        (kill-new (x-get-selection)))
+;;       (defadvice elfeed-show-yank (after elfeed-show-yank-to-kill-ring activate compile)
+;;         "Insert the yanked text from x-selection to kill ring"
+;;         (kill-new (x-get-selection)))
 
-      (ad-activate 'elfeed-show-yank))))
+;;       (ad-activate 'elfeed-show-yank))))
 
 (defun fri3nds-misc/post-init-evil ()
   (progn
@@ -695,16 +695,16 @@
 ;;             orgtbl-hijacker-command-109))
 ;;     ))
 
-(defun fri3nds-misc/post-init-persp-mode ()
-  (setq persp-kill-foreign-buffer-action 'kill)
-  (setq persp-lighter nil)
-  (when (fboundp 'spacemacs|define-custom-layout)
-    (spacemacs|define-custom-layout "@Cocos2D-X"
-      :binding "c"
-      :body
-      (find-file "~/cocos2d-x/cocos/ui/UIWidget.cpp")
-      (split-window-right)
-      (find-file "~/cocos2d-x/cocos/cocos2d.cpp"))))
+;; (defun fri3nds-misc/post-init-persp-mode ()
+;;   (setq persp-kill-foreign-buffer-action 'kill)
+;;   (setq persp-lighter nil)
+;;   (when (fboundp 'spacemacs|define-custom-layout)
+;;     (spacemacs|define-custom-layout "@Cocos2D-X"
+;;       :binding "c"
+;;       :body
+;;       (find-file "~/cocos2d-x/cocos/ui/UIWidget.cpp")
+;;       (split-window-right)
+;;       (find-file "~/cocos2d-x/cocos/cocos2d.cpp"))))
 
 (defun fri3nds-misc/post-init-chinese-wbim ()
   (progn

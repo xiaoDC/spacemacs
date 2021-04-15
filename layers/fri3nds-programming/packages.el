@@ -32,10 +32,10 @@
         (emacs-lisp :location built-in)
         ;; clojure-mode
         company
-        company-tabnine
-        (eldoc :location built-in)
-        dumb-jump
-        ;; treemacs
+        ;; company-tabnine
+        ;; (eldoc :location built-in)
+        ;; dumb-jump
+        treemacs
         ;; lsp-metals
         ;; graphviz-dot-mode
         ;; editorconfig
@@ -59,27 +59,27 @@
 ;;       (require 'company-keywords)
 ;;       (push '(graphviz-dot-mode  "digraph" "node" "shape" "subgraph" "label" "edge" "bgcolor" "style" "record") company-keywords-alist)))
 
-(defun fri3nds-programming/init-company-tabnine ()
-  (use-package company-tabnine
-    :ensure t
-    :defer t
-    :init
-    :config))
+;; (defun fri3nds-programming/init-company-tabnine ()
+;;   (use-package company-tabnine
+;;     :ensure t
+;;     :defer t
+;;     :init
+;;     :config))
 
 ;;; 配置company-tabnine作为company的后端
-(defun tabnine/post-init-company-tabnine()
-  (with-eval-after-load 'company
-    (add-to-list 'company-backends #'company-tabnine))
-  )
+;; (defun tabnine/post-init-company-tabnine()
+;;   (with-eval-after-load 'company
+;;     (add-to-list 'company-backends #'company-tabnine))
+;;   )
 
 
-(defun fri3nds-programming/post-init-dumb-jump ()
-  (setq dumb-jump-selector 'ivy)
-  (defun my-dumb-jump ()
-    (interactive)
-    (evil-set-jump)
-    (dumb-jump-go))
-  (global-set-key (kbd "C-s-g") 'my-dumb-jump))
+;; (defun fri3nds-programming/post-init-dumb-jump ()
+;;   (setq dumb-jump-selector 'ivy)
+;;   (defun my-dumb-jump ()
+;;     (interactive)
+;;     (evil-set-jump)
+;;     (dumb-jump-go))
+;;   (global-set-key (kbd "C-s-g") 'my-dumb-jump))
 
 
 (defun fri3nds-programming/post-init-emacs-lisp ()
@@ -137,8 +137,8 @@
       (define-key lispy-mode-map (kbd "s-2") 'lispy-arglist-inline))))
 
 
-(defun fri3nds-programming/post-init-eldoc ()
-  (setq eldoc-idle-delay 0.1))
+;; (defun fri3nds-programming/post-init-eldoc ()
+;;   (setq eldoc-idle-delay 0.1))
 
 
 (defun fri3nds-programming/post-init-tagedit ()
@@ -158,13 +158,13 @@
       )))
 
 
-;; (defun fri3nds-programming/post-init-treemacs ()
-;;   (use-package lsp-treemacs
-;;     :defer t
-;;     :commands lsp-treemacs-errors-list
-;;     :config
-;;     ;; (lsp-metals-treeview-enable t)
-;;     (setq lsp-metals-treeview-show-when-views-received t)))
+(defun fri3nds-programming/post-init-treemacs ()
+  (use-package lsp-treemacs
+    ;; :defer t
+    :commands lsp-treemacs-errors-list
+    :config
+    (lsp-metals-treeview-enable t)
+    (setq lsp-metals-treeview-show-when-views-received t)))
 
 ;; (defun fri3nds-programming/post-init-lsp-metals ()
 ;;   (use-package lsp-metals))
@@ -172,6 +172,13 @@
 (defun fri3nds-programming/post-init-lsp-mode ()
   (use-package lsp-mode
     :ensure t
+    :custom
+    (lsp-enable-snippet t)
+    (lsp-keep-workspace-alive t)
+    (lsp-enable-xref nil)
+    (lsp-enable-imenu t)
+    (lsp-enable-completion-at-point nil)
+
     :commands (lsp lsp-deferred)
     :hook (go-mode . lsp-deferred))
 

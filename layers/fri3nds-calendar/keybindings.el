@@ -32,7 +32,7 @@
 
 
 (spacemacs/set-leader-keys "jc" 'fri3nds/open-calendar)
-(spacemacs/set-leader-keys "oc" 'fri3nds/open-calendar-with-agenda)
+(spacemacs/set-leader-keys "cc" 'fri3nds/open-calendar-with-agenda)
 
 ;; Keybindings
 ;; (spacemacs/declare-prefix "d" "bracket-prefix")
