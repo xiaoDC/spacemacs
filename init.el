@@ -48,7 +48,7 @@ values."
      emacs-lisp
      ;; chinese
      ;; javascript
-     mu4e
+     ;; mu4e
      (lsp :variables
           lsp-lens-enable nil
           lsp-ui-doc-enable nil
@@ -76,7 +76,7 @@ values."
      ;; (vue :variables vue-backend 'lsp)
 
      (haskell :variables
-              haskell-completion-backend nil
+              ;; haskell-completion-backend nil
               haskell-enable-hindent t)
 
      ;; (elixir :variables elixir-backend 'alchemist)
@@ -118,7 +118,7 @@ values."
               vinegar-dired-hide-details t)
      (spacemacs-layouts
       :variables layouts-enable-autosave nil
-      layouts-autosave-delay 2000
+      layouts-autosave-delay 20000
       )
 
      (git :variables
@@ -177,16 +177,16 @@ values."
                                       ;; calfw-cal
                                       ;; calfw-org
                                       ;; color-theme-sanityinc-solarized
-                                      diff-hl
+                                      ;; diff-hl
                                       ;; prettier-js
-                                      company-tabnine
+                                      ;; company-tabnine
                                       ;; company-sql
                                       ;; dash
                                       ;; dash-functional
                                       ;; helm-dash
                                       ;; youdao-dictionary
                                       highlight-indent-guides
-                                      editorconfig
+                                      ;; editorconfig
                                       ;; fzf
                                       ;; evil-indent-plus
                                       ;; color-theme-sanityinc-tomorrow
@@ -198,7 +198,8 @@ values."
                                       ;; exec-path-from-shell
                                       reveal-in-osx-finder
                                       format-all
-                                      format-sql
+                                      ;; format-sql
+                                      org-fancy-priorities
 
                                       ;; flower
                                       ;; spacemacs-dark
@@ -230,7 +231,7 @@ values."
                                       ;; treemacs-projectile
                                       ;; cnfonts
                                       ;; window-purpose
-                                      valign
+                                      ;; valign
                                       whitespace
                                       ;; eglot
                                       )
@@ -327,12 +328,12 @@ values."
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; dotspacemacs-elpa-timeout 600
-   dotspacemacs-elpa-timeout 1000
+   dotspacemacs-elpa-timeout 600
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
-   dotspacemacs-check-for-update nil
+   dotspacemacs-check-for-update t
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
    ;; to `emacs-version'.
@@ -393,6 +394,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
+                               "Sarasa Mono Slab CL"
                                ;; "Anonymous Pro"
                                ;; "Source Code Pro"
                                ;; "Courier New"
@@ -408,6 +410,7 @@ values."
                                ;; "DroidSansMono Nerd Font"
                                ;; "Inconsolata"
                                ;; "Inconsolata LGC"
+                               ;; "Inconsolata-dz for Powerline"
                                ;; "Menlo"
                                ;; "Meslo LG S for Powerline"
                                ;; "Monoid"
@@ -421,19 +424,17 @@ values."
                                ;; "Fantasque Sans Mono"
                                ;; "Source Code Pro for Powerline"
                                ;; "Cousine Nerd Font Mono"
-                               ;; "Inconsolata-dz for Powerline"
                                ;; "Sometype Mono"
                                ;; "JetBrains Mono"
                                ;; "Space Mono"
                                ;; "Cascadia Mono"
                                ;; "Sarasa Mono Slab HC"
-                               "Sarasa Mono Slab CL"
                                ;; "Sarasa Mono K"
-                               :size 19
+                               :size 20
                                :weight normal
                                ;; :weight light
-                               :height 200
-                               :powerline-scale 2.0)
+                               :height 360
+                               :powerline-scale 2.2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -479,14 +480,14 @@ values."
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
-   dotspacemacs-large-file-size 1
+   dotspacemacs-large-file-size 8
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
    dotspacemacs-auto-save-file-location 'cache
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
-   dotspacemacs-max-rollback-slots 3
+   dotspacemacs-max-rollback-slots 2
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
    dotspacemacs-helm-resize nil
    ;; if non nil, the helm header is hidden when there is only one source.
@@ -505,7 +506,7 @@ values."
    dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.24
+   dotspacemacs-which-key-delay 0.4
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -638,25 +639,25 @@ values."
   ;; 长行优化 end
 
   ;; mu4e send mail
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-starttls-credentials
-        '(("smtp.partner.outlook.cn" 587 nil nil))
-        smtpmail-default-smtp-server "smtp.partner.outlook.cn"
-        smtpmail-smtp-server "smtp.partner.outlook.cn"
-        smtpmail-smtp-service 587
-        smtpmail-debug-info t)
-
-  (setq mu4e-maildir "~/.mail"
-        mu4e-trash-folder "/Trash"
-        mu4e-refile-folder "/Archive"
-        mu4e-get-mail-command "offlineimap"
-        ;; mu4e-get-mail-command "mbsync -a"
-        mu4e-update-interval 600
-        mu4e-compose-signature-auto-include nil
-        mu4e-view-show-images t
-        mu4e-view-show-addresses t)
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       smtpmail-starttls-credentials
+  ;;       '(("smtp.partner.outlook.cn" 587 nil nil))
+  ;;       smtpmail-default-smtp-server "smtp.partner.outlook.cn"
+  ;;       smtpmail-smtp-server "smtp.partner.outlook.cn"
+  ;;       smtpmail-smtp-service 587
+  ;;       smtpmail-debug-info t)
+  ;; (setq mu4e-maildir "~/.mail"
+  ;;       mu4e-trash-folder "/Trash"
+  ;;       mu4e-refile-folder "/Archive"
+  ;;       mu4e-get-mail-command "offlineimap"
+  ;;       ;; mu4e-get-mail-command "mbsync -a"
+  ;;       mu4e-update-interval 600
+  ;;       mu4e-compose-signature-auto-include nil
+  ;;       mu4e-view-show-images t
+  ;;       mu4e-view-show-addresses t)
 
   (setq lsp-diagnostic-package :none)
+  (setq lsp-file-watch-threshold 4096)
 
   (setq auto-mode-alist
         (append '(("\\.cpt$" . sensitive-mode)) auto-mode-alist))
@@ -781,11 +782,14 @@ values."
               (org-agenda-to-appt)                      ;; copy all agenda schedule to appointments
               (appt-activate 1)))
 
+
+
   ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
+  ;; (setq org-bullets-bullet-list '("☰" "☷" "ൠ" "☣"))
 
   ;; (spacemacs|add-company-backends :modes text-mode)
   ;; (add-hook 'after-init-hook 'global-company-mode)
-  (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold (* 10 1024 1024))))
+  ;; (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold (* 10 1024 1024))))
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
   (global-hungry-delete-mode t)
@@ -918,6 +922,10 @@ values."
 
 
   (add-hook 'prog-mode-hook 'my-prog-mode-hook)
+  (add-hook 'org-mode-hook (lambda ()
+                             (org-fancy-priorities-mode 1)
+                             ;; (variable-pitch-mode 1)
+                             ))
   ;; (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-on)) 'append)
   ;; (global-set-key (kbd "<escape>")      'keyboard-quit)
 

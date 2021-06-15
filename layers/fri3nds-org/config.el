@@ -89,6 +89,8 @@
 (setq org-agenda-files (list "/Users/fri3nds/Dropbox/org/tuya-work.org"
                              "/Users/fri3nds/org/Learning.org"
                              "/Users/fri3nds/Dropbox/org/interview.org"
+                             "/Users/fri3nds/Dropbox/org/meeting.org"
+                             "/Users/fri3nds/Dropbox/org/TODO.org"
                              ;; "/Users/fri3nds/org/notes.org"
                              ;; "/Users/fri3nds/org/API.org"
                              ;; "/Users/fri3nds/org/malfunction.org"
@@ -112,13 +114,14 @@
 (setq org-lowest-priority ?E)
 (setq org-default-priority ?E)
 
+(setq org-fancy-priorities-list '("🅰" "🅱" "🅲" "🅳" "🅴"))
 ;; 优先级醒目外观
-(setq org-priority-faces '(
-                           (?A . (:background "red" :foreground "white" :weight bold))
-                           (?B . (:background "DarkOrange" :foreground "white" :weight bold))
-                           (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
-                           (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
-                           (?E . (:background "SkyBlue" :foreground "black" :weight bold)) ))
+;; (setq org-priority-faces '(
+;;                            (?A . (:background "red" :foreground "white" :weight bold))
+;;                            (?B . (:background "DarkOrange" :foreground "white" :weight bold))
+;;                            (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
+;;                            (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
+;;                            (?E . (:background "SkyBlue" :foreground "black" :weight bold)) ))
 
 
 (setq org-todo-keywords
@@ -129,10 +132,30 @@
 
 
 
-(setq org-hide-emphasis-markers t)
-
+;; (setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers t
+      org-fontify-done-headline t
+      ;; org-hide-leading-stars t
+      ;; org-pretty-entities t
+      org-odd-levels-only t)
 
 
 ;; (font-lock-add-keywords 'org-mode
 ;;                         '(("^ +\\([-*]\\) "
 ;;                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+;; (setq org-list-demote-modify-bullet
+;;       (quote (
+;;               ("+" . "-")
+;;               ("-" . "+")
+;;               ("*" . "-")
+;;               ("1." . "-")
+;;               ("1)" . "-")
+;;               ("A)" . "-")
+;;               ("B)" . "-")
+;;               ("a)" . "-")
+;;               ("b)" . "-")
+;;               ("A." . "-")
+;;               ("B." . "-")
+;;               ("a." . "-")
+;;               ("b." . "-"))))
