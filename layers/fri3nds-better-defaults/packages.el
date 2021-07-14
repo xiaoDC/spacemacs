@@ -1,4 +1,4 @@
-; -*- lexical-binding: t -*-
+                                        ; -*- lexical-binding: t -*-
 ;;; packages.el --- fri3nds Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2014-2016 fri3nds
@@ -13,10 +13,9 @@
 (defconst fri3nds-better-defaults-packages
   '(
     (dired-mode :location built-in)
-    (profiler :location built-in)
-    ;; (recentf :location built-in)
-    )
-)
+    ;; (profiler :location built-in)
+    (recentf :location built-in)
+    ))
 
 ;; (defun fri3nds-better-defaults/post-init-recentf ()
 ;;   (progn
@@ -52,14 +51,14 @@
       (setq dired-guess-shell-alist-user
             '(("\\.pdf\\'" "open")
               ("\\.docx\\'" "open")
-              ("\\.\\(?:djvu\\|eps\\)\\'" "open")
+              ;; ("\\.\\(?:djvu\\|eps\\)\\'" "open")
               ("\\.\\(?:jpg\\|jpeg\\|png\\|gif\\|xpm\\)\\'" "open")
-              ("\\.\\(?:xcf\\)\\'" "open")
-              ("\\.csv\\'" "open")
-              ("\\.tex\\'" "open")
+              ;; ("\\.\\(?:xcf\\)\\'" "open")
+              ;; ("\\.csv\\'" "open")
+              ;; ("\\.tex\\'" "open")
               ("\\.\\(?:mp4\\|mkv\\|avi\\|flv\\|ogv\\)\\(?:\\.part\\)?\\'"
                "open")
-              ("\\.\\(?:mp3\\|flac\\)\\'" "open")
+              ;; ("\\.\\(?:mp3\\|flac\\)\\'" "open")
               ("\\.html?\\'" "open")
               ("\\.md\\'" "open")))
 

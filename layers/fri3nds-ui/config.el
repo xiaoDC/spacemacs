@@ -25,8 +25,8 @@
 ;;          (:eval (if (buffer-file-name)
 ;;                   (abbreviate-file-name (buffer-file-name)) "%b"))))
 
-(setq frame-title-format
-      '("λ  ⟹  fri3nd"))
+;; (setq frame-title-format
+;;       '("λ  ⟹  fri3nd"))
 ;; '("天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。寒来暑往，秋收冬藏。闰余成岁，律吕调阳。云腾致雨，露结为霜。 ( f => f(f) )( coding )"))
 ;; '("形而上者谓之道，形而下者谓之器，君子不器      ( f => f(f) )( coding )"))
 
@@ -52,17 +52,17 @@
 
 
 
-(defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
-  "Workaround sgml-mode and follow airbnb component style."
-  (let* ((cur-line (buffer-substring-no-properties
-                    (line-beginning-position)
-                    (line-end-position))))
-    (if (string-match "^\\( +\\)\/?> *$" cur-line)
-        (let* ((empty-spaces (match-string 1 cur-line)))
-          (replace-regexp empty-spaces
-                          (make-string (- (length empty-spaces) sgml-basic-offset) 32)
-                          nil
-                          (line-beginning-position) (line-end-position))))))
+;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
+;;   "Workaround sgml-mode and follow airbnb component style."
+;;   (let* ((cur-line (buffer-substring-no-properties
+;;                     (line-beginning-position)
+;;                     (line-end-position))))
+;;     (if (string-match "^\\( +\\)\/?> *$" cur-line)
+;;         (let* ((empty-spaces (match-string 1 cur-line)))
+;;           (replace-regexp empty-spaces
+;;                           (make-string (- (length empty-spaces) sgml-basic-offset) 32)
+;;                           nil
+;;                           (line-beginning-position) (line-end-position))))))
 
 
 
@@ -71,42 +71,42 @@
 ;; http://stackoverflow.com/questions/3875213/turning-on-linum-mode-when-in-python-c-mode
 (setq linum-mode-inhibit-modes-list '(eshell-mode
                                       shell-mode
-                                      profiler-report-mode
-                                      ffip-diff-mode
-                                      dictionary-mode
-                                      erc-mode
+                                      ;; profiler-report-mode
+                                      ;; ffip-diff-mode
+                                      ;; dictionary-mode
+                                      ;; erc-mode
                                       browse-kill-ring-mode
-                                      etags-select-mode
+                                      ;; etags-select-mode
                                       dired-mode
                                       help-mode
                                       text-mode
                                       fundamental-mode
-                                      jabber-roster-mode
-                                      jabber-chat-mode
-                                      inferior-js-mode
-                                      inferior-python-mode
-                                      inferior-scheme-mode
-                                      twittering-mode
-                                      compilation-mode
-                                      weibo-timeline-mode
-                                      woman-mode
-                                      Info-mode
+                                      ;; jabber-roster-mode
+                                      ;; jabber-chat-mode
+                                      ;; inferior-js-mode
+                                      ;; inferior-python-mode
+                                      ;; inferior-scheme-mode
+                                      ;; twittering-mode
+                                      ;; compilation-mode
+                                      ;; weibo-timeline-mode
+                                      ;; woman-mode
+                                      ;; Info-mode
                                       calc-mode
                                       calc-trail-mode
-                                      comint-mode
+                                      ;; comint-mode
                                       gnus-group-mode
                                       inf-ruby-mode
                                       gud-mode
                                       org-mode
                                       ;; org-agenda-mode
-                                      vc-git-log-edit-mode
-                                      log-edit-mode
-                                      term-mode
+                                      ;; vc-git-log-edit-mode
+                                      ;; log-edit-mode
+                                      ;; term-mode
                                       spacemacs-buffer-mode
                                       ;; w3m-mode
-                                      speedbar-mode
-                                      gnus-summary-mode
-                                      gnus-article-mode
+                                      ;; speedbar-mode
+                                      ;; gnus-summary-mode
+                                      ;; gnus-article-mode
                                       calendar-mode))
 ;; (defadvice linum-on (around linum-on-inhibit-for-modes)
 ;;            "Stop the load of linum-mode for some major modes."

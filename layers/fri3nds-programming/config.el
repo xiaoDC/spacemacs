@@ -11,16 +11,16 @@
 
 
 
-(add-to-list 'auto-mode-alist (cons (concat "\\." (regexp-opt
-                                                   '("xml"
-                                                     "xsd"
-                                                     "rng"
-                                                     "xslt"
-                                                     "xsl")
-                                                   t) "\\'") 'nxml-mode))
-(setq nxml-slash-auto-complete-flag t)
+;; (add-to-list 'auto-mode-alist (cons (concat "\\." (regexp-opt
+;;                                                    '("xml"
+;;                                                      "xsd"
+;;                                                      "rng"
+;;                                                      "xslt"
+;;                                                      "xsl")
+;;                                                    t) "\\'") 'nxml-mode))
+;; (setq nxml-slash-auto-complete-flag t)
 
-(setq auto-mode-alist
-      (append
-       '(("\\.mak\\'" . makefile-bsdmake-mode))
-       auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (append
+;;        '(("\\.mak\\'" . makefile-bsdmake-mode))
+;;        auto-mode-alist))

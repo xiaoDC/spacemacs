@@ -9,11 +9,11 @@
 ;;
 ;;; License: GPLv3
 
-(setq auto-coding-regexp-alist
-      (delete (rassoc 'utf-16be-with-signature auto-coding-regexp-alist)
-              (delete (rassoc 'utf-16le-with-signature auto-coding-regexp-alist)
-                      (delete (rassoc 'utf-8-with-signature auto-coding-regexp-alist)
-                              auto-coding-regexp-alist))))
+;; (setq auto-coding-regexp-alist
+;;       (delete (rassoc 'utf-16be-with-signature auto-coding-regexp-alist)
+;;               (delete (rassoc 'utf-16le-with-signature auto-coding-regexp-alist)
+;;                       (delete (rassoc 'utf-8-with-signature auto-coding-regexp-alist)
+;;                               auto-coding-regexp-alist))))
 
 
 (when (spacemacs/window-system-is-mac)
@@ -26,9 +26,9 @@
 ;; (setq-default fill-column 80)
 
 
-(setq recenter-positions '(top middle bottom))
+;; (setq recenter-positions '(top middle bottom))
 ;; delete the selection with a key press
-(delete-selection-mode t)
+;; (delete-selection-mode t)
 
 
 ;;add auto format paste code
@@ -44,13 +44,13 @@
                      scheme-mode
                      haskell-mode
                      ruby-mode
-                     rspec-mode
-                     python-mode
-                     c-mode
-                     c++-mode
-                     objc-mode
+                     ;; rspec-mode
+                     ;; python-mode
+                     ;; c-mode
+                     ;; c++-mode
+                     ;; objc-mode
                      latex-mode
-                     js-mode
+                     ;; js-mode
                      plain-tex-mode))
            (let ((mark-even-if-inactive transient-mark-mode))
              (indent-region (region-beginning) (region-end) nil))))))
@@ -75,7 +75,7 @@
 ;; (setq vc-handled-backends ())
 
 
-(setq large-file-warning-threshold 100000000)
+(setq large-file-warning-threshold 40000000)
 ;;http://batsov.com/emacsredux/blog/2015/05/09/emacs-on-os-x/
 
 
@@ -94,9 +94,9 @@
 ;;   (flet ((process-list ())) ad-do-it))
 
 ;;Don't ask me when kill process buffer
-(setq kill-buffer-query-functions
-      (remq 'process-kill-buffer-query-function
-            kill-buffer-query-functions))
+;; (setq kill-buffer-query-functions
+;;       (remq 'process-kill-buffer-query-function
+;;             kill-buffer-query-functions))
 
 
 ;; change evil initial mode state
@@ -111,26 +111,26 @@
                   (make-directory dir t))))))
 
 ;; http://emacs.stackexchange.com/questions/13970/fixing-double-capitals-as-i-type
-(defun dcaps-to-scaps ()
-  "Convert word in DOuble CApitals to Single Capitals."
-  (interactive)
-  (and (= ?w (char-syntax (char-before)))
-       (save-excursion
-         (and (if (called-interactively-p)
-                  (skip-syntax-backward "w")
-                (= -3 (skip-syntax-backward "w")))
-              (let (case-fold-search)
-                (looking-at "\\b[[:upper:]]\\{2\\}[[:lower:]]"))
-              (capitalize-word 1)))))
+;; (defun dcaps-to-scaps ()
+;;   "Convert word in DOuble CApitals to Single Capitals."
+;;   (interactive)
+;;   (and (= ?w (char-syntax (char-before)))
+;;        (save-excursion
+;;          (and (if (called-interactively-p)
+;;                   (skip-syntax-backward "w")
+;;                 (= -3 (skip-syntax-backward "w")))
+;;               (let (case-fold-search)
+;;                 (looking-at "\\b[[:upper:]]\\{2\\}[[:lower:]]"))
+;;               (capitalize-word 1)))))
 
-(define-minor-mode dubcaps-mode
-  "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
-Single Capitals as you type."
-  :init-value nil
-  :lighter (" DC")
-  (if dubcaps-mode
-      (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
-    (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
+;; (define-minor-mode dubcaps-mode
+;;   "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
+;; Single Capitals as you type."
+;;   :init-value nil
+;;   :lighter (" DC")
+;;   (if dubcaps-mode
+;;       (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
+;;     (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
 
 (defun spacemacs/check-large-file ()
   (when (> (buffer-size) 500000)

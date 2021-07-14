@@ -30,7 +30,7 @@
 ;;   :evil-leader "ots")
 
 ;; (bind-key* "M-s o" 'occur-dwim)
-(bind-key* "C-=" 'er/expand-region)
+;; (bind-key* "C-=" 'er/expand-region)
 ;; (bind-key* "M--" 'fri3nds/goto-match-paren)
 ;; (bind-key* "C-c k" 'which-key-show-top-level)
 ;; (bind-key* "s-y" 'aya-expand)
@@ -49,27 +49,26 @@
   "+" 'evil-numbers/inc-at-pt
   "-" 'evil-numbers/dec-at-pt
   "\\" 'evil-repeat-find-char-reverse
-  (kbd "DEL") 'evil-repeat-find-char-reverse
-  "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
-  "]s" (lambda (n) (interactive "p")
-         (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n))))
+  (kbd "DEL") 'evil-repeat-find-char-reverse)
+;; "[s" (lambda (n) (interactive "p") (dotimes (c n nil) (insert " ")))
+;; "]s" (lambda (n) (interactive "p") (forward-char) (dotimes (c n nil) (insert " ")) (backward-char (1+ n)))
 
-(with-eval-after-load 'company
-  (progn
-    ;; (bb/define-key company-active-map
-    ;;   (kbd "C-w") 'evil-delete-backward-word)
+;; (with-eval-after-load 'company
+;;   (progn
+;;     ;; (bb/define-key company-active-map
+;;     ;;   (kbd "C-w") 'evil-delete-backward-word)
 
-    (bb/define-key company-active-map
-      (kbd "s-w") 'company-show-location)))
+;;     (bb/define-key company-active-map
+;;       (kbd "s-w") 'company-show-location)))
 
 
 
 ;;Must set key to nil to prevent error: Key sequence b m s starts with non-prefix key b m
 
-(spacemacs/set-leader-keys "od" 'occur-dwim)
+;; (spacemacs/set-leader-keys "od" 'occur-dwim)
 (spacemacs/set-leader-keys "ox" 'org-open-at-point-global)
 
-(spacemacs/set-leader-keys "rh" 'helm-resume)
+;; (spacemacs/set-leader-keys "rh" 'helm-resume)
 
 
 ;; deal with BOM
@@ -284,20 +283,20 @@ If the universal prefix argument is used then will the windows too."
 
 
 ;; https://github.com/syl20bnr/spacemacs/issues/7749
-(defun spacemacs/ivy-persp-switch-project (arg)
-  (interactive "P")
-  (ivy-read "Switch to Project Perspective: "
-            (if (projectile-project-p)
-                (cons (abbreviate-file-name (projectile-project-root))
-                      (projectile-relevant-known-projects))
-              projectile-known-projects)
-            :action (lambda (project)
-                      (let ((persp-reset-windows-on-nil-window-conf t))
-                        (persp-switch project)
-                        (let ((projectile-completion-system 'ivy)
-                              (old-default-directory default-directory))
-                          (projectile-switch-project-by-name project)
-                          (setq default-directory old-default-directory))))))
+;; (defun spacemacs/ivy-persp-switch-project (arg)
+;;   (interactive "P")
+;;   (ivy-read "Switch to Project Perspective: "
+;;             (if (projectile-project-p)
+;;                 (cons (abbreviate-file-name (projectile-project-root))
+;;                       (projectile-relevant-known-projects))
+;;               projectile-known-projects)
+;;             :action (lambda (project)
+;;                       (let ((persp-reset-windows-on-nil-window-conf t))
+;;                         (persp-switch project)
+;;                         (let ((projectile-completion-system 'ivy)
+;;                               (old-default-directory default-directory))
+;;                           (projectile-switch-project-by-name project)
+;;                           (setq default-directory old-default-directory))))))
 
 
 ;; (load-theme 'sanityinc-tomorrow-night t)
@@ -305,26 +304,26 @@ If the universal prefix argument is used then will the windows too."
 ;; (load-theme 'alect-black-alt t)
 
 
-(defun fri3nds-neotree-toggle ()
-  "Toggle and add the current project to treemacs if not already added."
-  (interactive)
-  (let ((path (projectile-project-root)))
-    (if (null path)
-        (neotree-find)
-      (neotree-show))))
+;; (defun fri3nds-neotree-toggle ()
+;;   "Toggle and add the current project to treemacs if not already added."
+;;   (interactive)
+;;   (let ((path (projectile-project-root)))
+;;     (if (null path)
+;;         (neotree-find)
+;;       (neotree-show))))
 
 
 
-(defun fri3nds/treemacs-find-file ()
-  "Toggle and add the current project to treemacs if not already added."
-  (interactive)
-  (let ((path (projectile-project-root))
-        (name (projectile-project-name)))
+;; (defun fri3nds/treemacs-find-file ()
+;;   "Toggle and add the current project to treemacs if not already added."
+;;   (interactive)
+;;   (let ((path (projectile-project-root))
+;;         (name (projectile-project-name)))
 
-    (if (null path)
-        (neotree-find)
-      (if (eq (treemacs-current-visibility) 'visible)
-          (treemacs-find-file)))))
+;;     (if (null path)
+;;         (neotree-find)
+;;       (if (eq (treemacs-current-visibility) 'visible)
+;;           (treemacs-find-file)))))
 
 
 ;; http://wenshanren.org/?p=327
@@ -597,7 +596,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "dh" 'fri3nds/delete-line-before)
 ;; (spacemacs/set-leader-keys "dk" 'fri3nds/delete-line-after)
 (spacemacs/set-leader-keys "dl" 'fri3nds/clear-this-line)
-(spacemacs/set-leader-keys "dn" 'diff-hl-next-hunk)
+;; (spacemacs/set-leader-keys "dn" 'diff-hl-next-hunk)
 (spacemacs/set-leader-keys "dt" 'magit-diff-working-tree)
 
 ;; (spacemacs/set-leader-keys "en" 'git-gutter+-next-hunk)
@@ -619,6 +618,8 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "ja" 'fri3nds/open-todo-file)
 (spacemacs/set-leader-keys "jd" 'fri3nds/open-sync-todo-file)
 (spacemacs/set-leader-keys "hh" 'ibuffer)
+(spacemacs/set-leader-keys "kk" 'auto-highlight-symbol-mode)
+;; (spacemacs/set-leader-keys "kk" 'next-buffer)
 ;; (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
 ;; (spacemacs/set-leader-keys "jj" 'awesome-tab-ace-jump)
 (spacemacs/set-leader-keys "jk" 'awesome-tab-ace-jump)
@@ -630,13 +631,14 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "jz" 'fri3nds/open-password-file)
 
 ;; (spacemacs/set-leader-keys "kk" 'projectile-find-file)
-(spacemacs/set-leader-keys "kk" 'next-buffer)
+;; (spacemacs/set-leader-keys "kk" 'next-buffer)
 (spacemacs/set-leader-keys "ka" 'text-scale-increase)
 (spacemacs/set-leader-keys "kd" 'text-scale-decrease)
 (spacemacs/set-leader-keys "ko" 'fri3nds/kill-all-other-project-buffers)
 
 ;; (spacemacs/set-leader-keys "gg" 'spacemacs/helm-project-do-ag-region-or-symbol)
 (spacemacs/set-leader-keys "ga" 'org-table-align)
+(spacemacs/set-leader-keys "gn" 'org-table-toggle-coordinate-overlays)
 (spacemacs/set-leader-keys "gg" 'spacemacs/search-project-ag-region-or-symbol)
 ;; (spacemacs/set-leader-keys "hh" 'previous-buffer)
 (spacemacs/set-leader-keys "hi" 'highlight-indent-guides-mode)
@@ -687,6 +689,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "uu" 'evilnc-comment-or-uncomment-lines)
 
 (spacemacs/set-leader-keys "wo" 'delete-other-windows)
+(spacemacs/set-leader-keys "ws" 'split-window-below-and-focus)
 (spacemacs/set-leader-keys "xx" 'backward-up-list)
 (spacemacs/set-leader-keys "xz" 'up-list)
 

@@ -6,14 +6,14 @@
         projectile
         ;; prodigy
         ;; multiple-cursors
-        visual-regexp
-        visual-regexp-steroids
+        ;; visual-regexp
+        ;; visual-regexp-steroids
         ;; command-log
         evil
         ;; fcitx
         ;; discover-my-major
         ace-window
-        avy
+        ;; avy
         ;; 4clojure
         ;; persp-mode
         ;; tiny
@@ -24,13 +24,13 @@
         magit
         ;; git-messenger
         wrap-region
-        browse-at-remote
+        ;; browse-at-remote
         ))
 
-(defun fri3nds-misc/init-browse-at-remote ()
-  (use-package browse-at-remote
-    :defer t
-    :init (spacemacs/set-leader-keys "gho" 'browse-at-remote)))
+;; (defun fri3nds-misc/init-browse-at-remote ()
+;;   (use-package browse-at-remote
+;;     :defer t
+;;     :init (spacemacs/set-leader-keys "gho" 'browse-at-remote)))
 
 
 
@@ -355,8 +355,8 @@
   (use-package smartparens
     :defer t
     :init
-    (progn
-      (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens))
+    ;; (progn
+    ;;   (global-set-key (kbd "C-(") 'wrap-sexp-with-new-round-parens))
     :config
     (progn
       (setq sp-highlight-pair-overlay nil)
@@ -433,10 +433,10 @@
 ;;       )))
 
 
-(defun fri3nds-misc/post-init-avy ()
-  (progn
-    (global-set-key (kbd "C-s-'") 'avy-goto-char-2)
-    (global-set-key (kbd "M-'") 'avy-goto-char-2)))
+;; (defun fri3nds-misc/post-init-avy ()
+;;   (progn
+;;     (global-set-key (kbd "C-s-'") 'avy-goto-char-2)
+;;     (global-set-key (kbd "M-'") 'avy-goto-char-2)))
 
 (defun fri3nds-misc/post-init-ace-window ()
   (global-set-key (kbd "C-x C-o") #'ace-window))
@@ -611,17 +611,17 @@
     ;; (define-key evil-emacs-state-map [escape] 'evil-normal-state)
     ))
 
-(defun fri3nds-misc/init-visual-regexp ()
-  (use-package visual-regexp
-    :commands (vr/replace vr/query-replace)))
+;; (defun fri3nds-misc/init-visual-regexp ()
+;;   (use-package visual-regexp
+;;     :commands (vr/replace vr/query-replace)))
 
-(defun fri3nds-misc/init-visual-regexp-steroids ()
-  (use-package visual-regexp-steroids
-    :commands (vr/select-replace vr/select-query-replace)
-    :init
-    (progn
-      (define-key global-map (kbd "C-c r") 'vr/replace)
-      (define-key global-map (kbd "C-c q") 'vr/query-replace))))
+;; (defun fri3nds-misc/init-visual-regexp-steroids ()
+;;   (use-package visual-regexp-steroids
+;;     :commands (vr/select-replace vr/select-query-replace)
+;;     :init
+;;     (progn
+;;       (define-key global-map (kbd "C-c r") 'vr/replace)
+;;       (define-key global-map (kbd "C-c q") 'vr/query-replace))))
 
 ;; (defun fri3nds-misc/init-multiple-cursors ()
 ;;   (use-package multiple-cursors
@@ -862,10 +862,10 @@
   (use-package ag
     :init))
 
-(defun fri3nds-misc/post-init-erc ()
-  (progn
-    (add-hook 'erc-text-matched-hook 'my-erc-hook)
-    (spaceline-toggle-erc-track-off)))
+;; (defun fri3nds-misc/post-init-erc ()
+;;   (progn
+;;     (add-hook 'erc-text-matched-hook 'my-erc-hook)
+;;     (spaceline-toggle-erc-track-off)))
 
 (defun fri3nds-misc/init-wrap-region ()
   (use-package wrap-region
@@ -913,13 +913,14 @@
         (ivy-set-actions
          t
          '(("f" my-find-file-in-git-repo "find files")
-           ("!" my-open-file-in-external-app "Open file in external app")
-           ("I" ivy-insert-action "insert")
-           ("C" ivy-kill-new-action "copy")
-           ("S" ivy-ff-checksum-action "Checksum")))
+           ;; ("!" my-open-file-in-external-app "Open file in external app")
+           ;; ("I" ivy-insert-action "insert")
+           ;; ("C" ivy-kill-new-action "copy")
+           ;; ("S" ivy-ff-checksum-action "Checksum")
+           ))
 
-        (spacemacs/set-leader-keys "fad" 'counsel-goto-recent-directory)
-        (spacemacs/set-leader-keys "faf" 'counsel-find-file-recent-directory)
+        ;; (spacemacs/set-leader-keys "fad" 'counsel-goto-recent-directory)
+        ;; (spacemacs/set-leader-keys "faf" 'counsel-find-file-recent-directory)
 
         (setq ivy-initial-inputs-alist nil)
         (setq ivy-wrap t)
@@ -932,14 +933,16 @@
         (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-call)
         (define-key ivy-minibuffer-map (kbd "C-s-m") 'ivy-partial-or-done)
         (define-key ivy-minibuffer-map (kbd "C-c s") 'ivy-ff-checksum)
-        (define-key ivy-minibuffer-map (kbd "s-o") 'ivy-dispatching-done-hydra)
+        ;; (define-key ivy-minibuffer-map (kbd "s-o") 'ivy-dispatching-done-hydra)
         (define-key ivy-minibuffer-map (kbd "C-c C-e") 'spacemacs//counsel-edit)
         (define-key ivy-minibuffer-map (kbd "<f3>") 'ivy-occur)
-        (define-key ivy-minibuffer-map (kbd "C-s-j") 'ivy-immediate-done)
+        ;; (define-key ivy-minibuffer-map (kbd "C-s-j") 'ivy-immediate-done)
         (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
         (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)))
 
-    (define-key global-map (kbd "C-s") 'my-swiper-search)))
+    ;; (define-key global-map (kbd "C-s") 'my-swiper-search)
+
+    ))
 
 
 (defun fri3nds-misc/post-init-magit ()
@@ -949,10 +952,10 @@
 
         (add-to-list 'magit-no-confirm 'stage-all-changes)
         (define-key magit-log-mode-map (kbd "W") 'magit-copy-section-value)
-        (define-key magit-status-mode-map (kbd "s-1") 'magit-jump-to-unstaged)
-        (define-key magit-status-mode-map (kbd "s-2") 'magit-jump-to-untracked)
-        (define-key magit-status-mode-map (kbd "s-3") 'magit-jump-to-staged)
-        (define-key magit-status-mode-map (kbd "s-4") 'magit-jump-to-stashes)
+        ;; (define-key magit-status-mode-map (kbd "s-1") 'magit-jump-to-unstaged)
+        ;; (define-key magit-status-mode-map (kbd "s-2") 'magit-jump-to-untracked)
+        ;; (define-key magit-status-mode-map (kbd "s-3") 'magit-jump-to-staged)
+        ;; (define-key magit-status-mode-map (kbd "s-4") 'magit-jump-to-stashes)
         (setq magit-completing-read-function 'magit-builtin-completing-read)
 
         (magit-define-popup-switch 'magit-push-popup ?u
@@ -965,9 +968,9 @@
     ;; (setq magit-repository-directories '("~/cocos2d-x/"))
     (setq magit-push-always-verify nil)
 
-    (eval-after-load 'magit
-      '(define-key magit-mode-map (kbd "C-c g")
-         #'fri3nds/magit-visit-pull-request))
+    ;; (eval-after-load 'magit
+    ;;   '(define-key magit-mode-map (kbd "C-c g")
+    ;;      #'fri3nds/magit-visit-pull-request))
 
     (setq magit-process-popup-time 10)))
 

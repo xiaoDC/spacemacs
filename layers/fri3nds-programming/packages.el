@@ -28,7 +28,7 @@
         ;; (cc-mode :location built-in)
         ;; flycheck-clojure
         ;; etags-select
-        (python :location built-in)
+        ;; (python :location built-in)
         (emacs-lisp :location built-in)
         ;; clojure-mode
         company
@@ -86,10 +86,10 @@
   (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
 
 
-(defun fri3nds-programming/post-init-python ()
-  (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  ;; if you use pyton3, then you could comment the following line
-  (setq python-shell-interpreter "python"))
+;; (defun fri3nds-programming/post-init-python ()
+;;   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+;;   ;; if you use pyton3, then you could comment the following line
+;;   (setq python-shell-interpreter "python"))
 
 
 
@@ -141,8 +141,8 @@
 ;;   (setq eldoc-idle-delay 0.1))
 
 
-(defun fri3nds-programming/post-init-tagedit ()
-  (add-hook 'web-mode-hook (lambda () (tagedit-mode 1))))
+;; (defun fri3nds-programming/post-init-tagedit ()
+;;   (add-hook 'web-mode-hook (lambda () (tagedit-mode 1))))
 
 
 (defun fri3nds-programming/post-init-company ()
@@ -151,7 +151,7 @@
     :init
     (progn
       (setq company-minimum-prefix-length 1
-            company-idle-delay 0.02)
+            company-idle-delay 0.04)
 
       ;; (with-eval-after-load 'company
       ;;   (spacemacs|add-company-backends :modes shell-script-mode makefile-bsdmake-mode sh-mode nxml-mode conf-unix-mode json-mode graphviz-dot-mode))
