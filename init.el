@@ -426,7 +426,7 @@ values."
                                ;; "Cascadia Mono"
                                ;; "Sarasa Mono Slab HC"
                                ;; "Sarasa Mono K"
-                               :size 22
+                               :size 21
                                :weight normal
                                ;; :weight light
                                :height 400
@@ -764,7 +764,7 @@ values."
   ;; (setq linum-format "%4d")
 
   ;; (linum-relative-on)
-  (setq-default line-spacing 4)
+  (setq-default line-spacing 2)
   (setq calendar-mark-diary-entries-flag t)
   ;; (setq org-agenda-include-diary t)
 

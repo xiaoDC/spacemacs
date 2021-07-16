@@ -14,7 +14,7 @@
   '(
     (dired-mode :location built-in)
     ;; (profiler :location built-in)
-    (recentf :location built-in)
+    ;; (recentf :location built-in)
     ))
 
 ;; (defun fri3nds-better-defaults/post-init-recentf ()

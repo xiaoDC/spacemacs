@@ -290,10 +290,10 @@
 ;;                            "url"))
 ;;                remote-branch))))))
 
-(defun fri3nds/markdown-to-html ()
-  (interactive)
-  (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name) "5000")
-  (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))
+;; (defun fri3nds/markdown-to-html ()
+;;   (interactive)
+;;   (start-process "grip" "*gfm-to-html*" "grip" (buffer-file-name) "5000")
+;;   (browse-url (format "http://localhost:5000/%s.%s" (file-name-base) (file-name-extension (buffer-file-name)))))
 
 ;; (defun github-browse-file--relative-url ()
 ;;   "Return \"username/repo\" for current repository.

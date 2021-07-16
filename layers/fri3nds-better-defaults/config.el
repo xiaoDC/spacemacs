@@ -32,28 +32,28 @@
 
 
 ;;add auto format paste code
-(dolist (command '(yank yank-pop))
-  (eval
-   ;; `(defadvice ,command (after indent-region activate)
-   `(defadvice ,command (after activate)
-      (and (not current-prefix-arg)
-           (member major-mode
-                   '(emacs-lisp-mode
-                     lisp-mode
-                     clojure-mode
-                     scheme-mode
-                     haskell-mode
-                     ruby-mode
-                     ;; rspec-mode
-                     ;; python-mode
-                     ;; c-mode
-                     ;; c++-mode
-                     ;; objc-mode
-                     latex-mode
-                     ;; js-mode
-                     plain-tex-mode))
-           (let ((mark-even-if-inactive transient-mark-mode))
-             (indent-region (region-beginning) (region-end) nil))))))
+;; (dolist (command '(yank yank-pop))
+;;   (eval
+;;    ;; `(defadvice ,command (after indent-region activate)
+;;    `(defadvice ,command (after activate)
+;;       (and (not current-prefix-arg)
+;;            (member major-mode
+;;                    '(emacs-lisp-mode
+;;                      lisp-mode
+;;                      clojure-mode
+;;                      scheme-mode
+;;                      haskell-mode
+;;                      ruby-mode
+;;                      ;; rspec-mode
+;;                      ;; python-mode
+;;                      ;; c-mode
+;;                      ;; c++-mode
+;;                      ;; objc-mode
+;;                      latex-mode
+;;                      ;; js-mode
+;;                      plain-tex-mode))
+;;            (let ((mark-even-if-inactive transient-mark-mode))
+;;              (indent-region (region-beginning) (region-end) nil))))))
 
 
 ;; tramp, for sudo access
@@ -75,7 +75,7 @@
 ;; (setq vc-handled-backends ())
 
 
-(setq large-file-warning-threshold 40000000)
+(setq large-file-warning-threshold 24000000)
 ;;http://batsov.com/emacsredux/blog/2015/05/09/emacs-on-os-x/
 
 
@@ -98,9 +98,6 @@
 ;;       (remq 'process-kill-buffer-query-function
 ;;             kill-buffer-query-functions))
 
-
-;; change evil initial mode state
-(menu-bar-mode nil)
 
 (add-hook 'before-save-hook
           (lambda ()
@@ -132,17 +129,17 @@
 ;;       (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
 ;;     (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
 
-(defun spacemacs/check-large-file ()
-  (when (> (buffer-size) 500000)
-    (progn (fundamental-mode)
-           (hl-line-mode -1)))
-  (if (and (executable-find "wc")
-           (> (string-to-number (shell-command-to-string (format "wc -l %s" (buffer-file-name))))
-              5000))
-      (linum-mode -1)))
+;; (defun spacemacs/check-large-file ()
+;;   (when (> (buffer-size) 500000)
+;;     (progn (fundamental-mode)
+;;            (hl-line-mode -1)))
+;;   (if (and (executable-find "wc")
+;;            (> (string-to-number (shell-command-to-string (format "wc -l %s" (buffer-file-name))))
+;;               5000))
+;;       (linum-mode -1)))
 
 
-(add-hook 'find-file-hook 'spacemacs/check-large-file)
+;; (add-hook 'find-file-hook 'spacemacs/check-large-file)
 
 
 (defadvice find-file (before make-directory-maybe
@@ -159,12 +156,12 @@
               (set (make-local-variable 'electric-pair-mode) nil)))
 
 ;; http://trey-jackson.blogspot.com/2010/04/emacs-tip-36-abort-minibuffer-when.html
-(defun fri3nds/stop-using-minibuffer ()
-  "kill the minibuffer"
-  (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
-    (abort-recursive-edit)))
+;; (defun fri3nds/stop-using-minibuffer ()
+;;   "kill the minibuffer"
+;;   (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
+;;     (abort-recursive-edit)))
 
-(add-hook 'mouse-leave-buffer-hook 'fri3nds/stop-using-minibuffer)
+;; (add-hook 'mouse-leave-buffer-hook 'fri3nds/stop-using-minibuffer)
 
 (setq tags-add-tables nil)
 

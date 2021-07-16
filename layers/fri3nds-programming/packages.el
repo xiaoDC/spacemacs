@@ -95,7 +95,7 @@
 
 (defun fri3nds-programming/post-init-yasnippet ()
   (progn
-    (set-face-background 'secondary-selection "gray")
+    ;; (set-face-background 'secondary-selection "gray")
     (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
     (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
                                                                            org-mode-hook

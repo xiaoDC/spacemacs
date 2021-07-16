@@ -987,13 +987,13 @@
 
     (with-eval-after-load 'markdown-mode
       (progn
-        ;; (when (configuration-layer/package-usedp 'company)
-        ;;   (spacemacs|add-company-hook markdown-mode))
+        ;;     ;; (when (configuration-layer/package-usedp 'company)
+        ;;     ;;   (spacemacs|add-company-hook markdown-mode))
 
-        (spacemacs/set-leader-keys-for-major-mode 'gfm-mode-map
-          "p" 'fri3nds/markdown-to-html)
-        (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
-          "p" 'fri3nds/markdown-to-html)
+        ;;     (spacemacs/set-leader-keys-for-major-mode 'gfm-mode-map
+        ;;       "p" 'fri3nds/markdown-to-html)
+        ;;     (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+        ;;       "p" 'fri3nds/markdown-to-html)
 
         (evil-define-key 'normal markdown-mode-map (kbd "TAB") 'markdown-cycle)
         ))
