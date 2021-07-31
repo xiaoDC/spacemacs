@@ -33,8 +33,9 @@
       (diminish 'smartparens-mode))
     ;; (with-eval-after-load 'which-key
     ;;   (diminish 'which-key-mode))
-    (with-eval-after-load 'hungry-delete
-      (diminish 'hungry-delete-mode))))
+    ;; (with-eval-after-load 'hungry-delete
+    ;;   (diminish 'hungry-delete-mode))
+    ))
 
 
 ;; (defun fri3nds-ui/init-beacon ()

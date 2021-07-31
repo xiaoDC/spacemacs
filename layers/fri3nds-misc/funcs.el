@@ -209,14 +209,14 @@
 ;;   (ivy-ff-checksum))
 
 
-(defun my-find-file-in-git-repo (repo)
-  (if (file-directory-p repo)
-      (let* ((default-directory repo)
-             (files (split-string (shell-command-to-string (format "cd %s && git ls-files" repo)) "\n" t)))
-        (ivy-read "files:" files
-                  :action 'find-file
-                  :caller 'my-find-file-in-git-repo))
-    (message "%s is not a valid directory." repo)))
+;; (defun my-find-file-in-git-repo (repo)
+;;   (if (file-directory-p repo)
+;;       (let* ((default-directory repo)
+;;              (files (split-string (shell-command-to-string (format "cd %s && git ls-files" repo)) "\n" t)))
+;;         (ivy-read "files:" files
+;;                   :action 'find-file
+;;                   :caller 'my-find-file-in-git-repo))
+;;     (message "%s is not a valid directory." repo)))
 
 
 ;; (defun my-open-file-in-external-app (file)

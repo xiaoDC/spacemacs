@@ -44,7 +44,7 @@ values."
      ;; (clojure :variables clojure-enable-fancify-symbols nil)
      ;; (elm :variables
      ;;      elm-backend 'lsp)
-     ;; elm
+     elm
      emacs-lisp
      ;; chinese
      ;; javascript
@@ -123,6 +123,10 @@ values."
           magit-revert-buffers 'silent
           magit-refs-show-commit-count 'all
           magit-revision-show-gravatars nil
+          git-enable-magit-delta-plugin nil
+          git-enable-magit-svn-plugin nil
+          git-enable-magit-todos-plugin nil
+          git-enable-magit-gitflow-plugin nil
           )
 
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
@@ -180,7 +184,10 @@ values."
                                       ;; dash-functional
                                       ;; helm-dash
                                       ;; youdao-dictionary
+                                      magit-popup
+                                      ;; magit-gitflow
                                       highlight-indent-guides
+                                      ;; git-timemachine
                                       ;; editorconfig
                                       ;; fzf
                                       ;; evil-indent-plus
@@ -233,7 +240,6 @@ values."
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
    '(magit-gh-pulls
-     magit-gitflow
      org-projectile
      dap-mode
      eww
@@ -253,7 +259,7 @@ values."
      evil-matchit
      evil-lion
      ghub
-     git-timemachine
+     ;; git-timemachine
      clojure-cheatsheet
      volatile-highlights smartparens
      spaceline holy-mode skewer-mode
@@ -398,7 +404,7 @@ values."
                                ;; "Code New Roman"
                                ;; "DejaVu Sans Mono"
                                ;; "Droid Sans Mono"
-                               "Fantasque Sans Mono"
+                               ;; "Fantasque Sans Mono"
                                ;; "FandolKai"
                                ;; "Fira Code"
                                ;; "Fira Mono"
@@ -424,12 +430,12 @@ values."
                                ;; "JetBrains Mono"
                                ;; "Space Mono"
                                ;; "Cascadia Mono"
-                               ;; "Sarasa Mono Slab HC"
+                               "Sarasa Mono Slab HC"
                                ;; "Sarasa Mono K"
-                               :size 21
+                               :size 20
                                :weight normal
                                ;; :weight light
-                               :height 400
+                               :height 320
                                :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"

@@ -23,7 +23,7 @@
         swiper
         magit
         ;; git-messenger
-        wrap-region
+        ;; wrap-region
         ;; browse-at-remote
         ))
 
@@ -867,23 +867,23 @@
 ;;     (add-hook 'erc-text-matched-hook 'my-erc-hook)
 ;;     (spaceline-toggle-erc-track-off)))
 
-(defun fri3nds-misc/init-wrap-region ()
-  (use-package wrap-region
-    :init
-    (progn
-      (wrap-region-global-mode t)
-      (wrap-region-add-wrappers
-       '(("$" "$")
-         ("{-" "-}" "#")
-         ("/" "/" nil ruby-mode)
-         ("/* " " */" "#" (java-mode javascript-mode css-mode js2-mode))
-         ("`" "`" nil (markdown-mode ruby-mode))))
-      (add-to-list 'wrap-region-except-modes 'dired-mode)
-      (add-to-list 'wrap-region-except-modes 'web-mode)
-      )
-    :defer t
-    :config
-    (spacemacs|hide-lighter wrap-region-mode)))
+;; (defun fri3nds-misc/init-wrap-region ()
+;;   (use-package wrap-region
+;;     :init
+;;     (progn
+;;       (wrap-region-global-mode t)
+;;       (wrap-region-add-wrappers
+;;        '(("$" "$")
+;;          ("{-" "-}" "#")
+;;          ("/" "/" nil ruby-mode)
+;;          ("/* " " */" "#" (java-mode javascript-mode css-mode js2-mode))
+;;          ("`" "`" nil (markdown-mode ruby-mode))))
+;;       (add-to-list 'wrap-region-except-modes 'dired-mode)
+;;       (add-to-list 'wrap-region-except-modes 'web-mode)
+;;       )
+;;     :defer t
+;;     :config
+;;     (spacemacs|hide-lighter wrap-region-mode)))
 
 
 
@@ -910,14 +910,14 @@
       (progn
         (spacemacs|hide-lighter ivy-mode)
 
-        (ivy-set-actions
-         t
-         '(("f" my-find-file-in-git-repo "find files")
-           ;; ("!" my-open-file-in-external-app "Open file in external app")
-           ;; ("I" ivy-insert-action "insert")
-           ;; ("C" ivy-kill-new-action "copy")
-           ;; ("S" ivy-ff-checksum-action "Checksum")
-           ))
+        ;; (ivy-set-actions
+        ;;  t
+        ;;  '(("f" my-find-file-in-git-repo "find files")
+        ;;    ;; ("!" my-open-file-in-external-app "Open file in external app")
+        ;;    ;; ("I" ivy-insert-action "insert")
+        ;;    ;; ("C" ivy-kill-new-action "copy")
+        ;;    ;; ("S" ivy-ff-checksum-action "Checksum")
+        ;;    ))
 
         ;; (spacemacs/set-leader-keys "fad" 'counsel-goto-recent-directory)
         ;; (spacemacs/set-leader-keys "faf" 'counsel-find-file-recent-directory)
@@ -930,12 +930,12 @@
         ;;   (spacemacs/set-leader-keys "sp" 'counsel-git-grep)
         ;;   (spacemacs/set-leader-keys "sP" 'spacemacs/counsel-git-grep-region-or-symbol))
         (define-key ivy-minibuffer-map (kbd "C-c o") 'ivy-occur)
-        (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-call)
-        (define-key ivy-minibuffer-map (kbd "C-s-m") 'ivy-partial-or-done)
-        (define-key ivy-minibuffer-map (kbd "C-c s") 'ivy-ff-checksum)
+        ;; (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-call)
+        ;; (define-key ivy-minibuffer-map (kbd "C-s-m") 'ivy-partial-or-done)
+        ;; (define-key ivy-minibuffer-map (kbd "C-c s") 'ivy-ff-checksum)
         ;; (define-key ivy-minibuffer-map (kbd "s-o") 'ivy-dispatching-done-hydra)
-        (define-key ivy-minibuffer-map (kbd "C-c C-e") 'spacemacs//counsel-edit)
-        (define-key ivy-minibuffer-map (kbd "<f3>") 'ivy-occur)
+        ;; (define-key ivy-minibuffer-map (kbd "C-c C-e") 'spacemacs//counsel-edit)
+        ;; (define-key ivy-minibuffer-map (kbd "<f3>") 'ivy-occur)
         ;; (define-key ivy-minibuffer-map (kbd "C-s-j") 'ivy-immediate-done)
         (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
         (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)))
@@ -949,7 +949,6 @@
   (progn
     (with-eval-after-load 'magit
       (progn
-
         (add-to-list 'magit-no-confirm 'stage-all-changes)
         (define-key magit-log-mode-map (kbd "W") 'magit-copy-section-value)
         ;; (define-key magit-status-mode-map (kbd "s-1") 'magit-jump-to-unstaged)
@@ -959,19 +958,17 @@
         (setq magit-completing-read-function 'magit-builtin-completing-read)
 
         (magit-define-popup-switch 'magit-push-popup ?u
-                                   "Set upstream" "--set-upstream")
+          "Set upstream" "--set-upstream")
         ))
 
     ;; prefer two way ediff
     (setq magit-ediff-dwim-show-on-hunks t)
-
     ;; (setq magit-repository-directories '("~/cocos2d-x/"))
     (setq magit-push-always-verify nil)
 
     ;; (eval-after-load 'magit
     ;;   '(define-key magit-mode-map (kbd "C-c g")
     ;;      #'fri3nds/magit-visit-pull-request))
-
     (setq magit-process-popup-time 10)))
 
 ;; (defun fri3nds-misc/post-init-git-messenger ()

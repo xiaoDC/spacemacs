@@ -564,6 +564,7 @@ to the `killed-buffer-list' when killing the buffer."
 
 ;; (spacemacs/set-leader-keys "ag" 'helm-ag)
 (spacemacs/set-leader-keys "ag" 'counsel-ag)
+(spacemacs/set-leader-keys "am" 'magit-show-commit)
 
 
 (spacemacs/set-leader-keys "ba" 'kill-all-buffers)
@@ -587,11 +588,12 @@ to the `killed-buffer-list' when killing the buffer."
 
 ;; (spacemacs/set-leader-keys "cc" 'fri3nds/treemacs-find-file)
 ;; (spacemacs/set-leader-keys "cc" 'neotree-project-dir)
-(spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
+;; (spacemacs/set-leader-keys "cd" 'youdao-dictionary-search-from-input)
 (spacemacs/set-leader-keys "ch" 'spacemacs/evil-search-clear-highlight)
 (spacemacs/set-leader-keys "ci" 'fri3nds/copy-current-line)
 
 (spacemacs/set-leader-keys "dd" 'dired-jump)
+(spacemacs/set-leader-keys "db" 'magit-blame-addition)
 (spacemacs/set-leader-keys "df" 'magit-diff-buffer-file)
 ;; (spacemacs/set-leader-keys "dh" 'fri3nds/delete-line-before)
 ;; (spacemacs/set-leader-keys "dk" 'fri3nds/delete-line-after)
@@ -607,10 +609,10 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "fd" 'spacemacs/delete-current-buffer-file)
 (spacemacs/set-leader-keys "fr" 'spacemacs/rename-current-buffer-file)
 (spacemacs/set-leader-keys "fl" 'fri3nds/copy-current-line-position)
-(spacemacs/set-leader-keys "fm" 'format-all-buffer)
+;; (spacemacs/set-leader-keys "fm" 'format-all-buffer)
 (spacemacs/set-leader-keys "dm" 'format-all-buffer)
 (spacemacs/set-leader-keys "fn" 'fri3nds/now)
-(spacemacs/set-leader-keys "gb" 'magit-blame-addition)
+;; (spacemacs/set-leader-keys "gb" 'magit-blame-addition)
 
 (spacemacs/set-leader-keys "fy" 'fri3nds/showcopy-buffer-filename)
 
@@ -622,7 +624,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "kk" 'next-buffer)
 ;; (spacemacs/set-leader-keys "jj" 'helm-buffers-list)
 ;; (spacemacs/set-leader-keys "jj" 'awesome-tab-ace-jump)
-(spacemacs/set-leader-keys "jk" 'awesome-tab-ace-jump)
+;; (spacemacs/set-leader-keys "jk" 'awesome-tab-ace-jump)
 (spacemacs/set-leader-keys "jj" 'previous-buffer)
 ;; (spacemacs/set-leader-keys "jj" 'ivy-switch-buffer)
 (spacemacs/set-leader-keys "jq" 'fri3nds/open-note-file)
@@ -648,7 +650,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "il" 'fri3nds-insert-lines)
 ;; (spacemacs/set-leader-keys "mm" 'helm-show-kill-ring)
 (spacemacs/set-leader-keys "ma" 'markdown-table-align)
-(spacemacs/set-leader-keys "mu" 'lsp-ui-imenu)
+;; (spacemacs/set-leader-keys "mu" 'lsp-ui-imenu)
 (spacemacs/set-leader-keys "mm" 'counsel-yank-pop)
 ;; (spacemacs/set-leader-keys "mt" 'toggle-menu-bar-mode-from-frame)
 (spacemacs/set-leader-keys "mt" 'spacemacs/toggle-menu-bar-off)
@@ -656,7 +658,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "nn" 'next-buffer)
 ;; (spacemacs/set-leader-keys "nn" 'counsel-find-file)
 (spacemacs/set-leader-keys "nn" 'ivy-switch-buffer)
-(spacemacs/set-leader-keys "ng" 'search-google-symbol)
+;; (spacemacs/set-leader-keys "ng" 'search-google-symbol)
 
 (spacemacs/set-leader-keys "oa" 'org-agenda-list)
 (spacemacs/set-leader-keys "oo" 'projectile-switch-project)
@@ -676,7 +678,7 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "sl" 'display-line-numbers-mode)
 (spacemacs/set-leader-keys "ss" 'save-buffer)
 (spacemacs/set-leader-keys "ta" 'fri3nds-change-theme)
-(spacemacs/set-leader-keys "tm" 'fri3nds-change-theme-manoj)
+;; (spacemacs/set-leader-keys "tm" 'fri3nds-change-theme-manoj)
 (spacemacs/set-leader-keys "ts" 'counsel-load-theme)
 (spacemacs/set-leader-keys "tt" 'fri3nds-reset-theme)
 ;; (spacemacs/set-leader-keys "tt" 'neotree-toggle)
@@ -684,7 +686,7 @@ to the `killed-buffer-list' when killing the buffer."
 ;; (spacemacs/set-leader-keys "tt" 'spacemacs/linum-relative-toggle)
 ;; (spacemacs/set-leader-keys "tl" 'linum-mode)
 ;; (spacemacs/set-leader-keys "tl" 'display-line-numbers-mode)
-(spacemacs/set-leader-keys "ty" 'fri3nds/load-yasnippet)
+;; (spacemacs/set-leader-keys "ty" 'fri3nds/load-yasnippet)
 
 ;; (spacemacs/set-leader-keys "uu" 'evilnc-comment-or-uncomment-lines)
 
@@ -693,10 +695,10 @@ to the `killed-buffer-list' when killing the buffer."
 (spacemacs/set-leader-keys "xx" 'backward-up-list)
 (spacemacs/set-leader-keys "xz" 'up-list)
 
-(spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
+;; (spacemacs/set-leader-keys "yi" 'yas-insert-snippet)
 (spacemacs/set-leader-keys "yy" 'spacemacs/copy-whole-buffer-to-clipboard)
 (spacemacs/set-leader-keys "zz" 'evil-avy-goto-char)
-(spacemacs/set-leader-keys "on" 'org-forward-heading-same-level)
+(spacemacs/set-leader-keys "of" 'org-forward-heading-same-level)
 (spacemacs/set-leader-keys "ob" 'org-backward-heading-same-level)
 (spacemacs/set-leader-keys "ou" 'outline-up-heading)
 ;; (spacemacs/set-leader-keys "zz" 'ibuffer-sidebar-toggle-sidebar)

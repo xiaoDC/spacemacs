@@ -129,9 +129,9 @@
       (with-eval-after-load 'cider-repl
         (define-key cider-repl-mode-map (kbd "C-s-j") 'cider-repl-newline-and-indent))
 
-      (add-hook
-       'minibuffer-setup-hook
-       'conditionally-enable-lispy)
+      ;; (add-hook
+      ;;  'minibuffer-setup-hook
+      ;;  'conditionally-enable-lispy)
       (define-key lispy-mode-map (kbd "s-m") 'lispy-mark-symbol)
       (define-key lispy-mode-map (kbd "s-1") 'lispy-describe-inline)
       (define-key lispy-mode-map (kbd "s-2") 'lispy-arglist-inline))))
